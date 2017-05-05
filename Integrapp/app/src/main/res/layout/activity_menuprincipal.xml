@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a42102578.integrapp.MenuPrincipal"
+    android:background="@drawable/habitacion">
+    
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nene"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <Button
+        android:id="@+id/btnJuegos"
+        android:onClick="IrAMenuJuegos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="142dp"
+        android:text="Juegos"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp" />
+
+    <Button
+        android:id="@+id/btnAccion3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accion3"
+        android:layout_below="@+id/imageView"
+        android:layout_alignStart="@+id/btnJuegos" />
+
+    <Button
+        android:id="@+id/btnAccion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accion2"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnAccion5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accion5"
+        android:layout_below="@+id/btnAccion2"
+        android:layout_alignStart="@+id/btnAccion2" />
+
+    <Button
+        android:id="@+id/btnAccion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginStart="12dp"
+        android:text="Accion1" />
+
+    <Button
+        android:id="@+id/btnAccion6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accion6"
+        android:layout_below="@+id/btnAccion3"
+        android:layout_alignStart="@+id/btnAccion3" />
+
+    <Button
+        android:id="@+id/btnAccion4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accion4"
+        android:layout_below="@+id/btnAccion1"
+        android:layout_alignStart="@+id/btnAccion1" />
+
+</RelativeLayout>
