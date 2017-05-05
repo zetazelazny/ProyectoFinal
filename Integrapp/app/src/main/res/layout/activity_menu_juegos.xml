@@ -4,6 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.a42102578.integrapp.MenuJuegos">
+    tools:context="com.example.a42102578.integrapp.MenuJuegos"
+    android:background="@drawable/habitacion">
 
+    <Button
+        android:id="@+id/btnDecisiones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnMemo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:text="Decisiones"
+        android:textSize="50dp"
+        android:onClick="IrADecisiones"/>
+
+    <Button
+        android:id="@+id/btnMemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="MemoTest"
+        android:onClick="IrAMemoTest"
+        android:textSize="50dp" />
 </RelativeLayout>
