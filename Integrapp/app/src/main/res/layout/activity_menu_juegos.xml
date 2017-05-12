@@ -7,25 +7,27 @@
     tools:context="com.example.a42102578.integrapp.MenuJuegos"
     android:background="@drawable/habitacion">
 
-    <Button
+    <ImageButton
         android:id="@+id/btnDecisiones"
+        android:background="@drawable/btnbienomal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnMemo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="34dp"
         android:text="Decisiones"
         android:textSize="50dp"
-        android:onClick="IrADecisiones"/>
+        android:onClick="IrADecisiones"
+        android:layout_below="@+id/btnMemo"
+        android:layout_alignParentStart="true" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnMemo"
+        android:background="@drawable/btnmemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="54dp"
         android:text="MemoTest"
         android:onClick="IrAMemoTest"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
