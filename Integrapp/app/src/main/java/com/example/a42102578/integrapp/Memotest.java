@@ -10,11 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Memotest extends AppCompatActivity {
     int[] VectorRandom = new int[16];
     boolean[] VectorEstado = new boolean[16];
     ImageButton[] VectorBotones = new ImageButton[16];
+    int[] VectorAdivinados = new int[16];
+    int ContadorVec = 0;
     boolean[] Adivinados = new boolean[16];
     int ContadorValidar = 0;
     int ContPuntos = 0;
@@ -25,6 +29,10 @@ public class Memotest extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         Random Azar = new Random();
         ImageButton Bot;
+        for (int i = 0; i < 16; i++)
+        {
+            VectorAdivinados[i]=50;
+        }
         int Contador1 = 0;
         int Contador2 = 0;
         int Contador3 = 0;
@@ -1101,6 +1109,7 @@ public class Memotest extends AppCompatActivity {
             int Tag = Integer.parseInt(String.valueOf(Boton.getTag()));
             if (VectorRandom[Tag] == 0)
                 {
+                    Boton.setEnabled(false);
                     ContadorValidar++;
                     if (ContadorValidar <= 2)
                     {   Boton.setImageResource(R.drawable.asustado);
@@ -1122,6 +1131,7 @@ public class Memotest extends AppCompatActivity {
                 }
             if (VectorRandom[Tag] == 1)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1137,6 +1147,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 2)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1152,6 +1163,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 3)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1167,6 +1179,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 4)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1182,6 +1195,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 5)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1197,6 +1211,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 6)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1212,6 +1227,7 @@ public class Memotest extends AppCompatActivity {
             }
             if (VectorRandom[Tag] == 7)
             {
+                Boton.setEnabled(false);
                 ContadorValidar++;
                 if (ContadorValidar <= 2)
                 {
@@ -1231,42 +1247,46 @@ public class Memotest extends AppCompatActivity {
         Boolean Validar (int Cont)
         {
             Boolean Validate = false;
+            int[] VecImagenes = new int[2];
+            int[] VecPos = new int[2];
+            int Contador = 0;
+            for (int i = 0; i < VectorEstado.length; i++)
+            {
+                if (VectorEstado[i] == true && i != VectorAdivinados[0]&& i != VectorAdivinados[1]&& i != VectorAdivinados[2]&& i != VectorAdivinados[3]&& i != VectorAdivinados[4]&& i != VectorAdivinados[5]&& i != VectorAdivinados[6]&& i != VectorAdivinados[7]&& i != VectorAdivinados[8]&& i != VectorAdivinados[9]&& i != VectorAdivinados[10]&& i != VectorAdivinados[11]&& i != VectorAdivinados[12]&& i != VectorAdivinados[13]&& i != VectorAdivinados[14]&& i != VectorAdivinados[15])
+                {
+                    VecImagenes[Contador] = VectorRandom[i];
+                    VecPos[Contador] = i;
+                    Contador++;
+                }
+            }
             if (Cont == 2)
             {
-                int[] VecImagenes = new int[2];
-                int[] VecPos = new int[2];
-                int Contador = 0;
-                for (int i = 0; i < VectorEstado.length; i++)
-                {
-                    if (VectorEstado[i])
-                    {
-                        VecImagenes[Contador] = VectorRandom[i];
-                        VecPos[Contador] = i;
-                        Contador++;
-                    }
-                }
                 if (VecImagenes[0] == VecImagenes[1])
                 {
                     Validate = true;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        VectorAdivinados[ContadorVec] = VecPos[i];
+                        ContadorVec++;
+                    }
                     for(int i = 0; i < VectorEstado.length; i++)
                     {
-                        if(i != VecPos[0] && i != VecPos[1])
-                        {
-                            VectorEstado[i] = false;
-                            VectorBotones[i].setImageResource(R.drawable.cuadrado);
-                        }
+                        VectorEstado[i] = false;
                     }
                 }
                 else
                 {
                     for (int i = 0; i < VectorEstado.length; i++)
                     {
-                        VectorEstado[i] = false;
-                        VectorBotones[i].setImageResource(R.drawable.cuadrado);
+                        if (i != VectorAdivinados[0]&& i != VectorAdivinados[1]&& i != VectorAdivinados[2]&& i != VectorAdivinados[3]&& i != VectorAdivinados[4]&& i != VectorAdivinados[5]&& i != VectorAdivinados[6]&& i != VectorAdivinados[7]&& i != VectorAdivinados[8]&& i != VectorAdivinados[9]&& i != VectorAdivinados[10]&& i != VectorAdivinados[11]&& i != VectorAdivinados[12]&& i != VectorAdivinados[13]&& i != VectorAdivinados[14]&& i != VectorAdivinados[15]) {
+                            VectorEstado[i] = false;
+                            VectorBotones[i].setEnabled(true);
+                            VectorBotones[i].setImageResource(R.drawable.reverso);
+                        }
                     }
                 }
-                ContadorValidar = 0;
             }
+            ContadorValidar = 0;
             return Validate;
         }
 
