@@ -25,12 +25,12 @@ public class Decisiones extends AppCompatActivity {
         setContentView(R.layout.activity_decisiones);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Drawable.ConstantState CodigoImagenAbrazar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenBesar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenEscupir = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenGolpear = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenGuiar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenInsultar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
-        Drawable.ConstantState CodigoImagenPintar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
+        Drawable.ConstantState CodigoImagenBesar = ContextCompat.getDrawable(this, R.drawable.besar).getConstantState();
+        Drawable.ConstantState CodigoImagenEscupir = ContextCompat.getDrawable(this, R.drawable.escupir).getConstantState();
+        Drawable.ConstantState CodigoImagenGolpear = ContextCompat.getDrawable(this, R.drawable.golpear).getConstantState();
+        Drawable.ConstantState CodigoImagenGuiar = ContextCompat.getDrawable(this, R.drawable.guiar).getConstantState();
+        Drawable.ConstantState CodigoImagenInsultar = ContextCompat.getDrawable(this, R.drawable.insultar).getConstantState();
+        Drawable.ConstantState CodigoImagenPintar = ContextCompat.getDrawable(this, R.drawable.pintar).getConstantState();
         String ImagenAbrazar = String.valueOf(CodigoImagenAbrazar);
         String ImagenBesar = String.valueOf(CodigoImagenBesar);
         String ImagenEscupir = String.valueOf(CodigoImagenEscupir);
@@ -52,18 +52,50 @@ public class Decisiones extends AppCompatActivity {
         VectorBienMal[4] = true;
         VectorBienMal[5] = false;
         VectorBienMal[6] = true;
-        do {
-            Random Azar = new Random();
-            for (int i = 0; i < 7; i++)
-            {
-                int Random = Azar.nextInt(7);
-                VectorRandom[i] = Random;
-            }
-        }while(VectorRandom[0] + VectorRandom[1] + VectorRandom[2] + VectorRandom[3] + VectorRandom[4] + VectorRandom[5] + VectorRandom[6] != 21);
+        for (int i = 0; i < 7; i++)
+        {
+            VectorRandom[i] = i;
+        }
+        Random Azar = new Random();
+        for (int i = 0; i < 7; i++)
+        {
+            int Random = Azar.nextInt(7);
+            int Auxiliar;
+            Auxiliar = VectorRandom[i];
+            VectorRandom[i] = VectorRandom[Random];
+            VectorRandom[Random] = Auxiliar;
+        }
         ImageView Imagen = (ImageView)findViewById(R.id.Imagen);
-        Context c = getApplicationContext();
-        int id = c.getResources().getIdentifier("drawable/"+ VectorDrawable[VectorRandom[0]], null, c.getPackageName());
-        Imagen.setImageResource(id);
+        switch (VectorRandom[0])
+        {
+            case (0):
+                Imagen.setImageResource(R.drawable.abrazar);
+                break;
+
+            case (1):
+                Imagen.setImageResource(R.drawable.besar);
+                break;
+
+            case (2):
+                Imagen.setImageResource(R.drawable.escupir);
+                break;
+
+            case (3):
+                Imagen.setImageResource(R.drawable.golpear);
+                break;
+
+            case (4):
+                Imagen.setImageResource(R.drawable.guiar);
+                break;
+
+            case (5):
+                Imagen.setImageResource(R.drawable.insultar);
+                break;
+
+            case (6):
+                Imagen.setImageResource(R.drawable.pintar);
+                break;
+        }
     }
 
     public void Verificar (View VistaR)
