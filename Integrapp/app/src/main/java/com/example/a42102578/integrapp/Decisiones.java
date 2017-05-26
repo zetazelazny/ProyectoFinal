@@ -19,6 +19,9 @@ public class Decisiones extends AppCompatActivity {
     String[] VectorDrawable = new String[7];
     int[] VectorRandom = new int[7];
     Boolean[] VectorBienMal = new Boolean[7];
+    int[] VectorNoRepetir = new int[7];
+    int Contador = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,127 +55,110 @@ public class Decisiones extends AppCompatActivity {
         VectorBienMal[4] = true;
         VectorBienMal[5] = false;
         VectorBienMal[6] = true;
-        for (int i = 0; i < 7; i++)
-        {
+        for (int i = 0; i < 7; i++) {
             VectorRandom[i] = i;
         }
         Random Azar = new Random();
-        for (int i = 0; i < 7; i++)
-        {
+        for (int i = 0; i < 7; i++) {
             int Random = Azar.nextInt(7);
             int Auxiliar;
             Auxiliar = VectorRandom[i];
             VectorRandom[i] = VectorRandom[Random];
             VectorRandom[Random] = Auxiliar;
         }
-        ImageView Imagen = (ImageView)findViewById(R.id.Imagen);
-        switch (VectorRandom[0])
-        {
-            case (0):
-                Imagen.setImageResource(R.drawable.abrazar);
-                break;
-
-            case (1):
-                Imagen.setImageResource(R.drawable.besar);
-                break;
-
-            case (2):
-                Imagen.setImageResource(R.drawable.escupir);
-                break;
-
-            case (3):
-                Imagen.setImageResource(R.drawable.golpear);
-                break;
-
-            case (4):
-                Imagen.setImageResource(R.drawable.guiar);
-                break;
-
-            case (5):
-                Imagen.setImageResource(R.drawable.insultar);
-                break;
-
-            case (6):
-                Imagen.setImageResource(R.drawable.pintar);
-                break;
-        }
+        ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
+        Magia(0, Imagen, Contador);
+        Contador++;
     }
 
-    public void Verificar (View VistaR)
-    {
+    public void Verificar(View VistaR) {
         ImageButton Boton = (ImageButton) VistaR;
         ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
         Drawable.ConstantState CodImagen = Imagen.getDrawable().getConstantState();
         String Codiguito = CodImagen.toString();
         int numero = 0;
-        for (int i=0; i<7;i++)
-        {
-            if(Codiguito.equals(VectorDrawable[i]))
-            {
-                numero=i;
+        for (int i = 0; i < 7; i++) {
+            if (Codiguito.equals(VectorDrawable[i])) {
+                numero = i;
             }
         }
-        if(Boton.getId()==R.id.Bien)
+        if (Contador < 7)
         {
-            if(VectorBienMal[numero])
-            {
-                Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
-                Random Azar = new Random();
-                int Random = Azar.nextInt(7);
-                Magia(Random, Imagen);
+            if (Boton.getId() == R.id.Bien) {
+                if (VectorBienMal[numero]) {
+                    Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                    Random Azar = new Random();
+                    int Random;
+                    do {
+                        Random = Azar.nextInt(7);
+                    }
+                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);
+                    Magia(Random, Imagen, Contador);
+                    Contador++;
+                } else {
+                    Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+                }
             }
             else
             {
-                Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+                if (!VectorBienMal[numero]) {
+                    Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                    Random Azar = new Random();
+                    int Random;
+                    do {
+                        Random = Azar.nextInt(7);
+                    }
+                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);
+                    Magia(Random, Imagen, Contador);
+                    Contador++;
+                } else {
+                    Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+                }
             }
         }
-        else{
-
-            if(!VectorBienMal[numero])
-            {
-                Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
-                Random Azar = new Random();
-                int Random = Azar.nextInt(7);
-                Magia(Random, Imagen);
-            }
-            else
-            {
-                Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
-            }
-
+        if (Contador == 7)
+        {
+            Toast.makeText(this, "Ganaste", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void Magia (int Numero, ImageView Imagen)
+    public void Magia (int Numero, ImageView Imagen, int NumeroParametro)
     {
         switch (VectorRandom[Numero])
         {
             case (0):
                 Imagen.setImageResource(R.drawable.abrazar);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (1):
                 Imagen.setImageResource(R.drawable.besar);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (2):
                 Imagen.setImageResource(R.drawable.escupir);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (3):
                 Imagen.setImageResource(R.drawable.golpear);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (4):
                 Imagen.setImageResource(R.drawable.guiar);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (5):
                 Imagen.setImageResource(R.drawable.insultar);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
 
             case (6):
                 Imagen.setImageResource(R.drawable.pintar);
+                VectorNoRepetir[NumeroParametro] = Numero;
                 break;
         }
     }
