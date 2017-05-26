@@ -19,7 +19,7 @@
         <activity android:name=".Memotest" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".MenuJuegos" />
-        <activity android:name=".Decisiones"></activity>
+        <activity android:name=".Conceptos"></activity>
     </application>
 
 </manifest>

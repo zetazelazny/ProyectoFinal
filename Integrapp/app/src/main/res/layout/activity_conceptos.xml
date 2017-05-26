@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.a42102578.integrapp.Decisiones"
+    tools:context="com.example.a42102578.integrapp.Conceptos"
     android:background="@drawable/habitacion"
     android:orientation="vertical">
     <LinearLayout
@@ -44,4 +44,12 @@
             android:id="@+id/Mal"
             android:tag="1"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnJugarCon"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:onClick="btnJugarCon"
+        android:text="Jugar de nuevo"
+        android:visibility="invisible"/>
 </LinearLayout>

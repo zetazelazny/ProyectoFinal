@@ -23,7 +23,7 @@ public class MenuJuegos extends AppCompatActivity {
 
     public void IrADecisiones(View VistaR)
     {
-        Intent IrADecisiones = new Intent(this, Decisiones.class);
+        Intent IrADecisiones = new Intent(this, Conceptos.class);
         startActivity(IrADecisiones);
     }
 

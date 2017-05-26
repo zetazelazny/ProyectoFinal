@@ -1,6 +1,5 @@
 package com.example.a42102578.integrapp;
 
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -13,19 +12,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Random;
-import java.util.Vector;
 
-public class Decisiones extends AppCompatActivity {
+public class Conceptos extends AppCompatActivity {
     String[] VectorDrawable = new String[7];
     int[] VectorRandom = new int[7];
     Boolean[] VectorBienMal = new Boolean[7];
     int[] VectorNoRepetir = new int[7];
     int Contador = 0;
+    int contjugadas=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_decisiones);
+        setContentView(R.layout.activity_conceptos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Drawable.ConstantState CodigoImagenAbrazar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
         Drawable.ConstantState CodigoImagenBesar = ContextCompat.getDrawable(this, R.drawable.besar).getConstantState();
@@ -73,9 +72,13 @@ public class Decisiones extends AppCompatActivity {
 
     public void Verificar(View VistaR) {
         ImageButton Boton = (ImageButton) VistaR;
+        ImageButton BotonBien = (ImageButton) findViewById(R.id.Bien);
+        ImageButton BotonMal = (ImageButton) findViewById(R.id.Mal);
+        Button BotonJugar = (Button) findViewById(R.id.btnJugarCon);
         ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
         Drawable.ConstantState CodImagen = Imagen.getDrawable().getConstantState();
         String Codiguito = CodImagen.toString();
+
         int numero = 0;
         for (int i = 0; i < 7; i++) {
             if (Codiguito.equals(VectorDrawable[i])) {
@@ -86,7 +89,8 @@ public class Decisiones extends AppCompatActivity {
         {
             if (Boton.getId() == R.id.Bien) {
                 if (VectorBienMal[numero]) {
-                    Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
                     Random Azar = new Random();
                     int Random;
                     do {
@@ -96,13 +100,15 @@ public class Decisiones extends AppCompatActivity {
                     Magia(Random, Imagen, Contador);
                     Contador++;
                 } else {
-                    Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
+                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
                 }
             }
             else
             {
                 if (!VectorBienMal[numero]) {
-                    Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
                     Random Azar = new Random();
                     int Random;
                     do {
@@ -112,14 +118,24 @@ public class Decisiones extends AppCompatActivity {
                     Magia(Random, Imagen, Contador);
                     Contador++;
                 } else {
-                    Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
+                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
                 }
             }
         }
         if (Contador == 7)
         {
-            Toast.makeText(this, "Ganaste", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ganaste en " + contjugadas + " jugadas.", Toast.LENGTH_SHORT).show();
+            BotonBien.setVisibility(View.INVISIBLE);
+            BotonMal.setVisibility(View.INVISIBLE);
+            BotonJugar.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void btnJugarCon(View VistaR)
+    {
+        finish();
+        startActivity(getIntent());
     }
 
     public void Magia (int Numero, ImageView Imagen, int NumeroParametro)
