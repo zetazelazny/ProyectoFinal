@@ -7,7 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Vector;
@@ -63,9 +66,43 @@ public class Decisiones extends AppCompatActivity {
         Imagen.setImageResource(id);
     }
 
-    public void Verificar (View Vista)
+    public void Verificar (View VistaR)
     {
+        ImageButton Boton = (ImageButton) VistaR;
+        ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
+        Drawable.ConstantState CodImagen = Imagen.getDrawable().getConstantState();
+        String Codiguito = CodImagen.toString();
+        int numero = 0;
+        for (int i=0; i<7;i++)
+        {
+            if(Codiguito.equals(VectorDrawable[i]))
+            {
+                numero=i;
+            }
+        }
+        if(Boton.getId()==R.id.Bien)
+        {
+            if(VectorBienMal[numero])
+            {
+                Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
 
+            if(!VectorBienMal[numero])
+            {
+                Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
 
