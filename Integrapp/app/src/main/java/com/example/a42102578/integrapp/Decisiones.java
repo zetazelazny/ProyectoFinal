@@ -117,6 +117,9 @@ public class Decisiones extends AppCompatActivity {
             if(VectorBienMal[numero])
             {
                 Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                Random Azar = new Random();
+                int Random = Azar.nextInt(7);
+                Magia(Random, Imagen);
             }
             else
             {
@@ -128,12 +131,49 @@ public class Decisiones extends AppCompatActivity {
             if(!VectorBienMal[numero])
             {
                 Toast.makeText(this, "Bien", Toast.LENGTH_SHORT).show();
+                Random Azar = new Random();
+                int Random = Azar.nextInt(7);
+                Magia(Random, Imagen);
             }
             else
             {
                 Toast.makeText(this, "Mal", Toast.LENGTH_SHORT).show();
             }
 
+        }
+    }
+
+    public void Magia (int Numero, ImageView Imagen)
+    {
+        switch (VectorRandom[Numero])
+        {
+            case (0):
+                Imagen.setImageResource(R.drawable.abrazar);
+                break;
+
+            case (1):
+                Imagen.setImageResource(R.drawable.besar);
+                break;
+
+            case (2):
+                Imagen.setImageResource(R.drawable.escupir);
+                break;
+
+            case (3):
+                Imagen.setImageResource(R.drawable.golpear);
+                break;
+
+            case (4):
+                Imagen.setImageResource(R.drawable.guiar);
+                break;
+
+            case (5):
+                Imagen.setImageResource(R.drawable.insultar);
+                break;
+
+            case (6):
+                Imagen.setImageResource(R.drawable.pintar);
+                break;
         }
     }
 
