@@ -1,7 +1,9 @@
 package com.example.a42102578.integrapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,12 +26,27 @@ public class Memotest extends AppCompatActivity {
     int ContadorVec = 0;
     int ContadorValidar = 0;
     int ContPuntos = 0;
+    public int I;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memotest);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        final TextView Texto = (TextView)findViewById(R.id.Timer);
+        new CountDownTimer(30000, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+                Texto.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                //Texto.setText("mogul");
+                for (int i = 0; i < 16; i++)
+                {
+                    VectorBotones[i].setEnabled(false);
+                }
+            }
+        }.start();
 
         Random Azar = new Random();
         ImageButton Bot;
@@ -766,11 +783,11 @@ public class Memotest extends AppCompatActivity {
                 if (Estado) {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
-                } else {
+                } /*else {
                     if (ContadorValidar == 2) {
 
                     }
-                }
+                }*/
             }
         }
         if (VectorRandom[Tag] == 1) {
@@ -779,9 +796,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.contento);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -795,9 +809,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.dormido);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -811,9 +822,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.enamorado);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -827,9 +835,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.enojado);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -843,9 +848,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.llorando);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -859,9 +861,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.sonriente);
                 VectorEstado[Tag] = true;
-
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -875,8 +874,6 @@ public class Memotest extends AppCompatActivity {
             if (ContadorValidar <= 2) {
                 Boton.setImageResource(R.drawable.sorprendido);
                 VectorEstado[Tag] = true;
-
-
                 Estado = Validar(ContadorValidar);
                 if (Estado) {
                     ContPuntos++;
@@ -899,6 +896,13 @@ public class Memotest extends AppCompatActivity {
                     VecPos[Contador] = i;
                     Contador++;
                 }
+                else
+                {
+                    if (VectorEstado[i] == false)
+                    {
+                        VectorBotones[i].setEnabled(false);
+                    }
+                }
             }
             if (VecImagenes[0] == VecImagenes[1]) {
                 Validate = true;
@@ -908,41 +912,49 @@ public class Memotest extends AppCompatActivity {
                 }
                 for (int i = 0; i < VectorEstado.length; i++) {
                     VectorEstado[i] = false;
+                    VectorBotones[i].setEnabled(true);
                 }
             }
             else
             {
-                for (int i = 0; i < VectorEstado.length; i++)
-                {
-                    if (i != VectorAdivinados[0] && i != VectorAdivinados[1] && i != VectorAdivinados[2] && i != VectorAdivinados[3] && i != VectorAdivinados[4] && i != VectorAdivinados[5] && i != VectorAdivinados[6] && i != VectorAdivinados[7] && i != VectorAdivinados[8] && i != VectorAdivinados[9] && i != VectorAdivinados[10] && i != VectorAdivinados[11] && i != VectorAdivinados[12] && i != VectorAdivinados[13] && i != VectorAdivinados[14] && i != VectorAdivinados[15]) {
-                        VectorEstado[i] = false;
-                        VectorBotones[i].setEnabled(true);
-                        VectorBotones[i].setImageResource(R.drawable.reverso);}
-                }
-
+                final Timer Reloj = new Timer();
+                TimerTask Tarea = new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                A();
+                                Reloj.cancel();
+                            }
+                        });
+                    }
+                };
+                Reloj.schedule(Tarea, 500, 6000);
             }
             ContadorValidar = 0;
         }
         return Validate;
     }
+    public void A()
+    {
+        for (I = 0; I < VectorEstado.length; I++)
+        {
+            if (I != VectorAdivinados[0] && I != VectorAdivinados[1] && I != VectorAdivinados[2] && I != VectorAdivinados[3] && I != VectorAdivinados[4] && I != VectorAdivinados[5] && I != VectorAdivinados[6] && I != VectorAdivinados[7] && I != VectorAdivinados[8] && I != VectorAdivinados[9] && I != VectorAdivinados[10] && I != VectorAdivinados[11] && I != VectorAdivinados[12] && I != VectorAdivinados[13] && I != VectorAdivinados[14] && I != VectorAdivinados[15]) {
+
+                VectorEstado[I] = false;
+                VectorBotones[I].setEnabled(true);
+                VectorBotones[I].setImageResource(R.drawable.reverso);
+            }
+        }
+    }
+
+    Boolean Ganar() {
+        boolean Gano = false;
+        if (VectorEstado[0] && VectorEstado[1] &&VectorEstado[2] && VectorEstado[3] &&VectorEstado[4] && VectorEstado[5] &&VectorEstado[6] && VectorEstado[7] &&VectorEstado[8] && VectorEstado[9] &&VectorEstado[10] && VectorEstado[11] &&VectorEstado[12] && VectorEstado[13] &&VectorEstado[14] && VectorEstado[15])
+        {
+            Gano = true;
+        }
+        return Gano;
+    }
 }
-
-/* ESTO QUIZAS ANDE
-
-Runnable mMyRunnable = new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });
-                        Toast.makeText(Memotest.this, "gay", Toast.LENGTH_SHORT).show();
-                    }
-                };
-                Handler myHandler = new Handler();
-                myHandler.postDelayed(mMyRunnable, 5000);//Message will be delivered in 1 second.
- */
