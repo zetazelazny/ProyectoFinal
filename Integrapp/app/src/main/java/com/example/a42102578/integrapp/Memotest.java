@@ -33,14 +33,17 @@ public class Memotest extends AppCompatActivity {
         setContentView(R.layout.activity_memotest);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final TextView Texto = (TextView)findViewById(R.id.Timer);
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(100000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                Texto.setText(String.valueOf(millisUntilFinished / 1000));
+                    Texto.setText(String.valueOf(millisUntilFinished / 1000));
             }
 
             public void onFinish() {
-                //Texto.setText("mogul");
+                //Texto.setText("tiempo finalizado");
+                Intent Perder = new Intent(Memotest.this, Perder.class);
+                startActivity(Perder);
+                finish();
                 for (int i = 0; i < 16; i++)
                 {
                     VectorBotones[i].setEnabled(false);
