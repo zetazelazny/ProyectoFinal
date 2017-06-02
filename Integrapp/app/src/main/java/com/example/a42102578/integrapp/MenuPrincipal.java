@@ -14,16 +14,25 @@ import java.util.TimerTask;
 
 public class MenuPrincipal extends AppCompatActivity {
 
-  /*  int OjosAbiertos = View.INVISIBLE;
+    int OjosAbiertos = View.INVISIBLE;
     int OjosCerrados = View.VISIBLE;
     int Seniala = View.VISIBLE;
-    int Saluda = View.INVISIBLE;*/
+    int Saluda = View.INVISIBLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprincipal);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Timer timerparpadeo = new Timer();
+        timerparpadeo.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                FuncionParaEsteHilo();
+            }
+        },0, 500);
     }
 
     public void IrAMenuJuegos (View Vista)
@@ -32,7 +41,7 @@ public class MenuPrincipal extends AppCompatActivity {
         startActivity(MenuJuegos);
     }
     // ---------------------PARPADEO-------------------
-   /* public void FuncionParaEsteHilo()
+     public void FuncionParaEsteHilo()
     {
         OjosAbiertos = (OjosAbiertos== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
         OjosCerrados = (OjosCerrados== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
@@ -43,7 +52,7 @@ public class MenuPrincipal extends AppCompatActivity {
     {
         public void run()
 
-        {       ImageView nenedefault;
+        {   ImageView nenedefault;
             nenedefault = (ImageView) findViewById(R.id.nenedefault);
             nenedefault.setVisibility(OjosAbiertos);
             ImageView neneojoscerrados;
@@ -88,7 +97,7 @@ public class MenuPrincipal extends AppCompatActivity {
         }
     };
     //-----------------FIN SALUDO---------------------------
-*/
+
 
 }
 

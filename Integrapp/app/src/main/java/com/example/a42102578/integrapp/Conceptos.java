@@ -85,6 +85,49 @@ public class Conceptos extends AppCompatActivity {
                 numero = i;
             }
         }
+        if (Contador == 7)
+        {
+            if (Boton.getId() == R.id.Bien) {
+                if (VectorBienMal[numero]) {
+                   /* Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
+                    Random Azar = new Random();
+                    int Random;
+                    do {
+                        Random = Azar.nextInt(7);
+                    }
+                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);*/
+                    Contador++;
+                } else {
+                    contjugadas++;
+                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else
+            {
+                if (!VectorBienMal[numero]) {
+                  /*  Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    contjugadas++;
+                    Random Azar = new Random();
+                    int Random;
+                    do {
+                        Random = Azar.nextInt(7);
+                    }
+                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);*/
+                    Contador++;
+                } else {
+                    contjugadas++;
+                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        if (Contador == 8)
+        {
+            Toast.makeText(this, "Ganaste en " + contjugadas + " jugadas.", Toast.LENGTH_SHORT).show();
+            BotonBien.setVisibility(View.INVISIBLE);
+            BotonMal.setVisibility(View.INVISIBLE);
+            BotonJugar.setVisibility(View.VISIBLE);
+        }
         if (Contador < 7)
         {
             if (Boton.getId() == R.id.Bien) {
@@ -122,13 +165,6 @@ public class Conceptos extends AppCompatActivity {
                     Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
                 }
             }
-        }
-        if (Contador == 7)
-        {
-            Toast.makeText(this, "Ganaste en " + contjugadas + " jugadas.", Toast.LENGTH_SHORT).show();
-            BotonBien.setVisibility(View.INVISIBLE);
-            BotonMal.setVisibility(View.INVISIBLE);
-            BotonJugar.setVisibility(View.VISIBLE);
         }
     }
 

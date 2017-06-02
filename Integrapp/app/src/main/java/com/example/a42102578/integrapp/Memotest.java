@@ -969,6 +969,7 @@ public class Memotest extends AppCompatActivity {
         {
             Intent Intento = new Intent(this, Gano.class);
             startActivity(Intento);
+            finish();
         }
 
     }
