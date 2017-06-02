@@ -791,6 +791,7 @@ public class Memotest extends AppCompatActivity {
 
                     }
                 }*/
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 1) {
@@ -804,6 +805,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 2) {
@@ -817,6 +819,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 3) {
@@ -830,6 +833,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 4) {
@@ -843,6 +847,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 5) {
@@ -856,6 +861,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 6) {
@@ -869,6 +875,7 @@ public class Memotest extends AppCompatActivity {
                     ContPuntos++;
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
+                Ganar();
             }
         }
         if (VectorRandom[Tag] == 7) {
@@ -883,8 +890,8 @@ public class Memotest extends AppCompatActivity {
                     Puntaje.setText(String.valueOf(ContPuntos));
                 }
             }
+            Ganar();
         }
-
     }
 
         Boolean Validar(int Cont) {
@@ -952,12 +959,17 @@ public class Memotest extends AppCompatActivity {
         }
     }
 
-    Boolean Ganar() {
+    public void Ganar() {
         boolean Gano = false;
-        if (VectorEstado[0] && VectorEstado[1] &&VectorEstado[2] && VectorEstado[3] &&VectorEstado[4] && VectorEstado[5] &&VectorEstado[6] && VectorEstado[7] &&VectorEstado[8] && VectorEstado[9] &&VectorEstado[10] && VectorEstado[11] &&VectorEstado[12] && VectorEstado[13] &&VectorEstado[14] && VectorEstado[15])
+        if (VectorAdivinados[0] + VectorAdivinados[1] + VectorAdivinados[2] + VectorAdivinados[3] + VectorAdivinados[4] + VectorAdivinados[5] + VectorAdivinados[6] + VectorAdivinados[7] + VectorAdivinados[8] + VectorAdivinados[9] + VectorAdivinados[10] + VectorAdivinados[11] + VectorAdivinados[12] + VectorAdivinados[13] + VectorAdivinados[14] + VectorAdivinados[15] == 120)
         {
             Gano = true;
         }
-        return Gano;
+        if (Gano)
+        {
+            Intent Intento = new Intent(this, Gano.class);
+            startActivity(Intento);
+        }
+
     }
 }

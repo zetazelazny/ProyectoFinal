@@ -6,74 +6,101 @@
     android:layout_height="match_parent"
     tools:context="com.example.a42102578.integrapp.MenuPrincipal"
     android:background="@drawable/habitacion">
-    
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/nenedefault"
         android:layout_width="293dp"
         android:layout_height="402dp"
-        app:srcCompat="@drawable/nene"
+        app:srcCompat="@drawable/nenedefault"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-
-    <Button
-        android:id="@+id/btnJuegos"
-        android:onClick="IrAMenuJuegos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="142dp"
-        android:text="Juegos"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="13dp" />
-
-    <Button
-        android:id="@+id/btnAccion3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accion3"
-        android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/btnJuegos" />
-
-    <Button
-        android:id="@+id/btnAccion2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accion2"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/btnAccion5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accion5"
-        android:layout_below="@+id/btnAccion2"
-        android:layout_alignStart="@+id/btnAccion2" />
-
-    <Button
-        android:id="@+id/btnAccion1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginStart="12dp"
-        android:text="Accion1" />
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        />
+   <!-- <ImageView
+        android:id="@+id/neneojoscerrados"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/neneojoscerrados"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
 
-    <Button
-        android:id="@+id/btnAccion6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accion6"
-        android:layout_below="@+id/btnAccion3"
-        android:layout_alignStart="@+id/btnAccion3" />
+    <ImageView
+        android:id="@+id/nenesenialando"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenesenialando"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
 
-    <Button
-        android:id="@+id/btnAccion4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Accion4"
-        android:layout_below="@+id/btnAccion1"
-        android:layout_alignStart="@+id/btnAccion1" />
+    <ImageView
+        android:id="@+id/nenesaludando"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenesaludando"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+-->
+    <ImageButton
+        android:id="@+id/btnJuegos"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:onClick="IrAMenuJuegos"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/btnjuegos"
+        android:layout_alignTop="@+id/nenedefault"
+        android:layout_alignParentEnd="true" />
 
+    <ImageButton
+        android:id="@+id/btnSaludar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:scaleType="fitXY"
+        android:onClick="Saludar"
+        app:srcCompat="@drawable/saludar"
+        />
+
+    <ImageButton
+        android:id="@+id/btnReir"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:scaleType="fitXY"
+        android:onClick="Reir"
+        android:layout_marginLeft="100dp"
+        app:srcCompat="@drawable/risa"
+        />
+
+    <ImageButton
+        android:id="@+id/btnLlorar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:scaleType="fitXY"
+        android:onClick="Llorar"
+        android:layout_marginLeft="200dp"
+        app:srcCompat="@drawable/llorar"
+        />
+
+    <ImageButton
+        android:id="@+id/btnAplaudir"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:onClick="Aplaudir"
+        android:layout_marginLeft="300dp"
+        app:srcCompat="@drawable/aplauso"
+        android:layout_below="@+id/nenedefault"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
