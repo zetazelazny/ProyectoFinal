@@ -21,7 +21,7 @@ public class Gano extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gano);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //FESTEJO
         Timer timerfestejo = new Timer();
         timerfestejo.scheduleAtFixedRate(new TimerTask()

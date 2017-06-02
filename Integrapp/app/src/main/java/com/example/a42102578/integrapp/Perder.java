@@ -1,5 +1,6 @@
 package com.example.a42102578.integrapp;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ public class Perder extends AppCompatActivity {
                 FuncionParaEsteHilo();
             }
         },0, 500);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     public void FuncionParaEsteHilo()

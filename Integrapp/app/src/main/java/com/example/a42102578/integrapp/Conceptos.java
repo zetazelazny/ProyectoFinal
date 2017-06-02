@@ -1,5 +1,6 @@
 package com.example.a42102578.integrapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -123,10 +124,9 @@ public class Conceptos extends AppCompatActivity {
         }
         if (Contador == 8)
         {
-            Toast.makeText(this, "Ganaste en " + contjugadas + " jugadas.", Toast.LENGTH_SHORT).show();
-            BotonBien.setVisibility(View.INVISIBLE);
-            BotonMal.setVisibility(View.INVISIBLE);
-            BotonJugar.setVisibility(View.VISIBLE);
+            Intent Gano = new Intent(this, Gano.class);
+            startActivity(Gano);
+            finish();
         }
         if (Contador < 7)
         {
