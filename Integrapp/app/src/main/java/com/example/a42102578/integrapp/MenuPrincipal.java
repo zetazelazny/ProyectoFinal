@@ -24,6 +24,8 @@ public class MenuPrincipal extends AppCompatActivity {
     int Rie1 = View.INVISIBLE;
     int Rie2 = View.VISIBLE;
 
+    String estados="parpadeo";
+
     //timers
     Timer timerparpadeo = new Timer();
     Timer timersaludo = new Timer();
@@ -41,18 +43,20 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void run()
             {
-                FuncionParaEsteHilo();
+                FuncionParpadeo();
             }
         },0, 500);
     }
 
+    //boton que va a juegos
     public void IrAMenuJuegos (View Vista)
     {
         Intent MenuJuegos = new Intent (this, MenuJuegos.class);
         startActivity(MenuJuegos);
     }
+
     // ---------------------PARPADEO-------------------
-    public void FuncionParaEsteHilo()
+    public void FuncionParpadeo()
     {
         OjosAbiertos = (OjosAbiertos== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
         OjosCerrados = (OjosCerrados== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
@@ -73,42 +77,55 @@ public class MenuPrincipal extends AppCompatActivity {
     };
     // ---------------------FIN PARPADEO-------------------
     //---------------------SALUDO--------------------------
-    public void Saludar (View Vista)
-    {
-       /* ImageView nenedefault;
-        nenedefault = (ImageView) findViewById(R.id.nenedefault);
+    public void Saludar (View Vista) {
+        //oculto las imagenes del parpadeo
+        ImageView nenedefault = (ImageView) findViewById(R.id.nenedefault);
         nenedefault.setVisibility(View.INVISIBLE);
-        ImageView neneojoscerrados;
-        neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
+        ImageView neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
         neneojoscerrados.setVisibility(View.INVISIBLE);
-        ImageView nenellorandoabajo;
-        nenellorandoabajo = (ImageView) findViewById(R.id.nenellorandobajo);
-        nenellorandoabajo.setVisibility(View.INVISIBLE);
-        ImageView nenellorandoarriba;
-        nenellorandoarriba = (ImageView) findViewById(R.id.nenellorandoarriba);
-        nenellorandoarriba.setVisibility(View.INVISIBLE);
-        ImageView neneriendo1;
-        neneriendo1 = (ImageView) findViewById(R.id.nenerie);
+        //oculto las imagenes de risa
+        ImageView neneriendo1 = (ImageView) findViewById(R.id.nenerie);
         neneriendo1.setVisibility(View.INVISIBLE);
-        ImageView neneriendo2;
-        neneriendo2 = (ImageView) findViewById(R.id.nenerie2);
-        neneriendo2.setVisibility(View.INVISIBLE); */
+        ImageView neneriendo2 = (ImageView) findViewById(R.id.nenerie2);
+        neneriendo2.setVisibility(View.INVISIBLE);
+        //oculto las imagenes de llanto
+        ImageView nenellorandoabajo = (ImageView) findViewById(R.id.nenellorandobajo);
+        nenellorandoabajo.setVisibility(View.INVISIBLE);
+        ImageView nenellorandoarriba = (ImageView) findViewById(R.id.nenellorandoarriba);
+        nenellorandoarriba.setVisibility(View.INVISIBLE);
 
-       /* timerparpadeo.cancel();
-        timerllanto.cancel();
+        //stop a los timers
+        /*timerllanto.cancel();
+        timerparpadeo.cancel();
         timerrisa.cancel();*/
+        //timertask
 
-
+        switch (estados)
+        {
+            case "parpadeo":
+                timerparpadeo.cancel();
+                break;
+            case "risa":
+                timerrisa.cancel();
+                break;
+            case "llanto":
+                timerllanto.cancel();
+                break;
+            case "saludo":
+                timersaludo.cancel();
+                break;
+        }
+        estados = "saludo";
+        timersaludo = new Timer();
         timersaludo.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run()
-            {
-                FuncionParaEsteHiloSaludo();
+            public void run() {
+                FuncionSaludo();
             }
         }, 0, 500);
     }
 
-    public void FuncionParaEsteHiloSaludo()
+    public void FuncionSaludo()
     {
         Seniala = (Seniala== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
         Saluda  = (Saluda== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
@@ -125,6 +142,7 @@ public class MenuPrincipal extends AppCompatActivity {
             ImageView nenesaluda;
             nenesaluda = (ImageView) findViewById(R.id.nenesaludando);
             nenesaluda.setVisibility(Saluda);
+
         }
     };
     //-----------------FIN SALUDO---------------------------
@@ -132,39 +150,51 @@ public class MenuPrincipal extends AppCompatActivity {
     //------------------RISA---------------------------------
     public void Reir (View Vista)
     {
-       /* ImageView nenedefault;
-        nenedefault = (ImageView) findViewById(R.id.nenedefault);
+        //oculto las imagenes del parpadeo
+        ImageView nenedefault = (ImageView) findViewById(R.id.nenedefault);
         nenedefault.setVisibility(View.INVISIBLE);
-        ImageView neneojoscerrados;
-        neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
+        ImageView neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
         neneojoscerrados.setVisibility(View.INVISIBLE);
-        ImageView neneseniala;
-        neneseniala = (ImageView) findViewById(R.id.nenesenialando);
-        neneseniala.setVisibility(View.INVISIBLE);
-        ImageView nenesaluda;
-        nenesaluda = (ImageView) findViewById(R.id.nenesaludando);
-        nenesaluda.setVisibility(View.INVISIBLE);
-        ImageView nenellorandoabajo;
-        nenellorandoabajo = (ImageView) findViewById(R.id.nenellorandobajo);
+        //oculto las imagenes de saludo
+        ImageView nenesenialando = (ImageView) findViewById(R.id.nenesenialando);
+        nenesenialando.setVisibility(View.INVISIBLE);
+        ImageView nenesaludando = (ImageView) findViewById(R.id.nenesaludando);
+        nenesaludando.setVisibility(View.INVISIBLE);
+        //oculto las imagenes de llanto
+        ImageView nenellorandoabajo = (ImageView) findViewById(R.id.nenellorandobajo);
         nenellorandoabajo.setVisibility(View.INVISIBLE);
-        ImageView nenellorandoarriba;
-        nenellorandoarriba = (ImageView) findViewById(R.id.nenellorandoarriba);
-        nenellorandoarriba.setVisibility(View.INVISIBLE); */
+        ImageView nenellorandoarriba = (ImageView) findViewById(R.id.nenellorandoarriba);
+        nenellorandoarriba.setVisibility(View.INVISIBLE);
+        //stop a los timers
+        switch (estados)
+        {
+            case "parpadeo":
+                timerparpadeo.cancel();
+                break;
+            case "risa":
+                timerrisa.cancel();
+                break;
+            case "llanto":
+                timerllanto.cancel();
+                break;
+            case "saludo":
+                timersaludo.cancel();
+                break;
+        }
+        estados = "risa";
 
-        /*timerparpadeo.cancel();
-        timersaludo.cancel();
-        timerllanto.cancel();*/
-
+        //timertask
+        timerrisa = new Timer();
         timerrisa.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run()
             {
-                FuncionParaEsteHiloRisa();
+                FuncionRisa();
             }
         }, 0, 500);
-    }
+    };
 
-    public void FuncionParaEsteHiloRisa()
+    public void FuncionRisa()
     {
         Rie1 = (Rie1== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
         Rie2  = (Rie2== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
@@ -189,39 +219,53 @@ public class MenuPrincipal extends AppCompatActivity {
     //----------------LLANTO----------------------------------
     public void Llorar (View Vista)
     {
-        /*ImageView nenedefault;
-        nenedefault = (ImageView) findViewById(R.id.nenedefault);
+        //oculto las imagenes del parpadeo
+        ImageView nenedefault = (ImageView) findViewById(R.id.nenedefault);
         nenedefault.setVisibility(View.INVISIBLE);
-        ImageView neneojoscerrados;
-        neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
+        ImageView neneojoscerrados = (ImageView) findViewById(R.id.neneojoscerrados);
         neneojoscerrados.setVisibility(View.INVISIBLE);
-        ImageView neneseniala;
-        neneseniala = (ImageView) findViewById(R.id.nenesenialando);
-        neneseniala.setVisibility(View.INVISIBLE);
-        ImageView nenesaluda;
-        nenesaluda = (ImageView) findViewById(R.id.nenesaludando);
-        nenesaluda.setVisibility(View.INVISIBLE);
-        ImageView neneriendo1;
-        neneriendo1 = (ImageView) findViewById(R.id.nenerie);
+        //oculto las imagenes de saludo
+        ImageView nenesenialando = (ImageView) findViewById(R.id.nenesenialando);
+        nenesenialando.setVisibility(View.INVISIBLE);
+        ImageView nenesaludando = (ImageView) findViewById(R.id.nenesaludando);
+        nenesaludando.setVisibility(View.INVISIBLE);
+        //oculto las imagenes de risa
+        ImageView neneriendo1 = (ImageView) findViewById(R.id.nenerie);
         neneriendo1.setVisibility(View.INVISIBLE);
-        ImageView neneriendo2;
-        neneriendo2 = (ImageView) findViewById(R.id.nenerie2);
-        neneriendo2.setVisibility(View.INVISIBLE); */
-
-        /*timerparpadeo.cancel();
-        timersaludo.cancel();
-        timerrisa.cancel();*/
-
+        ImageView neneriendo2 = (ImageView) findViewById(R.id.nenerie2);
+        neneriendo2.setVisibility(View.INVISIBLE);
+        //stop a los timers
+       /*
+        timerparpadeo.cancel();
+        timersaludo.cancel();*/
+        switch (estados)
+        {
+            case "parpadeo":
+                timerparpadeo.cancel();
+                break;
+            case "risa":
+                timerrisa.cancel();
+                break;
+            case "llanto":
+                timerllanto.cancel();
+                break;
+            case "saludo":
+                timersaludo.cancel();
+                break;
+        }
+        estados = "llanto";
+        timerllanto=new Timer();
         timerllanto.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run()
             {
-                FuncionParaEsteHiloLlanto();
+                FuncionLlanto();
             }
         }, 0, 500);
+
     }
 
-    public void FuncionParaEsteHiloLlanto()
+    public void FuncionLlanto()
     {
         Llora1 = (Llora1== View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
         Llora2  = (Llora2 == View.VISIBLE ? View.INVISIBLE: View.VISIBLE);
