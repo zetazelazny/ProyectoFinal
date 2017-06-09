@@ -3,6 +3,7 @@ package com.example.a42102578.integrapp;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Random;
+import java.util.logging.Handler;
 
 public class Conceptos extends AppCompatActivity {
     String[] VectorDrawable = new String[7];
@@ -101,7 +103,13 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
                 }
             }
             else
@@ -118,7 +126,13 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
                 }
             }
         }
@@ -132,7 +146,13 @@ public class Conceptos extends AppCompatActivity {
         {
             if (Boton.getId() == R.id.Bien) {
                 if (VectorBienMal[numero]) {
-                    Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
                     contjugadas++;
                     Random Azar = new Random();
                     int Random;
@@ -144,13 +164,25 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
                 }
             }
             else
             {
                 if (!VectorBienMal[numero]) {
-                    Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
                     contjugadas++;
                     Random Azar = new Random();
                     int Random;
@@ -162,7 +194,14 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show();
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    toast.show();
+                    new CountDownTimer(500, 1000)
+                    {
+                        public void onTick(long millisUntilFinished) {toast.show();}
+                        public void onFinish() {toast.cancel();}
+                    }.start();
+
                 }
             }
         }
