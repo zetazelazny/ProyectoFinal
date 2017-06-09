@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a42102578.integrapp.MenuJuegos"
+    android:background="@drawable/habitacion">
+
+    <ImageButton
+        android:id="@+id/btnDecisiones"
+        android:background="@drawable/btnbienomal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:text="Decisiones"
+        android:textSize="50dp"
+        android:onClick="IrADecisiones"
+        android:layout_below="@+id/btnMemo"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/btnMemo"
+        android:background="@drawable/btnmemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:text="MemoTest"
+        android:onClick="IrAMemoTest"
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

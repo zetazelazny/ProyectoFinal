@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.a42102578.integrapp.MenuPrincipal"
+    android:background="@drawable/habitacion">
+
+    <ImageView
+        android:id="@+id/nenedefault"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenedefault"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        />
+    <ImageView
+        android:id="@+id/neneojoscerrados"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/neneojoscerrados"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/nenesenialando"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenesenialando"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/nenesaludando"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenesaludando"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/nenellorandobajo"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenellorandoabajo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/nenellorandoarriba"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenellorandoextendidos"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/nenerie"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenerie"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/nenerie2"
+        android:layout_width="293dp"
+        android:layout_height="402dp"
+        app:srcCompat="@drawable/nenerie2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        />
+
+    <ImageButton
+        android:id="@+id/btnJuegos"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:onClick="IrAMenuJuegos"
+        android:scaleType="fitXY"
+        android:background="@drawable/btnjugar"
+        android:layout_alignTop="@+id/nenedefault"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:id="@+id/btnSaludar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:background="@drawable/saludar"
+        android:onClick="Saludar"
+        android:scaleType="fitCenter" />
+
+    <ImageButton
+        android:id="@+id/btnReir"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/btnSaludar"
+        android:background="@drawable/risa"
+        android:onClick="Reir"
+        android:scaleType="fitCenter" />
+
+    <ImageButton
+        android:id="@+id/btnLlorar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/nenedefault"
+        android:layout_marginLeft="200dp"
+        android:onClick="Llorar"
+        android:scaleType="fitCenter"
+        android:background="@drawable/llorar" />
+
+    <ImageButton
+        android:id="@+id/btnAplaudir"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/nenedefault"
+        android:layout_marginLeft="300dp"
+        android:onClick="Aplaudir"
+        android:scaleType="fitCenter"
+        android:background="@drawable/aplauso" />
+</RelativeLayout>
