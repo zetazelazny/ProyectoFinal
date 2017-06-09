@@ -4,7 +4,7 @@ mysql_select_db('localdb') or die('No se pudo seleccionar la base de datos');
 
 echo 'volko gato';
 
-$result = mysql_query("SELECT nombre, email FROM agenda", $link); 
+$result = mysql_query("SELECT nombre FROM usuarios", $link); 
 while ($row = mysql_fetch_row($result)){ 
 echo $row['nombre'];
 }
