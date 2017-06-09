@@ -925,7 +925,13 @@ public class Memotest extends AppCompatActivity {
                     VectorBotones[i].setEnabled(true);
                 }
                 // aca va cuando hace bien una pareja
-                Toast.makeText(this, "bien nene", Toast.LENGTH_SHORT).show();
+                final Toast toast = Toast.makeText(getBaseContext(), "bien",Toast.LENGTH_SHORT);
+                toast.show();
+                new CountDownTimer(500, 1000)
+                {
+                    public void onTick(long millisUntilFinished) {toast.show();}
+                    public void onFinish() {toast.cancel();}
+                }.start();
             }
             else
             {

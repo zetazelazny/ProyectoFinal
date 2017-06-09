@@ -75,9 +75,6 @@ public class Conceptos extends AppCompatActivity {
 
     public void Verificar(View VistaR) {
         ImageButton Boton = (ImageButton) VistaR;
-        ImageButton BotonBien = (ImageButton) findViewById(R.id.Bien);
-        ImageButton BotonMal = (ImageButton) findViewById(R.id.Mal);
-        Button BotonJugar = (Button) findViewById(R.id.btnJugarCon);
         ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
         Drawable.ConstantState CodImagen = Imagen.getDrawable().getConstantState();
         String Codiguito = CodImagen.toString();
@@ -92,15 +89,7 @@ public class Conceptos extends AppCompatActivity {
         {
             if (Boton.getId() == R.id.Bien) {
                 if (VectorBienMal[numero]) {
-                   /* Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
-                    contjugadas++;
-                    Random Azar = new Random();
-                    int Random;
-                    do {
-                        Random = Azar.nextInt(7);
-                    }
-                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);*/
-                    Contador++;
+                   Contador++;
                 } else {
                     contjugadas++;
                     final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
@@ -115,15 +104,7 @@ public class Conceptos extends AppCompatActivity {
             else
             {
                 if (!VectorBienMal[numero]) {
-                  /*  Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show();
-                    contjugadas++;
-                    Random Azar = new Random();
-                    int Random;
-                    do {
-                        Random = Azar.nextInt(7);
-                    }
-                    while (Random == VectorNoRepetir[0] || Random == VectorNoRepetir[1] || Random == VectorNoRepetir[2] || Random == VectorNoRepetir[3] || Random == VectorNoRepetir[4] || Random == VectorNoRepetir[5] || Random == VectorNoRepetir[6]);*/
-                    Contador++;
+                  Contador++;
                 } else {
                     contjugadas++;
                     final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
