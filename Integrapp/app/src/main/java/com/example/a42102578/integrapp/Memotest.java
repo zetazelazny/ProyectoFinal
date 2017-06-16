@@ -2,21 +2,16 @@ package com.example.a42102578.integrapp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
-
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
 
 public class Memotest extends AppCompatActivity {
     int[] VectorRandom = new int[16];
@@ -26,6 +21,7 @@ public class Memotest extends AppCompatActivity {
     int ContadorVec = 0;
     int ContadorValidar = 0;
     int ContPuntos = 0;
+    CountDownTimer Cuenta;
     public int I;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +29,23 @@ public class Memotest extends AppCompatActivity {
         setContentView(R.layout.activity_memotest);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final TextView Texto = (TextView)findViewById(R.id.Timer);
-        new CountDownTimer(100000, 1000) {
+            Cuenta = new CountDownTimer(100000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
+                public void onTick(long millisUntilFinished) {
                     Texto.setText(String.valueOf(millisUntilFinished / 1000));
-            }
-
-            public void onFinish() {
-                //Texto.setText("tiempo finalizado");
-                Intent Perder = new Intent(Memotest.this, Perder.class);
-                startActivity(Perder);
-                finish();
-                for (int i = 0; i < 16; i++)
-                {
-                    VectorBotones[i].setEnabled(false);
                 }
-            }
-        }.start();
 
+                public void onFinish() {
+                    //Texto.setText("tiempo finalizado");
+                    Intent Perder = new Intent(Memotest.this, Perder.class);
+                    startActivity(Perder);
+                    finish();
+                    for (int i = 0; i < 16; i++)
+                    {
+                        VectorBotones[i].setEnabled(false);
+                    }
+                }
+            }.start();
         Random Azar = new Random();
         ImageButton Bot;
         for (int i = 0; i < 16; i++) {
@@ -770,7 +765,6 @@ public class Memotest extends AppCompatActivity {
         }
         while (Contador1 != 2 || Contador2 != 2 || Contador3 != 2 || Contador4 != 2 || Contador5 != 2 || Contador6 != 2 || Contador7 != 2 || Contador8 != 2);
     }
-
     public void Girar(View VistaR) {
         TextView Puntaje = (TextView) findViewById(R.id.Puntos);
         ImageButton Boton = (ImageButton) VistaR;
