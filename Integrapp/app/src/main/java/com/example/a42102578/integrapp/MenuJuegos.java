@@ -27,4 +27,10 @@ public class MenuJuegos extends AppCompatActivity {
         startActivity(IrADecisiones);
     }
 
+    public void IrACocos (View VistaR)
+    {
+        Intent IrACocos = new Intent(this, Pelotas.class);
+        startActivity(IrACocos);
+    }
+
 }

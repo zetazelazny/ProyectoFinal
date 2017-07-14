@@ -30,4 +30,11 @@
         android:textSize="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btncocos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prueba cocos"
+        android:onClick="IrACocos"/>
 </RelativeLayout>

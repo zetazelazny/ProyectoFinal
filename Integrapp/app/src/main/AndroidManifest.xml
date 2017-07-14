@@ -15,15 +15,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".Memotest" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".MenuJuegos" />
         <activity android:name=".Conceptos" />
         <activity android:name=".Gano" />
-        <activity android:name=".Perder"></activity>
-
+        <activity android:name=".Perder" />
+        <activity android:name=".Pelotas"></activity>
     </application>
 
 </manifest>
