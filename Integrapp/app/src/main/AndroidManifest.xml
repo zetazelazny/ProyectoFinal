@@ -22,7 +22,8 @@
         <activity android:name=".Conceptos" />
         <activity android:name=".Gano" />
         <activity android:name=".Perder" />
-        <activity android:name=".Pelotas"></activity>
+        <activity android:name=".Pelotas"
+            android:configChanges="screenSize|orientation"></activity>
     </application>
 
 </manifest>
