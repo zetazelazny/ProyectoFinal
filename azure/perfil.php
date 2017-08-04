@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('config.php');
+include('funciones/config.php');
 if(isset($_SESSION['usuario']))	
 {
 		$con = mysql_connect($host,$user,$pw) or die("error al conectar server");

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("config.php");
+include("funciones/config.php");
 	if(isset($_POST['login']))
 	{		
 	if(isset($_POST['usuario']) && !empty($_POST['usuario']) && 
