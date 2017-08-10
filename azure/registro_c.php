@@ -87,8 +87,6 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
                 <div id="navbar" class="navbar-collapse collapse pull-right">
 
                   <ul class="nav navbar-nav">
-
-                    <li><a href="login.php">Login</a></li>
                     
                     <?php
                     if(isset($_SESSION['usuario']))
@@ -141,7 +139,7 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
 }
 else
 {
-	echo "Vos no podés entrar acá";
+	echo '<script>window.location="registro.php"</script>';
 }
 ?>
 

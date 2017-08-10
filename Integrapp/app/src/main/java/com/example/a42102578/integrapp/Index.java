@@ -26,6 +26,11 @@ public class Index extends AppCompatActivity {
 
     }
 
+    public void Demo(View Vista)
+    {
+
+    }
+
   /*  public void Saludar (View Vista)
     {
 
