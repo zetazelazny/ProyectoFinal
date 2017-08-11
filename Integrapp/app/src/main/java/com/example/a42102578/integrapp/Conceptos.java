@@ -139,7 +139,7 @@ public class Conceptos extends AppCompatActivity {
         }
         if (Contador == 8) {
             listoParaAgregar = false;
-            enviarPuntos.execute(new String[]{"Conceptos",String.valueOf(Contador)});
+             enviarPuntaje(new String[]{"Conceptos",String.valueOf(Contador)});
         }
         if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {
@@ -263,6 +263,11 @@ public class Conceptos extends AppCompatActivity {
         }
     }
 
+    private void enviarPuntaje(String[] params){
+        new enviarPuntos().execute(params[0], params[1]);
+    }
+
+
     private class enviarPuntos extends AsyncTask<String, Void, String> {
 
         protected void onPostExecute(String datos) {
@@ -290,7 +295,7 @@ public class Conceptos extends AppCompatActivity {
         @Override
         protected String doInBackground(String... parametros) {
 
-            if (new HttpHandler(getApplicationContext().h).hasActiveInternetConnection()) {
+            if (new HttpHandler(getApplicationContext()).hasActiveInternetConnection()) {
                 OkHttpClient client = new OkHttpClient();
                 client.newBuilder().connectTimeout(10, TimeUnit.SECONDS)
                         .readTimeout(10, TimeUnit.SECONDS).build();
