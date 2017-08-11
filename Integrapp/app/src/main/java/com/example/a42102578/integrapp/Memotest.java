@@ -985,8 +985,9 @@ public class Memotest extends AppCompatActivity {
         }
         if (Gano)
         {
+            String A = "Memotest";
             listoParaAgregar = false;
-            enviarPuntaje(new String[]{"Memotest" ,String.valueOf(ContPuntos)});
+            enviarPuntaje(new String[]{A ,String.valueOf(ContPuntos)});
         }
 
     }
