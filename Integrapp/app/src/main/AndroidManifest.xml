@@ -30,7 +30,9 @@
         <activity
             android:name=".Pelotas"
             android:configChanges="screenSize|orientation" />
-        <activity android:name=".LoginDemo"></activity>
+        <activity android:name=".Demo"></activity>
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     </application>
 
 </manifest>
