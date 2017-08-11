@@ -3,10 +3,12 @@ package com.example.a42102578.integrapp;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,7 +21,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
+
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Conceptos extends AppCompatActivity {
     String[] VectorDrawable = new String[7];
@@ -27,7 +36,8 @@ public class Conceptos extends AppCompatActivity {
     Boolean[] VectorBienMal = new Boolean[7];
     int[] VectorNoRepetir = new int[7];
     int Contador = 0;
-    int contjugadas=1;
+    int contjugadas = 1;
+    public Boolean listoParaAgregar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,54 +100,60 @@ public class Conceptos extends AppCompatActivity {
                 numero = i;
             }
         }
-        if (Contador == 7)
-        {
+        if (Contador == 7) {
             if (Boton.getId() == R.id.Bien) {
                 if (VectorBienMal[numero]) {
-                   Contador++;
+                    Contador++;
                 } else {
                     contjugadas++;
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
                 }
-            }
-            else
-            {
+            } else {
                 if (!VectorBienMal[numero]) {
-                  Contador++;
+                    Contador++;
                 } else {
                     contjugadas++;
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
                 }
             }
         }
-        if (Contador == 8)
-        {
-            Intent Gano = new Intent(this, Gano.class);
-            startActivity(Gano);
-            finish();
+        if (Contador == 8) {
+            listoParaAgregar = false;
+             enviarPuntaje(new String[]{"Conceptos",String.valueOf(Contador)});
         }
-        if (Contador < 7)
-        {
+        if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {
                 if (VectorBienMal[numero]) {
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
                     contjugadas++;
                     Random Azar = new Random();
@@ -150,24 +166,30 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
                 }
-            }
-            else
-            {
+            } else {
                 if (!VectorBienMal[numero]) {
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta correcta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
                     contjugadas++;
                     Random Azar = new Random();
@@ -180,12 +202,16 @@ public class Conceptos extends AppCompatActivity {
                     Contador++;
                 } else {
                     contjugadas++;
-                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta",Toast.LENGTH_SHORT);
+                    final Toast toast = Toast.makeText(getBaseContext(), "Respuesta incorrecta", Toast.LENGTH_SHORT);
                     toast.show();
-                    new CountDownTimer(500, 1000)
-                    {
-                        public void onTick(long millisUntilFinished) {toast.show();}
-                        public void onFinish() {toast.cancel();}
+                    new CountDownTimer(500, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            toast.show();
+                        }
+
+                        public void onFinish() {
+                            toast.cancel();
+                        }
                     }.start();
 
                 }
@@ -193,16 +219,13 @@ public class Conceptos extends AppCompatActivity {
         }
     }
 
-    public void btnJugarCon(View VistaR)
-    {
+    public void btnJugarCon(View VistaR) {
         finish();
         startActivity(getIntent());
     }
 
-    public void Magia (int Numero, ImageView Imagen, int NumeroParametro)
-    {
-        switch (VectorRandom[Numero])
-        {
+    public void Magia(int Numero, ImageView Imagen, int NumeroParametro) {
+        switch (VectorRandom[Numero]) {
             case (0):
                 Imagen.setImageResource(R.drawable.abrazar);
                 VectorNoRepetir[NumeroParametro] = Numero;
@@ -239,44 +262,105 @@ public class Conceptos extends AppCompatActivity {
                 break;
         }
     }
-    public void SubirResult()
-    {
-        Subir.start();
+
+    private void enviarPuntaje(String[] params){
+        new enviarPuntos().execute(params[0], params[1]);
     }
 
-    Thread Subir = new Thread()
-    {
-        @Override
-        public void run() {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                String RutaServidor, NombreBase, NombreUsuario, PasswordUsuario, CadenaCompleta;
-                int Puerto;
-                RutaServidor = "ACA LA RUTA";
-                Puerto = 1;//ACA EL PUERTO
-                NombreBase = "NOMBRE BASE";
-                NombreUsuario = "USUARIO";
-                PasswordUsuario = "PASS";
-                CadenaCompleta = "jdbc:mysql://" + RutaServidor + ":" + Puerto + "/" + NombreBase;
-                Connection Conexion = DriverManager.getConnection(CadenaCompleta, NombreUsuario, PasswordUsuario);
-                Statement Instruccion = Conexion.createStatement();
-                String SQLdeLectura = "insert into tabla values juego incorrectas"; //ACA HAY QUE METER TABLA DE RANKINGS (PARA LA DEMO NADA MAS)
-                ResultSet Resultados = Instruccion.executeQuery(SQLdeLectura);
-                if (Resultados.first()) {
-                    while (Resultados.next()) {
 
-                    }
-                } else {
-                    //NO trajo nada
-                }
-            }catch (ClassNotFoundException error)
-            {
+    private class enviarPuntos extends AsyncTask<String, Void, String> {
 
+        protected void onPostExecute(String datos) {
+            super.onPostExecute(datos);
+
+            if (datos.equals("error")) {
+                //Toast.makeText(getActivity(), "Comprueba tu conexión a Internet", Toast.LENGTH_SHORT).show();
+
+            } else if (datos.equals("error2")) {
+                // El token está mal, asi que a borrarloo y que vuelva al inicio
+                //Toast.makeText(getActivity(), "Sesión expirada, vuelve a iniciar sesion.", Toast.LENGTH_SHORT).show();
+            } else if (datos.equals("faltanDatos")) {
+
+            } else {
+                //ok
             }
-            catch (SQLException error) {
 
+            if (listoParaAgregar) {
+                Intent Gano = new Intent(getApplicationContext(), Gano.class);
+                startActivity(Gano);
+                finish();
             }
         }
-    };
 
+        @Override
+        protected String doInBackground(String... parametros) {
+
+            if (new HttpHandler(getApplicationContext()).hasActiveInternetConnection()) {
+                OkHttpClient client = new OkHttpClient();
+                client.newBuilder().connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(10, TimeUnit.SECONDS).build();
+
+                if (parametros[0].trim().length() > 0 && parametros[1].trim().length() > 0 &&
+                        parametros[2].trim().length() > 0 && parametros[3].trim().length() > 0 &&
+                        parametros[4].trim().length() > 0) {
+
+
+                    RequestBody requestBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("juego", parametros[0])
+                            .addFormDataPart("puntaje", parametros[1])
+                            .build();
+
+                    listoParaAgregar = true;
+
+                    Request request = new Request.Builder()
+                            .url("integrapp.azurewebsites.net/azure/insertpuntos.php")
+                            .method("POST", RequestBody.create(null, new byte[0]))
+                            .post(requestBody)
+                            .build();
+
+                    try {
+                        Response response = client.newCall(request).execute();
+                        String resultado = response.body().string();
+                        return resultado;
+                    } catch (Exception e) {
+                        Log.d("Debug", e.getMessage());
+                        //mostrarError(e.getMessage()); // Error de Network
+                        return "error";
+                    }
+                } else {
+                    return "faltanDatos";
+                }
+            } else {
+                return "error";
+            }
+        }
+    }
 }
+/*
+        Boton inserta
+
+        button.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+        if (editarONuevo == 0) {
+        editarUsuario(new String[]{String.valueOf(bundle.getInt("idUsuario")),
+        bundle.getString("nombre"),
+        bundle.getString("apellido"),
+        String.valueOf(bundle.getInt("matricula")),
+        bundle.getString("hospital"),
+        String.valueOf(bundle.getInt("credencial"))});
+        } else {
+        listoParaAgregar = false;
+
+        insertarUsuario(new String[]{nombre.getText().toString(),
+        apellido.getText().toString(),
+        matricula.getText().toString(),
+        hospital.getText().toString(),
+        credencial.getText().toString()});
+        }
+        }
+        });
+
+---
+*/
