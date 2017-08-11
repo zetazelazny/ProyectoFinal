@@ -38,6 +38,7 @@ public class Conceptos extends AppCompatActivity {
     int Contador = 0;
     int contjugadas = 1;
     public Boolean listoParaAgregar = false;
+    String jg = "Conceptos";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +140,7 @@ public class Conceptos extends AppCompatActivity {
         }
         if (Contador == 8) {
             listoParaAgregar = false;
-             enviarPuntaje(new String[]{"Conceptos",String.valueOf(Contador)});
+             enviarPuntaje(new String[]{jg ,String.valueOf(Contador)});
         }
         if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {
@@ -294,34 +295,38 @@ public class Conceptos extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... parametros) {
-
+            Log.d("Juego", "1");
             if (new HttpHandler(getApplicationContext()).hasActiveInternetConnection()) {
                 OkHttpClient client = new OkHttpClient();
                 client.newBuilder().connectTimeout(10, TimeUnit.SECONDS)
                         .readTimeout(10, TimeUnit.SECONDS).build();
-
-                if (parametros[0].trim().length() > 0 && parametros[1].trim().length() > 0 &&
-                        parametros[2].trim().length() > 0 && parametros[3].trim().length() > 0 &&
-                        parametros[4].trim().length() > 0) {
-
+                Log.d("Juego", "2");
+                if (parametros[0].trim().length() > 0) {
+                    Log.d("Juego", "3");
 
                     RequestBody requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
                             .addFormDataPart("juego", parametros[0])
                             .addFormDataPart("puntaje", parametros[1])
                             .build();
+                    Log.d("Juego", "4");
 
                     listoParaAgregar = true;
 
+                    Log.d("Juego", "5");
+
                     Request request = new Request.Builder()
-                            .url("integrapp.azurewebsites.net/azure/insertpuntos.php")
+                            .url("http://integrapp.azurewebsites.net/azure/insertpuntos.php")
                             .method("POST", RequestBody.create(null, new byte[0]))
                             .post(requestBody)
                             .build();
 
+                    Log.d("Juego", "6");
+
                     try {
                         Response response = client.newCall(request).execute();
                         String resultado = response.body().string();
+                        Log.d("Juego", "7");
                         return resultado;
                     } catch (Exception e) {
                         Log.d("Debug", e.getMessage());
