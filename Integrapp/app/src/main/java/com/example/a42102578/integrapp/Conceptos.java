@@ -307,13 +307,14 @@ public class Conceptos extends AppCompatActivity {
 
                     RequestBody requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
-                            .addFormDataPart("nombre", parametros[0])
+                            .addFormDataPart("juego", parametros[0])
+                            .addFormDataPart("puntaje", parametros[1])
                             .build();
 
                     listoParaAgregar = true;
 
                     Request request = new Request.Builder()
-                            .url("http://192.99.56.223/basedd/insertUsuario.php")
+                            .url("integrapp.azurewebsites.net/azure/insertpuntos.php")
                             .method("POST", RequestBody.create(null, new byte[0]))
                             .post(requestBody)
                             .build();
