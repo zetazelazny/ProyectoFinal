@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import java.util.Timer;
@@ -28,7 +29,9 @@ public class Index extends AppCompatActivity {
 
     public void Demo(View Vista)
     {
-
+        Intent irALista = new Intent (this, SeleccionUsuarios.class);
+        startActivity(irALista);
+        Log.d("Debug","Sale de la vista");
     }
 
   /*  public void Saludar (View Vista)
