@@ -33,11 +33,13 @@ public class MenuPrincipal extends AppCompatActivity {
     Timer timerrisa = new Timer();
     Timer timerllanto = new Timer();
     Timer timeraplauso = new Timer();
+    String IDs;
 
-    Bundle ID = getIntent().getExtras();
-    int IDs = ID.getInt("id");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intentQueLLega = getIntent();
+        Bundle ID = intentQueLLega.getExtras();
+        IDs = ID.getString("id");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprincipal);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

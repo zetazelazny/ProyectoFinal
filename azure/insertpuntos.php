@@ -1,16 +1,16 @@
 <?php
-include('funciones/config.php');
-
-$juego = $_POST['juego'];
+$conexion = new PDO('mysql:host=127.0.0.1:56915;dbname=integrapp;charset=utf8mb4', 'azure', '6#vWHD_$');
+$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$id_juego = $_POST['id_juego'];
+$id_usuario = $_POST['id_usuario'];
 $puntaje = $_POST['puntaje'];
-if(isset($juego, $puntaje))
-{
-		$con = mysql_connect($host,$user,$pw) or die("Error al conectar al servidor.");
+	if(isset($id_juego, $id_usuario, $puntaje))
+	{
+		$stmt=$conexion->prepare("INSERT INTO puntajes (id_juego, id_usuario, puntaje) VALUES ('".$id_juego."','".$id_usuario."','".$puntaje."')");
+		$stmt->execute();
+	}
 
- 		mysql_select_db($db,$con)or die("Error al conectar con la base de datos");
-
- 		mysql_query("INSERT INTO puntajes (juego, puntaje) VALUES ('".$juego."','".$puntaje."' )", $con)or die(mysql_error());
-}
+	 	
 	
   
 

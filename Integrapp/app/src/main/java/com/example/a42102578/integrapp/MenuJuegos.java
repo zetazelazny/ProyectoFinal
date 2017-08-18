@@ -7,16 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MenuJuegos extends AppCompatActivity {
-
-    Bundle ID = getIntent().getExtras();
-    int IDs = ID.getInt("id");
-
+    String IDs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_juegos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Bundle ID = getIntent().getExtras();
+        IDs = ID.getString("id");
     }
 
     public void IrAMemoTest(View VistaR)

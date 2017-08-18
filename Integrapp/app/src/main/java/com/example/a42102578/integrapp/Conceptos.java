@@ -31,8 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Conceptos extends AppCompatActivity {
-    Bundle ID = getIntent().getExtras();
-    int IDs = ID.getInt("id");
+    String IDs;
     String[] VectorDrawable = new String[7];
     int[] VectorRandom = new int[7];
     Boolean[] VectorBienMal = new Boolean[7];
@@ -46,6 +45,8 @@ public class Conceptos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conceptos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Bundle ID = getIntent().getExtras();
+        IDs = ID.getString("id");
         Drawable.ConstantState CodigoImagenAbrazar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
         Drawable.ConstantState CodigoImagenBesar = ContextCompat.getDrawable(this, R.drawable.besar).getConstantState();
         Drawable.ConstantState CodigoImagenEscupir = ContextCompat.getDrawable(this, R.drawable.escupir).getConstantState();

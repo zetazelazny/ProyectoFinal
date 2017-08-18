@@ -39,7 +39,8 @@ public class SeleccionUsuarios extends AppCompatActivity {
                 Usuarios Usuario = (Usuarios) (o);
                 Log.d("Casteando", Usuario._Nombre +"Putoelquelee" + Usuario._Apellido + Usuario._Id);
                 Intent aPrincipal = new Intent(getApplicationContext(), MenuPrincipal.class);
-                aPrincipal.putExtra("id", Usuario._Id);
+                String Id = String.valueOf(Usuario._Id);
+                aPrincipal.putExtra("id", Id);
                 startActivity(aPrincipal);
             }
         });
