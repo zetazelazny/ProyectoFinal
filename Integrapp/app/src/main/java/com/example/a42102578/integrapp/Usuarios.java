@@ -3,6 +3,7 @@ package com.example.a42102578.integrapp;
 import android.app.DownloadManager;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.BaseAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,55 +22,71 @@ import okhttp3.Response;
  */
 
 public class Usuarios {
-    String Nombre;
-    String Apellido;
+    int _Id;
+    String _Nombre;
+    String _Apellido;
+    Boolean esperar;
+    ArrayList<Usuarios> Lista;
+    Adaptador a;
 
-    public Usuarios(Usuarios Usu) {
+   /* public Usuarios(Usuarios Usu) {
         Usuarios Usuario = new Usuarios(Usu);
         Usuario.Nombre = Usuario.getNombre(Usu);
         Usuario.Apellido = Usuario.getApellido(Usu);
-    }
+    }*/
 
     public Usuarios() {
     }
 
-    public Usuarios (String Nombre, String Apellido)
+    public Usuarios (String Nombre, String Apellido, int ID)
     {
-        Usuarios Usuario = new Usuarios();
-        Usuario.Nombre = Nombre;
-        Usuario.Apellido = Apellido;
+        _Nombre = Nombre;
+        _Apellido = Apellido;
+        _Id = ID;
+
     }
 
-    public ArrayList<Usuarios> ObtenerUsuarios() {
-        ArrayList<Usuarios> Lista = new ArrayList<Usuarios>();
+    public void ObtenerUsuarios(Adaptador a) {
+        Lista = new ArrayList<Usuarios>();
         Log.d("Debug","Hasta aca llega");
         String URL ="https//integrapp.azurewebsites.net/azure/traerUsuarios.php";
         Log.d("Debug","Hasta aca tambien");
         new traerUsuarios().execute(URL);
         Log.d("Debug","Hasta aca llegamos");
-        return Lista;
+        Log.d("Debug Lista", Lista.size() + "");
+        this.a = a;
+        //return Lista;
     }
 
 
-    private String getNombre(Usuarios Usuario) {
-        String Nom = Usuario.Nombre;
-        return Nom;
+    public String getNombre() {
+        return _Nombre;
     }
 
-    private String getApellido(Usuarios Usuario) {
-        String Ape = Usuario.Apellido;
-        return Ape;
+    public String getApellido() {
+        return _Apellido;
     }
 
-    private class traerUsuarios extends AsyncTask<String, Void, ArrayList<Usuarios>>
+    public int getID()
     {
-        protected void onPostExecute (ArrayList<Usuarios>Lista)
+        return _Id;
+    }
+
+    public class traerUsuarios extends AsyncTask<String, Void, ArrayList<Usuarios>>
+    {
+        protected void onPostExecute (ArrayList<Usuarios>parametroLista)
         {
+            Log.d("Debug postEx", "onPostExecute:" + parametroLista.size() + "");
+            //Lista = parametroLista;
             super.onPostExecute(Lista);
+            a.setDatos(parametroLista);
+            a.notifyDataSetChanged();
         }
 
         protected ArrayList<Usuarios> doInBackground (String...parametros)
         {
+            ArrayList<Usuarios> returnList = null;
+
             String url = parametros[0];
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
@@ -81,47 +99,48 @@ public class Usuarios {
             {
                 Response response = client.newCall(Request).execute();
                 String Resultado = response.body().string();
-                ArrayList<Usuarios> Lista;
+                Log.d("Debug", "Resultado: " + Resultado);
                 try
                 {
-                    Lista = parsearResultado(Resultado);
+                    returnList = parsearResultado(Resultado);
+                    Log.d("Debug", "doInBackground: " + returnList.size() + "");
                 }
                 catch (JSONException e)
                 {
                     Log.d("Error", e.getMessage());
                 };
-
             }
             catch (IOException e)
             {
                 Log.d("Error", e.getMessage());
-                return null;
             }
-            return new ArrayList<Usuarios>();
+            return returnList ;
         }
+
         public ArrayList<Usuarios> parsearResultado(String Result)throws JSONException
         {
-            try
-            {
-                Usuarios Usu = new Usuarios();
-                ArrayList<Usuarios> Usuarios = new ArrayList<Usuarios>();
+            ArrayList<Usuarios> returnList = null;
+            try{
+                returnList = new ArrayList<Usuarios>();
                 JSONArray jsonUsuarios = new JSONArray(Result);
+                Log.d("Debug", "json: " + Result);
                 for (int i=0; i<jsonUsuarios.length(); i++)
                 {
                     JSONObject jsonUsuario = jsonUsuarios.getJSONObject(i);
                     String Nombre = jsonUsuario.getString("nombre");
                     String Apellido = jsonUsuario.getString("apellido");
-                    Usuarios Usuario = new Usuarios(Nombre, Apellido);
-                    Usuarios.add(Usu);
-                    Log.d("Debug",Usuario.Nombre + " " + Usuario.Apellido);
+                    int ID = jsonUsuario.getInt("id");
+                    returnList.add(new Usuarios(Nombre, Apellido, ID));
+                    Log.d("Debug", "parsearResultado: " + returnList.size()+ "");
                 }
-                return Usuarios;
+
             }
             catch (JSONException e)
             {
                 Log.d("Error", e.getMessage());
-                return null;
+
             }
+            return returnList;
         }
     }
 }

@@ -34,7 +34,8 @@ public class MenuPrincipal extends AppCompatActivity {
     Timer timerllanto = new Timer();
     Timer timeraplauso = new Timer();
 
-
+    Bundle ID = getIntent().getExtras();
+    int IDs = ID.getInt("id");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class MenuPrincipal extends AppCompatActivity {
     public void IrAMenuJuegos (View Vista)
     {
         Intent MenuJuegos = new Intent (this, MenuJuegos.class);
+        MenuJuegos.putExtra("id", IDs);
         startActivity(MenuJuegos);
     }
 

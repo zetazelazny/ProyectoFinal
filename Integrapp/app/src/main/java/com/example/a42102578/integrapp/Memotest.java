@@ -29,6 +29,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Memotest extends AppCompatActivity {
+    Bundle ID = getIntent().getExtras();
+    int IDs = ID.getInt("id");
     public Boolean listoParaAgregar = false;
     int[] VectorRandom = new int[16];
     boolean[] VectorEstado = new boolean[16];
@@ -985,15 +987,16 @@ public class Memotest extends AppCompatActivity {
         }
         if (Gano)
         {
-            String A = "Memotest";
+            String A = "1";
+            String IDD = String.valueOf(IDs);
             listoParaAgregar = false;
-            enviarPuntaje(new String[]{A ,String.valueOf(ContPuntos)});
+            enviarPuntaje(new String[]{A, IDD ,String.valueOf(ContPuntos)});
         }
 
     }
 
     private void enviarPuntaje(String[] params){
-        new enviarPuntos().execute(params[0], params[1]);
+        new enviarPuntos().execute(params[0], params[1], params[2]);
     }
 
     private class enviarPuntos extends AsyncTask<String, Void, String> {
@@ -1033,8 +1036,9 @@ public class Memotest extends AppCompatActivity {
 
                     RequestBody requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
-                            .addFormDataPart("juego", parametros[0])
-                            .addFormDataPart("puntaje", parametros[1])
+                            .addFormDataPart("id_juego", parametros[0])
+                            .addFormDataPart("id_usuario", parametros[1])
+                            .addFormDataPart("puntaje", parametros[2])
                             .build();
                     Log.d("Juego", "4");
 

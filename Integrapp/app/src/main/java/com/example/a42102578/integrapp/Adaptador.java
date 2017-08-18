@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ public class Adaptador extends BaseAdapter
     private Context Contexto;
     public Adaptador(ArrayList<Usuarios>List, Context ContextoAUsar)
     {
-        List = ListaUsuario;
-        ContextoAUsar = Contexto;
+        ListaUsuario = List;
+        Contexto = ContextoAUsar;
     }
 
+    public void setDatos(ArrayList<Usuarios> ListaUsuario) {
+        this.ListaUsuario = ListaUsuario;
+    }
     public int getCount()
     {
         return ListaUsuario.size();
@@ -43,21 +47,23 @@ public class Adaptador extends BaseAdapter
     public View getView(int PosicionActual, View VistaActual, ViewGroup GrupoActual)
     {
         View VistaADevolver;
-        VistaADevolver = null;
         LayoutInflater Inflador;
         Inflador = (LayoutInflater)Contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         VistaADevolver = Inflador.inflate(R.layout.detalle_usuarios, GrupoActual, false);
         Log.d("Debug", "Infla la lista");
-        Usuarios Usu = new Usuarios(getItem(PosicionActual));
-        Log.d("Debug","Trajo un usuario" );
+        Usuarios Usu = getItem(PosicionActual);
+        Log.d("Debug", Usu._Nombre + Usu._Apellido);
         TextView Nombre;
         Nombre = (TextView)VistaADevolver.findViewById(R.id.TextNombre);
         TextView Apellido;
         Apellido = (TextView)VistaADevolver.findViewById(R.id.TextApellido);
-        Nombre.setText(Usu.Nombre);
-        Apellido.setText(Usu.Apellido);
-        Log.d("Debug",Usu.Nombre + Usu.Apellido );
+        TextView Id;
+        Id = (TextView)VistaADevolver.findViewById(R.id.TextId);
+        Nombre.setText(Usu.getNombre());
+        Apellido.setText(Usu.getApellido());
+        Id.setText(String.valueOf(Usu.getID()));
+        Log.d("Debug",Usu.getNombre() + Usu.getApellido() + Usu.getID());
         return VistaADevolver;
-    }
 
+    }
 }

@@ -31,6 +31,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Conceptos extends AppCompatActivity {
+    Bundle ID = getIntent().getExtras();
+    int IDs = ID.getInt("id");
     String[] VectorDrawable = new String[7];
     int[] VectorRandom = new int[7];
     Boolean[] VectorBienMal = new Boolean[7];
@@ -38,7 +40,6 @@ public class Conceptos extends AppCompatActivity {
     int Contador = 0;
     int contjugadas = 1;
     public Boolean listoParaAgregar = false;
-    String jg = "Conceptos";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +141,9 @@ public class Conceptos extends AppCompatActivity {
         }
         if (Contador == 8) {
             listoParaAgregar = false;
-             enviarPuntaje(new String[]{jg ,String.valueOf(Contador)});
+            String Juego = "2";
+            String IDD = String.valueOf(IDs);
+             enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Contador)});
         }
         if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {
@@ -265,7 +268,7 @@ public class Conceptos extends AppCompatActivity {
     }
 
     private void enviarPuntaje(String[] params){
-        new enviarPuntos().execute(params[0], params[1]);
+        new enviarPuntos().execute(params[0], params[1], params[2]);
     }
 
 
@@ -306,7 +309,8 @@ public class Conceptos extends AppCompatActivity {
 
                     RequestBody requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
-                            .addFormDataPart("juego", parametros[0])
+                            .addFormDataPart("id_juego", parametros[0])
+                            .addFormDataPart("id_usuario", parametros[1])
                             .addFormDataPart("puntaje", parametros[1])
                             .build();
                     Log.d("Juego", "4");
