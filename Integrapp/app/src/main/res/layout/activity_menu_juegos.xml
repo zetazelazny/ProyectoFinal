@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.a42102578.integrapp.MenuJuegos"
-    android:background="@drawable/habitacion">
+    android:background="@drawable/habitacion"
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/btnDecisiones"
@@ -19,6 +20,14 @@
         android:layout_below="@+id/btnMemo"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:id="@+id/btncocos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="prueba cocos"
+        android:onClick="IrACocos"
+        android:layout_marginLeft="400px"/>
+
     <ImageButton
         android:id="@+id/btnMemo"
         android:background="@drawable/btnmemo"
@@ -31,10 +40,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
+
+
     <Button
-        android:id="@+id/btncocos"
+        android:id="@+id/Cuchas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="prueba cocos"
-        android:onClick="IrACocos"/>
+        android:text="Cuchas ennumeradas"
+        android:onClick="IrACuchas"/>
 </RelativeLayout>

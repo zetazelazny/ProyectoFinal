@@ -33,4 +33,10 @@ public class MenuJuegos extends AppCompatActivity {
         startActivity(IrACocos);
     }
 
+    public void IrACuchas (View Vista)
+    {
+        Intent IrACuchas = new Intent(this, activity_cuchas.class);
+        startActivity(IrACuchas);
+    }
+
 }
