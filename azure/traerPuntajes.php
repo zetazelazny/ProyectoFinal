@@ -10,22 +10,43 @@ $consulta = "SELECT puntajes.puntaje as puntaje, pacientes.nombre AS nombre, pac
 $stmt = $conexion->prepare($consulta);
 $stmt->execute();
 $stmt->fetch(PDO::FETCH_ASSOC);
-echo "<table>";  
-echo "<tr>";  
-echo "<th>Juego</th>";  
-echo "<th>Nombre</th>";  
-echo "<th>Apellido</th>"; 
-echo "<th>Puntaje</th>";   
-echo "</tr>"; 
+
 foreach( $stmt as $valor) {
-    echo "<tr>";
+    echo"<table>"
+	echo "<tr>";  
+	echo "<th>Juego</th>";  
+	echo "<th>Nombre</th>";  
+	echo "<th>Apellido</th>"; 
+	echo "<th>Puntaje</th>";   
+	echo "</tr>";
+	echo "<tr>";
     echo "<td>".$valor['nombrejuego']."</td>";
     echo "<td>".$valor['nombre']."</td>";
     echo "<td>".$valor['apellido']."</td>";
     echo "<td>".$valor['puntaje']."</td>";
     echo "</tr>";
+	echo "</table>";
 }
 
 
 
 ?>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
