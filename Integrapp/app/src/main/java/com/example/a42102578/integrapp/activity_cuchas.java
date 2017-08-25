@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -44,11 +46,14 @@ public class activity_cuchas extends AppCompatActivity {
     int Puntos;
     int Vidas;
     int Suma;
+    String fecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuchas);
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = date.format(new Date());
         Cucha1 = (ImageButton) findViewById(R.id.CuchaUno);
         Cucha2 = (ImageButton) findViewById(R.id.CuchaDos);
         Cucha3 = (ImageButton) findViewById(R.id.CuchaTres);
@@ -114,7 +119,7 @@ public class activity_cuchas extends AppCompatActivity {
                 listoParaAgregar = false;
                 String Juego = "4";
                 String IDD = String.valueOf(IDs);
-                enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Puntaje)});
+                enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Puntaje), fecha});
                 Log.d("Zeta", "Leogato4");
             }
 
@@ -126,7 +131,7 @@ public class activity_cuchas extends AppCompatActivity {
     }
 
     private void enviarPuntaje(String[] params){
-        new enviarPuntos().execute(params[0], params[1], params[2]);
+        new enviarPuntos().execute(params[0], params[1], params[2], params[3]);
     }
 
     private class enviarPuntos extends AsyncTask<String, Void, String> {
@@ -169,6 +174,7 @@ public class activity_cuchas extends AppCompatActivity {
                             .addFormDataPart("id_juego", parametros[0])
                             .addFormDataPart("id_usuario", parametros[1])
                             .addFormDataPart("puntaje", parametros[2])
+                            .addFormDataPart("fechaJuego", parametros[3])
                             .build();
                     Log.d("Juego", "4");
 

@@ -29,3 +29,10 @@ foreach( $stmt as $valor) {
 
 
 ?>
+
+<style>
+td {
+    height: 50px;
+    vertical-align: bottom;
+}
+</style>

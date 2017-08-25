@@ -17,6 +17,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,11 +43,14 @@ public class Memotest extends AppCompatActivity {
     int ContPuntos = 0;
     CountDownTimer Cuenta;
     public int I;
+    String fecha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memotest);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = date.format(new Date());
         final TextView Texto = (TextView)findViewById(R.id.Timer);
             Cuenta = new CountDownTimer(100000, 1000) {
 
@@ -990,13 +995,13 @@ public class Memotest extends AppCompatActivity {
             String A = "1";
             String IDD = String.valueOf(IDs);
             listoParaAgregar = false;
-            enviarPuntaje(new String[]{A, IDD ,String.valueOf(ContPuntos)});
+            enviarPuntaje(new String[]{A, IDD ,String.valueOf(ContPuntos), fecha});
         }
 
     }
 
     private void enviarPuntaje(String[] params){
-        new enviarPuntos().execute(params[0], params[1], params[2]);
+        new enviarPuntos().execute(params[0], params[1], params[2], params[3]);
     }
 
     private class enviarPuntos extends AsyncTask<String, Void, String> {
@@ -1039,6 +1044,7 @@ public class Memotest extends AppCompatActivity {
                             .addFormDataPart("id_juego", parametros[0])
                             .addFormDataPart("id_usuario", parametros[1])
                             .addFormDataPart("puntaje", parametros[2])
+                            .addFormDataPart("fechJuego", parametros[3])
                             .build();
                     Log.d("Juego", "4");
 
