@@ -20,6 +20,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
@@ -39,6 +43,7 @@ public class Conceptos extends AppCompatActivity {
     int Contador = 0;
     int contjugadas = 1;
     public Boolean listoParaAgregar = false;
+    String fecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class Conceptos extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Bundle ID = getIntent().getExtras();
         IDs = ID.getString("id");
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        fecha = date.format(new Date());
         Drawable.ConstantState CodigoImagenAbrazar = ContextCompat.getDrawable(this, R.drawable.abrazar).getConstantState();
         Drawable.ConstantState CodigoImagenBesar = ContextCompat.getDrawable(this, R.drawable.besar).getConstantState();
         Drawable.ConstantState CodigoImagenEscupir = ContextCompat.getDrawable(this, R.drawable.escupir).getConstantState();
@@ -89,6 +96,7 @@ public class Conceptos extends AppCompatActivity {
         ImageView Imagen = (ImageView) findViewById(R.id.Imagen);
         Magia(0, Imagen, Contador);
         Contador++;
+
     }
 
     public void Verificar(View VistaR) {
@@ -141,10 +149,11 @@ public class Conceptos extends AppCompatActivity {
             }
         }
         if (Contador == 8) {
+            Log.d("Fecha", fecha);
             listoParaAgregar = false;
             String Juego = "2";
             String IDD = String.valueOf(IDs);
-             enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Contador)});
+             enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Contador),fecha });
         }
         if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {
@@ -269,7 +278,7 @@ public class Conceptos extends AppCompatActivity {
     }
 
     private void enviarPuntaje(String[] params){
-        new enviarPuntos().execute(params[0], params[1], params[2]);
+        new enviarPuntos().execute(params[0], params[1], params[2], params[3]);
     }
 
 
@@ -313,6 +322,7 @@ public class Conceptos extends AppCompatActivity {
                             .addFormDataPart("id_juego", parametros[0])
                             .addFormDataPart("id_usuario", parametros[1])
                             .addFormDataPart("puntaje", parametros[2])
+                            .addFormDataPart("fechaJuego", parametros[3])
                             .build();
                     Log.d("Juego", "4");
 

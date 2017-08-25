@@ -4,10 +4,10 @@ $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $id_juego = $_POST['id_juego'];
 $id_usuario = $_POST['id_usuario'];
 $puntaje = $_POST['puntaje'];
-$fecha = $_POST['fecha'];
+$fecha = $_POST['fechaJuego'];
 	if(isset($id_juego, $id_usuario, $puntaje))
 	{
-		$stmt=$conexion->prepare("INSERT INTO puntajes (id_juego, id_usuario, puntaje, fecha) VALUES ('".$id_juego."','".$id_usuario."','".$puntaje."','".$fecha."')");
+		$stmt=$conexion->prepare("INSERT INTO puntajes (id_juego, id_usuario, puntaje, fechaJuego) VALUES ('".$id_juego."','".$id_usuario."','".$puntaje."','".$fecha."')");
 		$stmt->execute();
 	}
 
