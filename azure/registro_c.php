@@ -91,12 +91,12 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
                     <?php
                     if(isset($_SESSION['usuario']))
                     {
-                        echo '<li class="submenu-item"><a href="azure/perfil.php">Perfil</a></li>';
-                        echo '<li class="submenu-item"><a href="azure/cerrarsesion.php">Salir</a></li>';
+                        echo '<li class="submenu-item"><a href="/perfil.php">Perfil</a></li>';
+                        echo '<li class="submenu-item"><a href="/cerrarsesion.php">Salir</a></li>';
                     }
                     else
                     {                      
-                        echo '<li class="submenu-item"><a href="azure/login.php">Ingreso</a></li>';
+                        echo '<li class="submenu-item"><a href="/login.php">Ingreso</a></li>';
 						echo '<li class="submenu-item"><a href="azure/registro.php">Registro</a></li>';
                     }
                     ?>
