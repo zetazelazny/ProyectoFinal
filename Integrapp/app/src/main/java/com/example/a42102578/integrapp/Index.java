@@ -22,16 +22,14 @@ public class Index extends AppCompatActivity {
 
     public void MenuPrincipal (View Vista)
     {
-        Intent IrAMenuPrincipal = new Intent (this, MenuPrincipal.class);
-        startActivity(IrAMenuPrincipal);
-
+        Intent irALista = new Intent (this, SeleccionUsuarios.class);
+        startActivity(irALista);
+        Log.d("Debug","Sale de la vista");
     }
 
     public void Demo(View Vista)
     {
-        Intent irALista = new Intent (this, SeleccionUsuarios.class);
-        startActivity(irALista);
-        Log.d("Debug","Sale de la vista");
+
     }
 
   /*  public void Saludar (View Vista)

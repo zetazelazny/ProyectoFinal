@@ -312,7 +312,7 @@ public class Conceptos extends AppCompatActivity {
                             .setType(MultipartBody.FORM)
                             .addFormDataPart("id_juego", parametros[0])
                             .addFormDataPart("id_usuario", parametros[1])
-                            .addFormDataPart("puntaje", parametros[1])
+                            .addFormDataPart("puntaje", parametros[2])
                             .build();
                     Log.d("Juego", "4");
 
