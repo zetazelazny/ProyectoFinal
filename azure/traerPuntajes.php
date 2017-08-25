@@ -12,7 +12,7 @@ $stmt->execute();
 $stmt->fetch(PDO::FETCH_ASSOC);
 
 foreach( $stmt as $valor) {
-    echo"<table>"
+    echo"<table>";
 	echo "<tr>";  
 	echo "<th>Juego</th>";  
 	echo "<th>Nombre</th>";  
@@ -27,8 +27,6 @@ foreach( $stmt as $valor) {
     echo "</tr>";
 	echo "</table>";
 }
-
-
 
 ?>
 
