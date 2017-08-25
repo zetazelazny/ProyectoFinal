@@ -1,13 +1,16 @@
 package com.example.a42102578.integrapp;
 
+import android.content.Intent;
 import android.util.EventLog;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import org.cocos2d.actions.interval.Animate;
 import org.cocos2d.actions.interval.MoveTo;
 import org.cocos2d.actions.interval.ScaleBy;
 import org.cocos2d.layers.Layer;
+import org.cocos2d.nodes.Animation;
 import org.cocos2d.nodes.Director;
 import org.cocos2d.nodes.Label;
 import org.cocos2d.nodes.Scene;
@@ -16,13 +19,15 @@ import org.cocos2d.opengl.CCGLSurfaceView;
 import org.cocos2d.types.CCColor3B;
 import org.cocos2d.types.CCSize;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 /**
  * Created by 42102517 on 18/7/2017.
+ */
+
+/*Primer problema: PelotaTocada, no encuenra el tag.
+  Segundo " : NumeroMenor y NumeroMAyor tienen el mismo valor
  */
 
 public class clsPelotas {
@@ -40,35 +45,25 @@ public class clsPelotas {
     Sprite Pelota8;
     Sprite Pelota9;
     Sprite Pelota10;
+    Sprite PelotaTocada;
 
-    float PosInicialX1;
-    float PosInicialY1;
-    float PosInicialX2;
-    float PosInicialY2;
-    float PosInicialX3;
-    float PosInicialY3;
-    float PosInicialX4;
-    float PosInicialY4;
-    float PosInicialX5;
-    float PosInicialY5;
-    float PosInicialX6;
-    float PosInicialY6;
-    float PosInicialX7;
-    float PosInicialY7;
-    float PosInicialX8;
-    float PosInicialY8;
-    float PosInicialX9;
-    float PosInicialY9;
-    float PosInicialX10;
-    float PosInicialY10;
+    float[] VecPosX = new float[11];
+    float[] VecPosY = new float[11];
+    boolean[] PelotasElegidas = new boolean[11];
+    int CantPelotasElegidas = 0;
 
     Label lblHueso;
-    Integer NumeroObjetoTocado;
+    Integer NumeroObjetoTocado = 0;
+    Integer NumeroHueso;
+    int vidas = 6;
+    int contaciertos = 0;
 
 
     public clsPelotas(CCGLSurfaceView VistaPelotas) {
         _VistaPelotas = VistaPelotas;
-        NumeroObjetoTocado = 0;
+        //NumeroObjetoTocado = 0;
+        //super.schedule("InterseccionEntreSprites", 0.1f);
+
     }
 
     public void ComenzarJuego() {
@@ -78,11 +73,11 @@ public class clsPelotas {
         //ejecucion de la escena
         Director.sharedDirector().runWithScene(EscenaDePelotas());
 
-      /*  //random perros
+        //random perros
         Random generadorAzar;
         generadorAzar = new Random();
         Integer delal10;
-        delal10 = generadorAzar.nextInt(11);*/
+        delal10 = generadorAzar.nextInt(11);
 
     }
 
@@ -117,8 +112,7 @@ public class clsPelotas {
             PonerImagenFondo();
         }
 
-        private void PonerImagenFondo()
-        {
+        private void PonerImagenFondo() {
             ImagenFondo = Sprite.sprite("fondoperro.jpg");
             ImagenFondo.setPosition(PantallaDelDispositivo.width / 2, PantallaDelDispositivo.height / 2);
             //escalando el fondo de la app
@@ -128,57 +122,64 @@ public class clsPelotas {
     }
 
     class CapaDelPerro extends Layer {
-        public CapaDelPerro()
-        {
+        public CapaDelPerro() {
             PonerCapaDelPerro();
-            PonerNumeroInicial();
         }
-        private void PonerCapaDelPerro()
-        {
+
+        private void PonerCapaDelPerro() {
             Perro = Sprite.sprite("perrito.png");
             Perro.setPosition(PantallaDelDispositivo.width / 2, Perro.getHeight() / 2);
             super.addChild(Perro);
         }
 
-        private void PonerNumeroInicial()
-        {
+        /*private void PonerNumero() {
             Random numeroazar;
             numeroazar = new Random();
             int numazar = numeroazar.nextInt(11);
-            String numero = "";
-            numero = String.valueOf(numazar);
-            lblHueso = Label.label(numero, "Comic Sans", 50);
-            lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
-            CCColor3B colornumero = new CCColor3B(37, 37, 132);
-            lblHueso.setColor(colornumero);
-            super.addChild(lblHueso);
-        }
-
-     /*   private void PonerNumero() {
-            Random numeroazar;
-            numeroazar = new Random();
-            int numazar = numeroazar.nextInt(11);
-            //int numerojugar = 5;
-            lblHueso = Label.label("", "Comic Sans", 50);
-            lblHueso.setPosition(PantallaDelDispositivo.getWidth()* 0.50f, Perro.getHeight()/8);
-            CCColor3B colornumero = new CCColor3B(37, 37, 132);
-            lblHueso.setColor(colornumero);
-
-            while (numazar!=0)
-            {
-                lblHueso.setString("" + numazar);
-            }while (numazar!=0);
-            super.addChild(lblHueso);
+            int numerojugar = 5;
+            lblHueso.setString("" + numerojugar);
         }*/
     }
 
     //-----------------PELOTA 1----------------------
-    class CapaPelotas extends Layer
-    {
-        public CapaPelotas()
-        {
+    class CapaPelotas extends Layer {
+        public CapaPelotas() {
             PonerPelotas();
+            Log.d("CapaPelotas", "Inicio el timer");
+            //super.schedule("InterseccionEntreSprites", 0.1f);
             this.setIsTouchEnabled(true);
+            ElegirNumeroPelota();
+            VaciarPelotasElegidas();
+        }
+
+        public void VaciarPelotasElegidas()
+        {
+            PelotasElegidas[0]=true;
+            for(int i=0; i<11;i++)
+            {
+                PelotasElegidas[i]=false;
+            }
+        }
+        public void ElegirNumeroPelota() {
+
+            int numazar=0;
+            while (PelotasElegidas[numazar] || numazar==0) {
+                Random numeroazar;
+                numeroazar = new Random();
+                numazar = numeroazar.nextInt(10) + 1;
+                String numero = "";
+                numero = String.valueOf(numazar);
+                lblHueso = Label.label(numero, "Comic Sans", 50);
+                lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, 56
+
+                );
+                CCColor3B colornumero = new CCColor3B(37, 37, 132);
+                lblHueso.setColor(colornumero);
+
+                NumeroHueso = numazar;
+            }
+
+            super.addChild(lblHueso);
         }
 
         private void PonerPelotas() {
@@ -193,53 +194,52 @@ public class clsPelotas {
             Pelota8 = Sprite.sprite("pelota8.png");
             Pelota9 = Sprite.sprite("pelota9.png");
             Pelota10 = Sprite.sprite("pelota10.png");
-            //List<Sprite> listaSprites = Arrays.asList(Pelota1,Pelota2,Pelota3,Pelota4,Pelota5,Pelota6,Pelota7,Pelota8,Pelota9, Pelota10);
+            PelotaTocada = Sprite.sprite("pelotavacia.png");
 
             //primera fila
             float PosicionInicialX, PosicionInicialY;
+            VecPosX[1]= PantallaDelDispositivo.width * 0.20f;
+            VecPosY[1]=PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
+            Pelota1.setPosition(VecPosX[1], VecPosY[1]);
 
-            PosInicialX1= PantallaDelDispositivo.width * 0.20f;
-            PosInicialY1 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
-            Pelota1.setPosition(PosInicialX1, PosInicialY1);
+            VecPosX[2] = PantallaDelDispositivo.width * 0.40f;
+            VecPosY[2] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
+            Pelota2.setPosition(VecPosX[2], VecPosY[2]);
 
-            float PosicionInicialX2 = PantallaDelDispositivo.width * 0.40f;
-            float PosicionInicialY2 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
-            Pelota2.setPosition(PosicionInicialX2, PosicionInicialY2);
+            VecPosX[3] = PantallaDelDispositivo.width * 0.60f;
+            VecPosY[3] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
+            Pelota3.setPosition(VecPosX[3], VecPosY[3]);
 
-            float PosicionInicialX3 = PantallaDelDispositivo.width * 0.60f;
-            float PosicionInicialY3 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
-            Pelota3.setPosition(PosicionInicialX3, PosicionInicialY3);
-
-            float PosicionInicialX4 = PantallaDelDispositivo.width * 0.80f;
-            float PosicionInicialY4 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
-            Pelota4.setPosition(PosicionInicialX4, PosicionInicialY4);
+            VecPosX[4] = PantallaDelDispositivo.width * 0.80f;
+            VecPosY[4] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.1f;
+            Pelota4.setPosition(VecPosX[4], VecPosY[4]);
 
             //segunda fila
-           float PosicionInicialX5 = PantallaDelDispositivo.width * 0.30f;
-           float PosicionInicialY5 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
-            Pelota5.setPosition(PosicionInicialX5, PosicionInicialY5);
+            VecPosX[5] = PantallaDelDispositivo.width * 0.30f;
+            VecPosY[5] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
+            Pelota5.setPosition(VecPosX[5], VecPosY[5]);
 
-            float PosicionInicialX6 = PantallaDelDispositivo.width * 0.50f;
-            float PosicionInicialY6 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
-            Pelota6.setPosition(PosicionInicialX6, PosicionInicialY6);
+            VecPosX[6] = PantallaDelDispositivo.width * 0.50f;
+            VecPosY[6] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
+            Pelota6.setPosition(VecPosX[6],VecPosY[6]);
 
-            float PosicionInicialX7 = PantallaDelDispositivo.width * 0.70f;
-            float PosicionInicialY7 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
-            Pelota7.setPosition(PosicionInicialX7, PosicionInicialY7);
+            VecPosX[7] = PantallaDelDispositivo.width * 0.70f;
+            VecPosY[7] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.2f;
+            Pelota7.setPosition(VecPosX[7],VecPosY[7]);
 
             //tercera fila
-            float PosicionInicialX8 = PantallaDelDispositivo.width * 0.40f;
-            float PosicionInicialY8 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.3f;
-            Pelota8.setPosition(PosicionInicialX8, PosicionInicialY8);
+            VecPosX[8] = PantallaDelDispositivo.width * 0.40f;
+            VecPosY[8] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.3f;
+            Pelota8.setPosition(VecPosX[8], VecPosY[8]);
 
-            float PosicionInicialX9 = PantallaDelDispositivo.width * 0.60f;
-            float PosicionInicialY9 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.3f;
-            Pelota9.setPosition(PosicionInicialX9, PosicionInicialY9);
+            VecPosX[9] = PantallaDelDispositivo.width * 0.60f;
+            VecPosY[9]= PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.3f;
+            Pelota9.setPosition(VecPosX[9], VecPosY[9]);
 
             //cuarta fila
-            float PosicionInicialX10 = PantallaDelDispositivo.width * 0.50f;
-            float PosicionInicialY10 = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.4f;
-            Pelota10.setPosition(PosicionInicialX10, PosicionInicialY10);
+            VecPosX[10] = PantallaDelDispositivo.width * 0.50f;
+            VecPosY[10] = PantallaDelDispositivo.height - PantallaDelDispositivo.height * 0.4f;
+            Pelota10.setPosition(VecPosX[10], VecPosY[10]);
 
             //lo agrego a la capa
             super.addChild(Pelota1); //preguntar
@@ -261,7 +261,7 @@ public class clsPelotas {
             float bordesuperior = objtocado.getPositionY() + objtocado.getHeight() / 2;
             float bordeinferior = objtocado.getPositionY() - objtocado.getHeight() / 2;
 
-            Log.d("EstaTocando", "BI: "+bordeizquierdo + " - BD: "+bordederecho+" - BInf: "+bordeinferior+" - BS: "+bordesuperior);
+            Log.d("EstaTocando", "BI: " + bordeizquierdo + " - BD: " + bordederecho + " - BInf: " + bordeinferior + " - BS: " + bordesuperior);
 
 
             if (posicionXtocada > bordeizquierdo && posicionXtocada < bordederecho && posicionYtocada < bordesuperior && posicionYtocada > bordeinferior) {
@@ -273,76 +273,65 @@ public class clsPelotas {
             return estatocando;
         }
 
-        //-----------------------MOVIMIENTOS-------------------------------------
+        //----------------------------MOVIMIENTOS----------------------------
 
-        public boolean ccTouchesBegan(MotionEvent event)
-        {
+        public boolean ccTouchesBegan(MotionEvent event) {
             float posX = event.getX();
             float posY = PantallaDelDispositivo.getHeight() - event.getY();
-            Log.d("Toque comienza", "X: "+ posX+" -Y: " +posY);
+            Log.d("Toque comienza", "X: " + posX + " -Y: " + posY);
 
             if (EstaTocandoElObjeto(posX, posY, Pelota1)) {
-                Log.d("EstaTocando", "Esta tocando la 1");
                 NumeroObjetoTocado = 1;
-            }else {
-                if (EstaTocandoElObjeto(posX,posY,Pelota2)) {
-                    Log.d("EstaTocando", "Esta tocando la 2");
+                PelotaTocada = Pelota1;
+                //     Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+            } else {
+                if (EstaTocandoElObjeto(posX, posY, Pelota2)) {
                     NumeroObjetoTocado = 2;
-                }
-                else {
-                    if (EstaTocandoElObjeto(posX, posY, Pelota3))
-                    {
-                        Log.d("EstaTocando", "Esta tocando la 3");
+                    PelotaTocada = Pelota2;
+                    //       Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                } else {
+                    if (EstaTocandoElObjeto(posX, posY, Pelota3)) {
                         NumeroObjetoTocado = 3;
-                    }
-                    else
-                    {
-                        if (EstaTocandoElObjeto(posX,posY,Pelota4))
-                        {
-                            Log.d("EstaTocando", "Esta tocando la 4");
+                        PelotaTocada = Pelota3;
+                        //         Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                    } else {
+                        if (EstaTocandoElObjeto(posX, posY, Pelota4)) {
                             NumeroObjetoTocado = 4;
-                        }
-                        else
-                        {
-                            if (EstaTocandoElObjeto(posX, posY, Pelota5))
-                            {
-                                Log.d("EstaTocando", "Esta tocando la 5");
+                            PelotaTocada = Pelota4;
+                            //           Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                        } else {
+                            if (EstaTocandoElObjeto(posX, posY, Pelota5)) {
                                 NumeroObjetoTocado = 5;
-                            }
-                            else
-                            {
-                                if (EstaTocandoElObjeto(posX, posY, Pelota6))
-                                {
-                                    Log.d("EstaTocando", "Esta tocando la 6");
+                                PelotaTocada = Pelota5;
+                                //             Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                            } else {
+                                if (EstaTocandoElObjeto(posX, posY, Pelota6)) {
                                     NumeroObjetoTocado = 6;
-                                }
-                                else
-                                {
-                                    if (EstaTocandoElObjeto(posX,posY,Pelota7))
-                                    {
-                                        Log.d("EstaTocando", "Esta tocando la 7");
+                                    PelotaTocada = Pelota6;
+                                    //               Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                                } else {
+                                    if (EstaTocandoElObjeto(posX, posY, Pelota7)) {
                                         NumeroObjetoTocado = 7;
-                                    }
-                                    else
-                                    {
-                                        if (EstaTocandoElObjeto(posX, posY,Pelota8))
-                                        {
-                                            Log.d("EstaTocando", "Esta tocando la 8");
+                                        PelotaTocada = Pelota7;
+                                        //                 Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                                    } else {
+                                        if (EstaTocandoElObjeto(posX, posY, Pelota8)) {
                                             NumeroObjetoTocado = 8;
-                                        }
-                                        else
-                                        {
-                                            if (EstaTocandoElObjeto(posX, posY, Pelota9))
-                                            {
-                                                Log.d("EstaTocando", "Esta tocando la 9");
+                                            PelotaTocada = Pelota8;
+                                            //                   Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                                        } else {
+                                            if (EstaTocandoElObjeto(posX, posY, Pelota9)) {
                                                 NumeroObjetoTocado = 9;
-                                            }
-                                            else
-                                            {
-                                                if (EstaTocandoElObjeto(posX,posY,Pelota10))
-                                                {
-                                                    Log.d("EstaTocando", "Esta tocando la 10");
+                                                PelotaTocada = Pelota9;
+                                                //                     Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                                            } else {
+                                                if (EstaTocandoElObjeto(posX, posY, Pelota10)) {
                                                     NumeroObjetoTocado = 10;
+                                                    PelotaTocada = Pelota10;
+                                                    //                       Log.d("EstaTocando", "Esta tocando la: " + NumeroObjetoTocado + "La pelota es la : " +PelotaTocada);
+                                                } else {
+                                                    NumeroObjetoTocado = 0;
+                                                    //                     Log.d("EstaTocando", "No esta tocando nada " + NumeroObjetoTocado );
                                                 }
                                             }
                                         }
@@ -351,92 +340,454 @@ public class clsPelotas {
                             }
                         }
                     }
+                }
+            }
+
+
+            return true;
+        }
+
+        public boolean ccTouchesMoved(MotionEvent event) {
+            float posX = event.getX();
+            float posY = PantallaDelDispositivo.getHeight() - event.getY();
+            // Log.d("Toque comienza", "X: " + posX + " -Y: " + posY);
+
+            if (NumeroObjetoTocado == 1) {
+                Pelota1.setPosition(posX, posY);
+                // PelotaTocada = Pelota1;
+            } else {
+                if (NumeroObjetoTocado == 2) {
+                    Pelota2.setPosition(posX, posY);
+                    //   PelotaTocada = Pelota2;
+                } else {
+                    if (NumeroObjetoTocado == 3) {
+                        Pelota3.setPosition(posX, posY);
+                        //     PelotaTocada = Pelota3;
+                    } else {
+                        if (NumeroObjetoTocado == 4) {
+                            Pelota4.setPosition(posX, posY);
+                            //       PelotaTocada = Pelota4;
+                        } else {
+                            if (NumeroObjetoTocado == 5) {
+                                Pelota5.setPosition(posX, posY);
+                                //         PelotaTocada = Pelota5;
+                            } else {
+                                if (NumeroObjetoTocado == 6) {
+                                    Pelota6.setPosition(posX, posY);
+                                    //           PelotaTocada = Pelota6;
+                                } else {
+                                    if (NumeroObjetoTocado == 7) {
+                                        Pelota7.setPosition(posX, posY);
+                                        //             PelotaTocada = Pelota7;
+                                    } else if (NumeroObjetoTocado == 8) {
+                                        Pelota8.setPosition(posX, posY);
+                                        //           PelotaTocada = Pelota8;
+                                    } else {
+                                        if (NumeroObjetoTocado == 9) {
+                                            Pelota9.setPosition(posX, posY);
+                                            //             PelotaTocada = Pelota9;
+                                        } else {
+                                            if (NumeroObjetoTocado == 10) {
+                                                Pelota10.setPosition(posX, posY);
+                                                //               PelotaTocada = Pelota10;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Log.d("EstaMoviendo", "Esta moviendo la pelota1");
+            // InterseccionEntreSprites(PelotaTocada, Perro);
+            return true;
+        }
+
+        public boolean ccTouchesEnded(MotionEvent event)
+        {
+            InterseccionEntreSprites(PelotaTocada, Perro);
+            float posX = event.getX();
+            float posY = PantallaDelDispositivo.getHeight() - event.getY();
+
+            if (NumeroObjetoTocado == NumeroHueso) {
+                if (posX > 545 && posX < 660 && posY > 50 && posY < 91) {
+                    // desaparece
+                    PelotaTocada.setVisible(false);
+                    CantPelotasElegidas++;
+                    if (CantPelotasElegidas<10)
+                    {
+                        super.removeChild(lblHueso, true);
+                        PelotasElegidas[NumeroHueso] = true;
+                        ElegirNumeroPelota();
+                    }
+                    else
+                    {
+                        //Pantalla GANE
+                    }
+                } else {
+                    // vuelve arriba
+                    Log.d("EstaMoviendo", "Esta moviendo la pelota ");
+                   PelotaTocada.runAction(MoveTo.action(1.0f, VecPosX[NumeroObjetoTocado], VecPosY[NumeroObjetoTocado]));
 
                 }
-
+            } else {
+                // vuelve arriba
+                PelotaTocada.runAction(MoveTo.action(1.0f, VecPosX[NumeroObjetoTocado], VecPosY[NumeroObjetoTocado]));
             }
 
             return true;
         }
+        //------------------ TERMINAN MOVIMIENTOS---------------------------------------------
 
-        public boolean ccTouchesMoved (MotionEvent event)
-        {
-            float posX = event.getX();
-            float posY = PantallaDelDispositivo.getHeight() - event.getY();
-            Log.d("Toque comienza", "X: "+ posX+" -Y: " +posY);
+        boolean InterseccionEntreSprites(Sprite primersprite, Sprite segundosprite) {
+            boolean Devolver;
+            Devolver = false;
 
-           /* if (NumeroObjetoTocado == 1)
+            PelotaTocada = primersprite;
+           /* switch (NumeroObjetoTocado)
             {
-                Pelota1.setPosition(posX, posY);
+                case 1:
+                    Pelota1 = primersprite;
+                    break;
+                case 2:
+                    Pelota2 = primersprite;
+                    break;
+                case 3:
+                    Pelota3 = primersprite;
+                    break;
+                case 4:
+                    Pelota4 = primersprite;
+                    break;
+                case 5:
+                    Pelota5 = primersprite;
+                    break;
+                case 6:
+                    Pelota6 = primersprite;
+                    break;
+                case 7:
+                    Pelota7 = primersprite;
+                    break;
+                case 8:
+                    Pelota8 = primersprite;
+                     break;
+                case 9:
+                    Pelota9 = primersprite;
+                    break;
+                case 10:
+                    Pelota10 = primersprite;
+                    break;
             }*/
-           switch (NumeroObjetoTocado)
-           {
-               case 1:
-                   Pelota1.setPosition(posX, posY);
-                   break;
-               case 2:
-                   Pelota2.setPosition(posX, posY);
-                   break;
-               case 3:
-                   Pelota3.setPosition(posX, posY);
-                   break;
-               case 4:
-                   Pelota4.setPosition(posX, posY);
-                   break;
-               case 5:
-                   Pelota5.setPosition(posX, posY);
-                   break;
-               case 6:
-                   Pelota6.setPosition(posX, posY);
-                   break;
-               case 7:
-                   Pelota7.setPosition(posX, posY);
-                   break;
-               case 8:
-                   Pelota8.setPosition(posX, posY);
-                   break;
-               case 9:
-                   Pelota9.setPosition(posX, posY);
-                   break;
-               case 10:
-                   Pelota10.setPosition(posX, posY);
-                   break;
-           }
+            Perro = segundosprite;
 
-            //Log.d("EstaMoviendo", "Esta moviendo la pelota1");
-            return true;
+            int Sprite1Izquierda, Sprite1Derecha, Sprite1Abajo, Sprite1Arriba;
+            int Sprite2Izquierda, Sprite2Derecha, Sprite2Abajo, Sprite2Arriba;
+
+
+            Sprite1Izquierda = (int) (primersprite.getPositionX() - primersprite.getWidth() / 2);
+            Sprite1Derecha = (int) (primersprite.getPositionX() - primersprite.getWidth() / 2);
+            Sprite1Abajo = (int) (primersprite.getPositionY() - primersprite.getHeight() / 2);
+            Sprite1Arriba = (int) (primersprite.getPositionY() - primersprite.getHeight() / 2);
+
+            Sprite2Izquierda = (int) (segundosprite.getPositionX() - segundosprite.getWidth() / 2);
+            Sprite2Derecha = (int) (segundosprite.getPositionX() - segundosprite.getWidth() / 2);
+            Sprite2Abajo = (int) (segundosprite.getPositionY() - segundosprite.getHeight() / 2);
+            Sprite2Arriba = (int) (segundosprite.getPositionY() - segundosprite.getHeight() / 2);
+
+            //Borde izq y borde inf de Sprite 1 está dentro de Sprite 2
+            if (EstaEntre(Sprite1Izquierda, Sprite2Izquierda, Sprite2Derecha) &&
+                    EstaEntre(Sprite1Abajo, Sprite2Abajo, Sprite2Arriba)) {
+                Log.d("Interseccion", "1");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde izq y borde sup de Sprite 1 está dentro de Sprite 2
+            if (EstaEntre(Sprite1Izquierda, Sprite2Izquierda, Sprite2Derecha) &&
+                    EstaEntre(Sprite1Arriba, Sprite2Abajo, Sprite2Arriba)) {
+                Log.d("Interseccion", "2");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde der y borde sup de Sprite 1 está dentro de Sprite 2
+            if (EstaEntre(Sprite1Derecha, Sprite2Izquierda, Sprite2Derecha) &&
+                    EstaEntre(Sprite1Arriba, Sprite2Abajo, Sprite2Arriba)) {
+                Log.d("Interseccion", "3");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde der y borde inf de Sprite 1 está dentro de Sprite 2
+            if (EstaEntre(Sprite1Derecha, Sprite2Izquierda, Sprite2Derecha) &&
+                    EstaEntre(Sprite1Abajo, Sprite2Abajo, Sprite2Arriba)) {
+                Log.d("Interseccion", "4");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde izq y borde inf de Sprite 2 está dentro de Sprite 1
+            if (EstaEntre(Sprite2Izquierda, Sprite1Izquierda, Sprite1Derecha) &&
+                    EstaEntre(Sprite2Abajo, Sprite1Abajo, Sprite1Arriba)) {
+                Log.d("Interseccion", "5");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde izq y borde sup de Sprite 1 está dentro de Sprite 1
+            if (EstaEntre(Sprite2Izquierda, Sprite1Izquierda, Sprite1Derecha) &&
+                    EstaEntre(Sprite2Arriba, Sprite1Abajo, Sprite1Arriba)) {
+                Log.d("Interseccion", "6");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde der y borde sup de Sprite 2 está dentro de Sprite 1
+            if (EstaEntre(Sprite2Derecha, Sprite1Izquierda, Sprite1Derecha) &&
+                    EstaEntre(Sprite2Arriba, Sprite1Abajo, Sprite1Arriba)) {
+                Log.d("Interseccion", "7");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            //Borde der y borde inf de Sprite 2 está dentro de Sprite 1
+            if (EstaEntre(Sprite2Derecha, Sprite1Izquierda, Sprite1Derecha) &&
+                    EstaEntre(Sprite2Abajo, Sprite1Abajo, Sprite1Arriba)) {
+                Log.d("Interseccion", "8");
+                Devolver = true;
+                if (Devolver == true) {
+                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                } else {
+                    Log.d("Interseccion", "no toca");
+                }
+            }
+
+            return Devolver;
         }
 
-        public boolean ccTouchesEnded (MotionEvent event)
-        {
-            Pelota1.runAction(MoveTo.action(1.0f, PosInicialX1,PosInicialY1));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota2.runAction(MoveTo.action(1.0f, PosInicialX2,PosInicialY2));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota3.runAction(MoveTo.action(1.0f, PosInicialX3,PosInicialY3));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota4.runAction(MoveTo.action(1.0f, PosInicialX4,PosInicialY4));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota5.runAction(MoveTo.action(1.0f, PosInicialX5,PosInicialY5));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota6.runAction(MoveTo.action(1.0f, PosInicialX6,PosInicialY6));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota7.runAction(MoveTo.action(1.0f, PosInicialX7,PosInicialY7));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota8.runAction(MoveTo.action(1.0f, PosInicialX8,PosInicialY8));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota9.runAction(MoveTo.action(1.0f, PosInicialX9,PosInicialY9));
-            Log.d("Toque Termino", "solto el objeto");
-            Pelota10.runAction(MoveTo.action(1.0f, PosInicialX10,PosInicialY10));
-            Log.d("Toque Termino", "solto el objeto");
-            return true;
+        boolean EstaEntre(int NumeroAComparar, int NumeroMenor, int NumeroMayor) {
+            boolean Devolver;
+
+            Log.d("EstaEntre", "Numero menor: " + NumeroMenor + "Numero mayor: " + NumeroMayor);
+
+            if (NumeroMenor > NumeroMayor) {
+                Log.d("EstaEntre", "Me los mandaron invertidos, los ordeno");
+                int Auxiliar = NumeroMayor;
+                NumeroMayor = NumeroMenor;
+                NumeroMenor = Auxiliar;
+            }
+            if (NumeroAComparar >= NumeroMenor && NumeroAComparar <= NumeroMayor) {
+                Devolver = true;
+            } else {
+                Devolver = false;
+            }
+            return Devolver;
         }
 
+        public void Verifico(Sprite primersprite, Integer NumObjeto, Integer NumHueso) {
+            switch (NumObjeto) {
+                case 1:
+                    Pelota1 = primersprite;
+                    break;
+                case 2:
+                    Pelota2 = primersprite;
+                    break;
+                case 3:
+                    Pelota3 = primersprite;
+                    break;
+                case 4:
+                    Pelota4 = primersprite;
+                    break;
+                case 5:
+                    Pelota5 = primersprite;
+                    break;
+                case 6:
+                    Pelota6 = primersprite;
+                    break;
+                case 7:
+                    Pelota7 = primersprite;
+                    break;
+                case 8:
+                    Pelota8 = primersprite;
+                    break;
+                case 9:
+                    Pelota9 = primersprite;
+                    break;
+                case 10:
+                    Pelota10 = primersprite;
+                    break;
+            }
+            // super.unschedule("InterseccionEntreSprites");
+            //     Log.d("Timer", "Termino el timer");
+            if (NumObjeto == NumHueso) {
+                Log.d("Coinciden", "Si, coinciden");
+                PerroFesteja();
+                Log.d("Coinciden", "Hago invisible el sprite");
+                PelotaTocada.setVisible(false);
+                contaciertos++;
+                if (contaciertos == 10) {
+                    Log.d("Gano", "Deberia mostrar la pantalla ganar");
+                        /*Intent Intento = new Intent (this, Gano.class);
+                        startActivity(Intento);
+                         */
+                    String gana = "¡Ganaste!";
+                    lblHueso = Label.label(gana, "Comic Sans", 50);
+                    lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
+                    CCColor3B colornumero = new CCColor3B(37, 37, 132);
+                    lblHueso.setColor(colornumero);
+                    super.addChild(lblHueso);
 
+                }
+            } else {
+                Log.d("Coinciden", "No coinciden");
+                vidas--;
+                if (vidas == 0) {
+                    Log.d("Perdio", "Deberia mostrar la pantalla perder");
+                        /*Intent Intento = new Intent(this, Perder.class);
+                        startActivity(Intento);*/
+                    String perdio = "¡Perdiste!";
+                    lblHueso = Label.label(perdio, "Comic Sans", 50);
+                    lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
+                    CCColor3B colornumero = new CCColor3B(37, 37, 132);
+                    lblHueso.setColor(colornumero);
+                    super.addChild(lblHueso);
+                } else {
+                    PerroTriste();
+                    vidas--;
+     /*               switch (NumObjeto) {
+                        case 1:
+                            Pelota1.setPosition(PosInicialX1, PosInicialY1);
+                            break;
+                        case 2:
+                            Pelota2.setPosition(PosInicialX2, PosInicialY2);
+                            break;
+                        case 3:
+                            Pelota3.setPosition(PosInicialX3, PosInicialY3);
+                            break;
+                        case 4:
+                            Pelota4.setPosition(PosInicialX4, PosInicialY4);
+                            break;
+                        case 5:
+                            Pelota5.setPosition(PosInicialX5, PosInicialY5);
+                            break;
+                        case 6:
+                            Pelota6.setPosition(PosInicialX6, PosInicialY6);
+                            break;
+                        case 7:
+                            Pelota7.setPosition(PosInicialX7, PosInicialY7);
+                            break;
+                        case 8:
+                            Pelota8.setPosition(PosInicialX8, PosInicialY8);
+                            break;
+                        case 9:
+                            Pelota9.setPosition(PosInicialX9, PosInicialY9);
+                            break;
+                        case 10:
+                            Pelota10.setPosition(PosInicialX10, PosInicialY10);
+                            break;
+                    }*/
+                }
+
+            }
+        }
+
+        public void PerroFesteja() {
+            Log.d("PerroFesteja", "Festeja");
+            Animation AnimacionSecuencia;
+            AnimacionSecuencia = new Animation("Anim", 0.2f, "perrito.png", "perrocontento.png");
+            Perro.runAction(Animate.action(AnimacionSecuencia));
+        }
+
+        public void PerroTriste() {
+            Log.d("PerroTriste", "Se equivoco");
+            Animation AnimacionSecuencia2;
+            AnimacionSecuencia2 = new Animation("Anim2", 0.2f, "perrito.png", "perrotriste.png");
+            Perro.runAction(Animate.action(AnimacionSecuencia2));
+        }
 
     }
-
-
 }
+
+/*            if (NumeroObjetoTocado == 1) {
+                Log.d("Toque Termino", "solto el objeto"+ posX + " "+ posY);
+                Pelota1.runAction(MoveTo.action(1.0f, PosInicialX1, PosInicialY1));
+                //Log.d("Toque Termino", "solto el objeto"+ Pelota1.getPositionX() + " "+ getPositionY());
+            } else {
+                if (NumeroObjetoTocado == 2) {
+                    Pelota2.runAction(MoveTo.action(1.0f, PosInicialX2, PosInicialY2));
+                    Log.d("Toque Termino", "solto el objeto");
+                } else {
+                    if (NumeroObjetoTocado == 3) {
+                        Pelota3.runAction(MoveTo.action(1.0f, PosInicialX3, PosInicialY3));
+                        Log.d("Toque Termino", "solto el objeto");
+                    } else {
+                        if (NumeroObjetoTocado == 4) {
+                            Pelota4.runAction(MoveTo.action(1.0f, PosInicialX4, PosInicialY4));
+                            Log.d("Toque Termino", "solto el objeto");
+                        } else {
+                            if (NumeroObjetoTocado == 5) {
+                                Pelota5.runAction(MoveTo.action(1.0f, PosInicialX5, PosInicialY5));
+                                Log.d("Toque Termino", "solto el objeto");
+                            } else {
+                                if (NumeroObjetoTocado == 6) {
+                                    Pelota6.runAction(MoveTo.action(1.0f, PosInicialX6, PosInicialY6));
+                                    Log.d("Toque Termino", "solto el objeto");
+                                } else {
+                                    if (NumeroObjetoTocado == 7) {
+                                        Pelota7.runAction(MoveTo.action(1.0f, PosInicialX7, PosInicialY7));
+                                        Log.d("Toque Termino", "solto el objeto");
+                                    } else {
+                                        if (NumeroObjetoTocado == 8) {
+                                            Pelota8.runAction(MoveTo.action(1.0f, PosInicialX8, PosInicialY8));
+                                            Log.d("Toque Termino", "solto el objeto");
+                                        } else {
+                                            if (NumeroObjetoTocado == 9) {
+                                                Pelota9.runAction(MoveTo.action(1.0f, PosInicialX9, PosInicialY9));
+                                                Log.d("Toque Termino", "solto el objeto");
+                                            } else {
+                                                if (NumeroObjetoTocado == 10) {
+                                                    Pelota10.runAction(MoveTo.action(1.0f, PosInicialX10, PosInicialY10));
+                                                    Log.d("Toque Termino", "solto el objeto");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+*/
+
 
 
