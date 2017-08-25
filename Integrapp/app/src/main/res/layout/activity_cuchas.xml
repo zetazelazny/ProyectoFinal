@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@drawable/habitacion"
-    android:orientation="horizontal">
-    tools:context="com.example.a42102578.integrapp.Memotest">
+    android:orientation="horizontal"
+    tools:context="com.example.a42102578.integrapp.activity_cuchas">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

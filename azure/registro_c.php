@@ -19,7 +19,7 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
   
           $_POST['usuario'] = str_replace(' ', '', $_POST['usuario']);
           $_POST['usuario'] = strtolower($_POST['usuario']);
-          mysql_query("INSERT INTO usuarios (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad) 
+          mysql_query("INSERT INTO profesionales (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad) 
           VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['email']."','".$_POST['telefono']."','".$_POST['cca']."','".$_POST['titulo']."','".$_POST['profesion']."','".$_POST['descripcion']."','".$_POST['provincia']."','".$_POST['localidad']."')", $con)
           or die(mysql_error());       
 

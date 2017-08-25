@@ -10,7 +10,7 @@ include("funciones/config.php");
 		mysql_select_db($db,$con) or die("error bd");
 		$usuario = $_POST['usuario'];
 		$password = $_POST['password'];
-		$log = mysql_query("SELECT usuario, nombre, apellido, id FROM usuarios WHERE usuario='$usuario' AND password='$password'");
+		$log = mysql_query("SELECT usuario, nombre, apellido, id FROM profesionales WHERE usuario='$usuario' AND password='$password'");
 		if(mysql_num_rows($log)>0)
 		{
 			$row = mysql_fetch_array($log);
