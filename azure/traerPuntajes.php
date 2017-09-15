@@ -24,9 +24,9 @@ foreach( $stmt as $valor) {
     echo "<td>".$valor['nombre']."</td>";
     echo "<td>".$valor['apellido']."</td>";
     echo "<td>".$valor['puntaje']."</td>";
-   
+   echo "</tr>";
 }
- echo "</tr>";
+ 
     echo "</table>";
 
 
