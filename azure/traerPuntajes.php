@@ -12,22 +12,24 @@ $stmt->execute();
 $stmt->fetch(PDO::FETCH_ASSOC);
  echo"<table>";
     echo "<tr>";  
+    echo "<th>Juego</th>";  
+    echo "<th>Nombre</th>";  
+    echo "<th>Apellido</th>"; 
+    echo "<th>Puntaje</th>";   
+    echo "</tr>";
 foreach( $stmt as $valor) {
    
-	echo "<th>Juego</th>";  
-	echo "<th>Nombre</th>";  
-	echo "<th>Apellido</th>"; 
-	echo "<th>Puntaje</th>";   
-	echo "</tr>";
+	
 	echo "<tr>";
     echo "<td>".$valor['nombrejuego']."</td>";
     echo "<td>".$valor['nombre']."</td>";
     echo "<td>".$valor['apellido']."</td>";
     echo "<td>".$valor['puntaje']."</td>";
-    
+    echo "</tr>";
 }
-echo "</tr>";
+
     echo "</table>";
+
 
 
 ?>
