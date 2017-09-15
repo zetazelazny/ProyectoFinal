@@ -13,9 +13,13 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class SeleccionUsuarios extends AppCompatActivity {
+    String IDs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intentQueLLega = getIntent();
+        Bundle ID = intentQueLLega.getExtras();
+        IDs = ID.getString("id");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_usuarios);
         Log.d("Debug","Entra a la vista");
@@ -30,7 +34,8 @@ public class SeleccionUsuarios extends AppCompatActivity {
         Log.d("Debug","Creo adapter" );
         ListViewUsuarios.setAdapter(Adapter);
         Log.d("Debug","Seteo adapter" );
-        Usuarios.ObtenerUsuarios(Adapter);
+        int IDD = Integer.parseInt(IDs);
+        Usuarios.ObtenerUsuarios(Adapter, IDD);
 
         ListViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

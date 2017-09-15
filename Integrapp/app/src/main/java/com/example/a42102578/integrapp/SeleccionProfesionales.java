@@ -17,27 +17,27 @@ public class SeleccionProfesionales extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_seleccion_profesionales);
             Log.d("Debug","Entra a la vista");
-            ArrayList<Usuarios> ListaUsuarios = new ArrayList<Usuarios>();
-            final Usuarios Usuarios = new Usuarios();
+            ArrayList<Profesionales> ListaProf = new ArrayList<Profesionales>();
+            final Profesionales Prof = new Profesionales();
             //ListaUsuarios = Usuarios.ObtenerUsuarios()
-            Log.d("Debug","Lista size: " + ListaUsuarios.size());
-            final ListView ListViewUsuarios;
-            final ListView ListViewProf = (ListView)findViewById(R.id.ListProf);
-            Adaptador Adapter;
-            Adapter = new Adaptador(ListaUsuarios, this);
+            Log.d("Debug","Lista size: " + ListaProf.size());
+            final ListView ListViewProf;
+            ListViewProf = (ListView)findViewById(R.id.ListProf);
+            AdaptadorProf Adapter;
+            Adapter = new AdaptadorProf(ListaProf, this);
             Log.d("Debug","Creo adapter" );
             ListViewProf.setAdapter(Adapter);
             Log.d("Debug","Seteo adapter" );
-            Usuarios.ObtenerUsuarios(Adapter);
+            Prof.ObtenerProfesionales(Adapter);
 
             ListViewProf.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Object o = ListViewProf.getItemAtPosition(position);
-                    Usuarios Usuario = (Usuarios) (o);
-                    Log.d("Casteando", Usuario._Nombre +"Putoelquelee" + Usuario._Apellido + Usuario._Id);
-                    Intent aPrincipal = new Intent(getApplicationContext(), MenuPrincipal.class);
-                    String Id = String.valueOf(Usuario._Id);
+                    Profesionales Profesional = (Profesionales) (o);
+                    Log.d("Casteando", Profesional._Nombre +"Putoelquelee" + Profesional._Apellido + Profesional._Id);
+                    Intent aPrincipal = new Intent(getApplicationContext(), SeleccionUsuarios.class);
+                    String Id = String.valueOf(Profesional._Id);
                     aPrincipal.putExtra("id", Id);
                     startActivity(aPrincipal);
                 }

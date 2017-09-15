@@ -46,7 +46,7 @@ public class Usuarios {
 
     }
 
-    public void ObtenerUsuarios(Adaptador a) {
+    public void ObtenerUsuarios(Adaptador a, int ID) {
         Lista = new ArrayList<Usuarios>();
         Log.d("Debug","Hasta aca llega");
         String URL ="https//integrapp.azurewebsites.net/azure/traerUsuarios.php";

@@ -16,27 +16,27 @@ import java.util.ArrayList;
  */
 public class AdaptadorProf extends BaseAdapter
 {
-    private ArrayList<Usuarios> ListaUsuario;
+    private ArrayList<Profesionales> ListaProf;
     private Context Contexto;
-    public AdaptadorProf(ArrayList<Usuarios>List, Context ContextoAUsar)
+    public AdaptadorProf(ArrayList<Profesionales>List, Context ContextoAUsar)
     {
-        ListaUsuario = List;
+        ListaProf = List;
         Contexto = ContextoAUsar;
     }
 
-    public void setDatos(ArrayList<Usuarios> ListaUsuario) {
-        this.ListaUsuario = ListaUsuario;
+    public void setDatos(ArrayList<Profesionales> ListaP) {
+        this.ListaProf = ListaP;
     }
     public int getCount()
     {
-        return ListaUsuario.size();
+        return ListaProf.size();
     }
 
-    public Usuarios getItem(int Posicion)
+    public Profesionales getItem(int Posicion)
     {
-        Usuarios UsuarioADevoler;
-        UsuarioADevoler = ListaUsuario.get(Posicion);
-        return UsuarioADevoler;
+        Profesionales ProfADevoler;
+        ProfADevoler = ListaProf.get(Posicion);
+        return ProfADevoler;
     }
 
     public long getItemId (int PosicionAObtener)
@@ -51,18 +51,18 @@ public class AdaptadorProf extends BaseAdapter
         Inflador = (LayoutInflater)Contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         VistaADevolver = Inflador.inflate(R.layout.detalle_usuarios, GrupoActual, false);
         Log.d("Debug", "Infla la lista");
-        Usuarios Usu = getItem(PosicionActual);
-        Log.d("Debug", Usu._Nombre + Usu._Apellido);
+        Profesionales Prof = getItem(PosicionActual);
+        Log.d("Debug", Prof._Nombre + Prof._Apellido);
         TextView Nombre;
         Nombre = (TextView)VistaADevolver.findViewById(R.id.TextNombre);
         TextView Apellido;
         Apellido = (TextView)VistaADevolver.findViewById(R.id.TextApellido);
         TextView Id;
         Id = (TextView)VistaADevolver.findViewById(R.id.TextId);
-        Nombre.setText(Usu.getNombre());
-        Apellido.setText(Usu.getApellido());
-        Id.setText(String.valueOf(Usu.getID()));
-        Log.d("Debug",Usu.getNombre() + Usu.getApellido() + Usu.getID());
+        Nombre.setText(Prof.getNombre());
+        Apellido.setText(Prof.getApellido());
+        Id.setText(String.valueOf(Prof.getID()));
+        Log.d("Debug",Prof.getNombre() + Prof.getApellido() + Prof.getID());
         return VistaADevolver;
 
     }

@@ -22,7 +22,7 @@ public class Index extends AppCompatActivity {
 
     public void MenuPrincipal (View Vista)
     {
-        Intent irALista = new Intent (this, SeleccionUsuarios.class);
+        Intent irALista = new Intent (this, SeleccionProfesionales.class);
         startActivity(irALista);
         Log.d("Debug","Sale de la vista");
     }

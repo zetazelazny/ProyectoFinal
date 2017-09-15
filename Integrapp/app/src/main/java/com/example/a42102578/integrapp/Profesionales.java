@@ -27,7 +27,7 @@ public class Profesionales {
     String _Apellido;
     Boolean esperar;
     ArrayList<Profesionales> Lista;
-    Adaptador a;
+    AdaptadorProf a;
 
    /* public Usuarios(Usuarios Usu) {
         Usuarios Usuario = new Usuarios(Usu);
@@ -46,7 +46,7 @@ public class Profesionales {
 
     }
 
-    public void ObtenerProfesionales(Adaptador a) {
+    public void ObtenerProfesionales(AdaptadorProf a) {
         Lista = new ArrayList<Profesionales>();
         Log.d("Debug","Hasta aca llega");
         String URL ="https//integrapp.azurewebsites.net/azure/traerProfesionales.php";
@@ -74,7 +74,7 @@ public class Profesionales {
 
     public class traerUsuarios extends AsyncTask<String, Void, ArrayList<Profesionales>>
     {
-        protected void onPostExecute (ArrayList<Usuarios>parametroLista)
+        protected void onPostExecute (ArrayList<Profesionales>parametroLista)
         {
             Log.d("Debug postEx", "onPostExecute:" + parametroLista.size() + "");
             //Lista = parametroLista;
@@ -83,16 +83,16 @@ public class Profesionales {
             a.notifyDataSetChanged();
         }
 
-        protected ArrayList<Usuarios> doInBackground (String...parametros)
+        protected ArrayList<Profesionales> doInBackground (String...parametros)
         {
-            ArrayList<Usuarios> returnList = null;
+            ArrayList<Profesionales> returnList = null;
 
             String url = parametros[0];
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
             Request Request;
             Request = new Request.Builder()
-                    .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
+                    .url("http://integrapp.azurewebsites.net/azure/traerProfesionales.php")
                     .build();
 
             try
@@ -117,11 +117,11 @@ public class Profesionales {
             return returnList ;
         }
 
-        public ArrayList<Usuarios> parsearResultado(String Result)throws JSONException
+        public ArrayList<Profesionales> parsearResultado(String Result)throws JSONException
         {
-            ArrayList<Usuarios> returnList = null;
+            ArrayList<Profesionales> returnList = null;
             try{
-                returnList = new ArrayList<Usuarios>();
+                returnList = new ArrayList<Profesionales>();
                 JSONArray jsonUsuarios = new JSONArray(Result);
                 Log.d("Debug", "json: " + Result);
                 for (int i=0; i<jsonUsuarios.length(); i++)
@@ -130,7 +130,7 @@ public class Profesionales {
                     String Nombre = jsonUsuario.getString("nombre");
                     String Apellido = jsonUsuario.getString("apellido");
                     int ID = jsonUsuario.getInt("id");
-                    returnList.add(new Usuarios(Nombre, Apellido, ID));
+                    returnList.add(new Profesionales(Nombre, Apellido, ID));
                     Log.d("Debug", "parsearResultado: " + returnList.size()+ "");
                 }
 
