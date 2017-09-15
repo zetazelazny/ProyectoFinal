@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -46,12 +48,13 @@ public class Usuarios {
 
     }
 
-    public void ObtenerUsuarios(Adaptador a, int ID) {
+    public void ObtenerUsuarios(Adaptador a, String ID) {
+        Log.d("ID USUARIOPROF", ID);
         Lista = new ArrayList<Usuarios>();
         Log.d("Debug","Hasta aca llega");
         String URL ="https//integrapp.azurewebsites.net/azure/traerUsuarios.php";
         Log.d("Debug","Hasta aca tambien");
-        new traerUsuarios().execute(URL);
+        new traerUsuarios().execute(URL, ID);
         Log.d("Debug","Hasta aca llegamos");
         Log.d("Debug Lista", Lista.size() + "");
         this.a = a;
@@ -91,6 +94,10 @@ public class Usuarios {
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
             Request Request;
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("id_profesional", parametros[1])
+                    .build();
             Request = new Request.Builder()
                     .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
                     .build();

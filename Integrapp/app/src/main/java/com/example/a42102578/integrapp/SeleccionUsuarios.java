@@ -34,8 +34,7 @@ public class SeleccionUsuarios extends AppCompatActivity {
         Log.d("Debug","Creo adapter" );
         ListViewUsuarios.setAdapter(Adapter);
         Log.d("Debug","Seteo adapter" );
-        int IDD = Integer.parseInt(IDs);
-        Usuarios.ObtenerUsuarios(Adapter, IDD);
+        Usuarios.ObtenerUsuarios(Adapter, IDs);
 
         ListViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

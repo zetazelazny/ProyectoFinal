@@ -357,30 +357,3 @@ public class Conceptos extends AppCompatActivity {
         }
     }
 }
-/*
-        Boton inserta
-
-        button.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
-        if (editarONuevo == 0) {
-        editarUsuario(new String[]{String.valueOf(bundle.getInt("idUsuario")),
-        bundle.getString("nombre"),
-        bundle.getString("apellido"),
-        String.valueOf(bundle.getInt("matricula")),
-        bundle.getString("hospital"),
-        String.valueOf(bundle.getInt("credencial"))});
-        } else {
-        listoParaAgregar = false;
-
-        insertarUsuario(new String[]{nombre.getText().toString(),
-        apellido.getText().toString(),
-        matricula.getText().toString(),
-        hospital.getText().toString(),
-        credencial.getText().toString()});
-        }
-        }
-        });
-
----
-*/
