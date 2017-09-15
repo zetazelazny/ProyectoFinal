@@ -10,10 +10,10 @@ $consulta = "SELECT puntajes.puntaje as puntaje, pacientes.nombre AS nombre, pac
 $stmt = $conexion->prepare($consulta);
 $stmt->execute();
 $stmt->fetch(PDO::FETCH_ASSOC);
-
+ echo"<table>";
+    echo "<tr>";  
 foreach( $stmt as $valor) {
-    echo"<table>";
-	echo "<tr>";  
+   
 	echo "<th>Juego</th>";  
 	echo "<th>Nombre</th>";  
 	echo "<th>Apellido</th>"; 
@@ -24,10 +24,10 @@ foreach( $stmt as $valor) {
     echo "<td>".$valor['nombre']."</td>";
     echo "<td>".$valor['apellido']."</td>";
     echo "<td>".$valor['puntaje']."</td>";
-    echo "</tr>";
-	echo "</table>";
+    
 }
-
+echo "</tr>";
+    echo "</table>";
 
 
 ?>
