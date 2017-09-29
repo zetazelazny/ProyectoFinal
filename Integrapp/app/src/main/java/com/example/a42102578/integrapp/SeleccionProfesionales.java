@@ -39,6 +39,7 @@ public class SeleccionProfesionales extends AppCompatActivity {
                     Intent aPrincipal = new Intent(getApplicationContext(), SeleccionUsuarios.class);
                     String Id = String.valueOf(Profesional._Id);
                     aPrincipal.putExtra("id", Id);
+                    Log.d("ID", Id);
                     startActivity(aPrincipal);
                 }
             });

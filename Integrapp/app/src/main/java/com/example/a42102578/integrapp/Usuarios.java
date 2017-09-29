@@ -27,6 +27,7 @@ public class Usuarios {
     int _Id;
     String _Nombre;
     String _Apellido;
+    int _IDProf;
     Boolean esperar;
     ArrayList<Usuarios> Lista;
     Adaptador a;
@@ -40,21 +41,40 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios (String Nombre, String Apellido, int ID)
+    public Usuarios (String Nombre, String Apellido, int ID, int IDProf)
     {
         _Nombre = Nombre;
         _Apellido = Apellido;
         _Id = ID;
-
+        _IDProf = IDProf;
     }
 
-    public void ObtenerUsuarios(Adaptador a, String ID) {
-        Log.d("ID USUARIOPROF", ID);
+    /*public ArrayList<Usuarios> Traer (String ID)
+    {
+        Lista = new ArrayList<Usuarios>();
+        String URL ="https"
+    }*/
+
+    public ArrayList<Usuarios> Filtrar(ArrayList<Usuarios> List, int ID)
+    {
+        ArrayList<Usuarios> Lista = new ArrayList<Usuarios>();
+        for (int i = 0; i < List.size(); i++)
+        {
+            Usuarios Usuario = List.get(i);
+            if (Usuario._IDProf == ID)
+            {
+                Lista.add(Usuario);
+            }
+        }
+        return Lista;
+    }
+    public void ObtenerUsuarios(Adaptador a)
+    {
         Lista = new ArrayList<Usuarios>();
         Log.d("Debug","Hasta aca llega");
-        String URL ="https//integrapp.azurewebsites.net/azure/traerUsuarios.php";
+        String URL ="http://integrapp.azurewebsites.net/azure/traerUsuarios.php";
         Log.d("Debug","Hasta aca tambien");
-        new traerUsuarios().execute(URL, ID);
+        new traerUsuarios().execute(URL);
         Log.d("Debug","Hasta aca llegamos");
         Log.d("Debug Lista", Lista.size() + "");
         this.a = a;
@@ -81,6 +101,7 @@ public class Usuarios {
         {
             Log.d("Debug postEx", "onPostExecute:" + parametroLista.size() + "");
             //Lista = parametroLista;
+            Log.d("Debug postEx", "Tamaño" + Lista.size());
             super.onPostExecute(Lista);
             a.setDatos(parametroLista);
             a.notifyDataSetChanged();
@@ -94,10 +115,9 @@ public class Usuarios {
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
             Request Request;
-            RequestBody requestBody = new MultipartBody.Builder()
+/*            RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("id_profesional", parametros[1])
-                    .build();
+                    .build();*/
             Request = new Request.Builder()
                     .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
                     .build();
@@ -137,7 +157,8 @@ public class Usuarios {
                     String Nombre = jsonUsuario.getString("nombre");
                     String Apellido = jsonUsuario.getString("apellido");
                     int ID = jsonUsuario.getInt("id");
-                    returnList.add(new Usuarios(Nombre, Apellido, ID));
+                    int IDProf = jsonUsuario.getInt("id_profesional");
+                    returnList.add(new Usuarios(Nombre, Apellido, ID, IDProf));
                     Log.d("Debug", "parsearResultado: " + returnList.size()+ "");
                 }
 

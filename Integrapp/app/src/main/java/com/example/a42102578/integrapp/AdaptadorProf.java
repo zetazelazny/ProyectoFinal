@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -49,20 +52,16 @@ public class AdaptadorProf extends BaseAdapter
         View VistaADevolver;
         LayoutInflater Inflador;
         Inflador = (LayoutInflater)Contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        VistaADevolver = Inflador.inflate(R.layout.detalle_usuarios, GrupoActual, false);
+        VistaADevolver = Inflador.inflate(R.layout.detalle_prof, GrupoActual, false);
+        ImageView IMG = (ImageView)VistaADevolver.findViewById(R.id.Img);
+        TextView Texto = (TextView)VistaADevolver.findViewById(R.id.id);
         Log.d("Debug", "Infla la lista");
         Profesionales Prof = getItem(PosicionActual);
         Log.d("Debug", Prof._Nombre + Prof._Apellido);
-        TextView Nombre;
-        Nombre = (TextView)VistaADevolver.findViewById(R.id.TextNombre);
-        TextView Apellido;
-        Apellido = (TextView)VistaADevolver.findViewById(R.id.TextApellido);
-        TextView Id;
-        Id = (TextView)VistaADevolver.findViewById(R.id.TextId);
-        Nombre.setText(Prof.getNombre());
-        Apellido.setText(Prof.getApellido());
-        Id.setText(String.valueOf(Prof.getID()));
-        Log.d("Debug",Prof.getNombre() + Prof.getApellido() + Prof.getID());
+        Glide.with(Contexto)
+                .load("http://integrapp.azurewebsites.net/azure/imagenes/" + Prof._Id  + ".jpg")
+                .into(IMG);
+        Texto.setText(String.valueOf(Prof._Id));
         return VistaADevolver;
 
     }

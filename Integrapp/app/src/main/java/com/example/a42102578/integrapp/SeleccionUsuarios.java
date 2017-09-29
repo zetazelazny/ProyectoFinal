@@ -20,21 +20,24 @@ public class SeleccionUsuarios extends AppCompatActivity {
         Intent intentQueLLega = getIntent();
         Bundle ID = intentQueLLega.getExtras();
         IDs = ID.getString("id");
+        Log.d("ID2", IDs);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_usuarios);
         Log.d("Debug","Entra a la vista");
         ArrayList<Usuarios> ListaUsuarios = new ArrayList<Usuarios>();
         final Usuarios Usuarios = new Usuarios();
-        //ListaUsuarios = Usuarios.ObtenerUsuarios()
+        //Usuarios.ObtenerUsuarios()
         Log.d("Debug","Lista size: " + ListaUsuarios.size());
         final ListView ListViewUsuarios;
         ListViewUsuarios = (ListView)findViewById(R.id.ListUsuarios);
         Adaptador Adapter;
+        int IDss = Integer.parseInt(IDs);
         Adapter = new Adaptador(ListaUsuarios, this);
+        Usuarios.ObtenerUsuarios(Adapter);
         Log.d("Debug","Creo adapter" );
         ListViewUsuarios.setAdapter(Adapter);
         Log.d("Debug","Seteo adapter" );
-        Usuarios.ObtenerUsuarios(Adapter, IDs);
+
 
         ListViewUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

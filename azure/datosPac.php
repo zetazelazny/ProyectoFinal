@@ -13,13 +13,10 @@ $stmt->execute();
 $array = $stmt->fetch(PDO::FETCH_ASSOC);
 var_dump($array);
 
-
 foreach( $array as $valor) {
     echo $valor["nombre"];
     echo $valor["apellido"];
-} 
-
-
+}
 
 echo"<br><br><br><br><br><br><table>";
     echo "<tr>";   

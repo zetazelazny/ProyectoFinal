@@ -37,8 +37,16 @@ $consulta = "SELECT puntajes.puntaje as puntaje, pacientes.nombre AS nombre, pac
             FROM (puntajes 
             INNER JOIN pacientes ON puntajes.id_usuario = pacientes.id)
             INNER JOIN juegos ON puntajes.id_juego = juegos.id ORDER BY puntajes.puntaje ASC";
-break;      
-            
+break; 
+
+case "Conceptos":
+$nombrejuego = "Conceptos";
+$consulta = "SELECT puntajes.puntaje as puntaje, pacientes.nombre AS nombre, pacientes.apellido AS apellido, juegos.nombre AS nombrejuego 
+            FROM (puntajes 
+            INNER JOIN pacientes ON puntajes.id_usuario = pacientes.id)
+            INNER JOIN juegos ON puntajes.id_juego = juegos.id ORDER BY puntajes.puntaje ASC
+            WHERE nombrejuego = $nombrejuego";
+break;                   
 }
 
 }
@@ -53,8 +61,6 @@ $consulta = "SELECT puntajes.puntaje as puntaje, pacientes.nombre AS nombre, pac
 $stmt = $conexion->prepare($consulta);
 $stmt->execute();
 $stmt->fetch(PDO::FETCH_ASSOC);
-
-
 
 ?>
 
@@ -142,6 +148,8 @@ $stmt->fetch(PDO::FETCH_ASSOC);
         <option value="todos">Seleccione un filtro</option>
         <option value="puntajemax">Puntaje máximo</option>
         <option value="puntajemin">Puntaje mínimo</option>
+        <option value="conceptos">Juego: Conceptos</option>
+        <option value="memotest">Juego: Memotest</option>
     </select> 
     <button type="submit">Filtrar</button></form>
 </div>
