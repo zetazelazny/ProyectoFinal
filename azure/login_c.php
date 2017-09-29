@@ -10,7 +10,7 @@ include("funciones/config.php");
 		mysql_select_db($db,$con) or die("error bd");
 		$usuario = $_POST['usuario'];
 		$password = $_POST['password'];
-		$log = mysql_query("SELECT usuario, nombre, apellido, id FROM profesionales WHERE usuario='$usuario' AND password='$password'");
+		$log = mysql_query("SELECT * FROM profesionales WHERE usuario='$usuario' AND password='$password'");
 		if(mysql_num_rows($log)>0)
 		{
 			$row = mysql_fetch_array($log);
@@ -18,6 +18,11 @@ include("funciones/config.php");
 			$_SESSION['nombre'] = $row['nombre'];
 			$_SESSION['apellido'] = $row['apellido'];
 			$_SESSION['id'] = $row['id'];
+			$_SESSION['profesion'] = $row['profesion'];
+			$_SESSION['provincia'] = $row['provincia'];
+			$_SESSION['localidad'] = $row['localidad'];
+			$_SESSION['descripcion'] = $row['descripcion'];
+			$_SESSION['foto'] = $row['foto'];
 					
 			  echo '<script> window.location="perfil.php";</script>';  
 		}

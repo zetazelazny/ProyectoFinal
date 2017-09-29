@@ -153,7 +153,8 @@ if(isset($_SESSION['usuario']))
         <input type="text" name="provincia" id="provincia" placeholder="Ingrese la provincia en la que vive" required>   
 
         <label for="localidad">Localidad/Partido/Ciudad*:</label>
-        <input type="text" name="localidad" id="localidad" placeholder="Ingrese la localidad/ciudad en la que vive" required>        
+        <input type="text" name="localidad" id="localidad" placeholder="Ingrese la localidad/ciudad en la que vive" required>    
+
         
         
 </fieldset>

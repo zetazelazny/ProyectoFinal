@@ -19,8 +19,8 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
   
           $_POST['usuario'] = str_replace(' ', '', $_POST['usuario']);
           $_POST['usuario'] = strtolower($_POST['usuario']);
-          mysql_query("INSERT INTO profesionales (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad) 
-          VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['email']."','".$_POST['telefono']."','".$_POST['cca']."','".$_POST['titulo']."','".$_POST['profesion']."','".$_POST['descripcion']."','".$_POST['provincia']."','".$_POST['localidad']."')", $con)
+          mysql_query("INSERT INTO profesionales (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad, foto) 
+          VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['email']."','".$_POST['telefono']."','".$_POST['cca']."','".$_POST['titulo']."','".$_POST['profesion']."','".$_POST['descripcion']."','".$_POST['provincia']."','".$_POST['localidad']."', 'null')", $con)
           or die(mysql_error());       
 
     ?>
@@ -124,7 +124,7 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
 
               <h2 class="title-style-2">Registro exitoso <span class="title-under"></span></h2>
 
-              <p>Recibimos su registro correctamente y su perfil está siendo creado. <p>      
+              <p>Recibimos su registro correctamente y su perfil fue creado. <a href="/login.php">Ingreso para profesionales</a><p>               
               
             </div>
 

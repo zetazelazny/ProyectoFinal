@@ -9,7 +9,43 @@ if(isset($_SESSION['usuario']))
 		$id = $_SESSION['id']; 
 		$nombre = $_SESSION['nombre'];
 		$apellido = $_SESSION['apellido'];
-		?>
+    $prof = $_SESSION['profesion'];
+    $provincia = $_SESSION['provincia'];
+    $localidad = $_SESSION['localidad'];
+    $descripcion = $_SESSION['descripcion'];
+
+switch ($prof) {
+  case 'doc':
+    $profesion = 'Docente';
+    break;
+  
+  case 'docedesp':
+    $profesion = 'Docencia en Educación Especial';
+    break;
+
+    case 'doclsa':
+    $profesion = 'Docencia en Educación Especial con conocimiento de LSA';
+    break;
+
+    case 'psicopedagogo':
+    $profesion = 'Psicopedagogía';
+    break;
+
+    case 'terapeuta':
+    $profesion = 'Terapeuta Ocupacional';
+    break;
+
+    case 'psicologo':
+    $profesion = 'Psicología';
+    break;
+
+    case 'fono': 
+    $profesion = 'Fonoaudiología';
+    break;      
+}
+
+
+    ?>
 
 			<!DOCTYPE html>
 <html class="no-js">
@@ -91,27 +127,150 @@ if(isset($_SESSION['usuario']))
 
         <div class="main-container">
 
-        <div class="container">
+      <div class="container">
 
-          <div class="row fadeIn animated">       
+          <div class="row">
 
-            <div class="col-md-11">
+          <div class="presentacion">
 
-              <h2 class="title-style-2">Mi perfil <span class="title-under"></span></h2>
+              <?php
 
-              <h4>Id: <?php echo $id ?></h4>
-              <h4>Nombre: <?php echo $nombre ?></h4>
-              <h4>Apellido: <?php echo $apellido ?></h4>
-              <h4><a href="cerrarsesion.php">Cerrar sesión</a></h4>
-              
+                $result = mysql_query("SELECT * FROM profesionales WHERE id = $id"); 
+                while ($row=mysql_fetch_array($result)) 
+                { 
+                    /*almacenamos el nombre de la ruta en la variable $ruta_img*/ 
+                    $ruta_img = $row["foto"]; 
+                }
+
+              ?>
+
+                  <div class="pres"><?php echo '<img class="titulo" src="/azure/imagenes/' .$ruta_img. '" width="200px" height="200px"/>';?>
+                  <h1 style="color:black;"><?php echo $nombre." ".$apellido ;?></h1>
+                  <h3><i><?php echo $profesion;?></i></h3><br>
+          </div>
+
             </div>
 
-          </div> <!-- /.row -->
-             
+            <div class="profesional">
+              <h2 style="color:black;">Datos profesionales</h2>
 
-        </div>
-      </div> 
+              <div class="descripcion">
+              <p><b>Profesión:</b> <?php echo $profesion; ?></p><br>
+              <p><b>Ubicación:</b> <?php echo $localidad.", ".$provincia ;?></p><br>
+              <p><b>Descripción:</b><br><?php echo $descripcion ;?></p><br>
 
+              <form action="subirImgProf.php" enctype="multipart/form-data" method="post">
+                <label for="imagen">Subir/modificar foto de perfil:</label> 
+                <input id="imagen" name="imagen" size="30" type="file"/>
+                <br>
+                <input type="submit" value="Subir imagen" />
+              </form>    
+              <br>
+              <h4><a href="cerrarsesion.php">Cerrar sesión</a></h4>
+
+
+
+              </div>
+
+            </div>
+
+          </div>
+      </div>
+  </div>
+
+
+
+<style>
+
+#imagen
+{
+margin-left: auto;
+margin-right: auto;
+}
+    
+.presentacion{
+  background-color:white;
+  height: 300px;
+  width: 75%;
+  border-radius:3px;
+  border: 1px solid #ebeff6;
+  margin:20px;
+  text-align: center;
+}
+
+p
+{
+  font-size: 15px;
+}
+
+.descripcion
+{
+  margin-top:20px;
+  width: 100%;
+}
+
+.profesional
+{
+background-color:white;
+  height: 450px;
+  width: 75%;
+  border-radius:3px;
+  border: 1px solid #ebeff6;
+  margin:20px;
+  text-align: center;
+}
+ img.titulo {
+border: 2px solid grey;padding: 0;
+border-radius: 800px;
+overflow: hidden;
+width:150px;
+height:150px;
+margin-left: auto;
+margin-right: auto;
+display: block;
+}
+
+
+.pres
+{
+  text-align: center;
+  margin-top:20px;
+}
+body
+{
+    background-color:#e9e9e9;
+
+}
+
+.titulo
+{
+    display: inline-block;
+    justify-content: center;
+    text-align:center;
+}
+
+
+.ingreso {
+  padding: 19px 39px 18px 39px;  
+  background-color: #115c9b;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  min-width: 20px;
+  max-width:250px;
+  width: 50%;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+.ingreso:hover { 
+    background-color: white;
+    color:#115c9b;
+}
+</style>
 
 		<?php	
 }

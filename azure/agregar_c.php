@@ -1,18 +1,25 @@
 <?php
+session_start();
 include('funciones/config.php');
 if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
   isset($_POST['apellido']) && !empty($_POST['apellido']) &&
   isset($_POST['edad']) && !empty($_POST['edad']))
 {
-  $con = mysql_connect($host,$user,$pw)
-  or die("Error al conectar al servidor.");
+  $nombre = $_POST['nombre'];
+  $apellido = $_POST['apellido'];
+  $edad = $_POST['edad'];
+  $idprof = $_SESSION['id'];
 
-  mysql_select_db($db,$con)
-  or die("Error al conectar con la base de datos");
-  
-          mysql_query("INSERT INTO pacientes (nombre, apellido, edad)
-          VALUES ('".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['edad']."')", $con)
-          or die(mysql_error());       
+  $conexion = new PDO('mysql:host=127.0.0.1:56915;dbname=integrapp;charset=utf8mb4', 'azure', '6#vWHD_$');
+  $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $consulta = "INSERT INTO pacientes (nombre, apellido, edad, id_profesional) VALUES (:nombre, :apellido, :edad, :id_profesional)";
+  $stmt = $conexion->prepare($consulta);
+
+    $stmt->bindParam(':nombre', $_POST['nombre'], PDO::PARAM_STR);       
+    $stmt->bindParam(':apellido', $_POST['apellido'], PDO::PARAM_STR); 
+    $stmt->bindParam(':edad', $_POST['edad'], PDO::PARAM_INT);
+    $stmt->bindParam(':id_profesional', $idprof, PDO::PARAM_INT); 
+    $stmt->execute(); 
 
 ?>
 

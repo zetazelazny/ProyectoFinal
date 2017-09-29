@@ -1,11 +1,25 @@
 <?php
 session_start();
 include('funciones/config.php');
+include('funciones/datos.php');
+
 if(!isset($_SESSION['usuario']))
 {
 	echo '<script> window.location="login.php";</script>';
 }
 else{
+$idprof = $_SESSION['id'];
+$conexion = new PDO('mysql:host=127.0.0.1:56915;dbname=integrapp;charset=utf8mb4', 'azure', '6#vWHD_$');
+$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$consulta = "
+      SELECT profesionales.id as id_profesional, pacientes.nombre AS nombre, pacientes.apellido AS apellido, pacientes.id_profesional AS id_pacprofesional, pacientes.id AS id_pac
+      FROM profesionales 
+      INNER JOIN pacientes ON profesionales.id = pacientes.id_profesional
+      WHERE profesionales.id = $idprof
+      ORDER BY pacientes.nombre, pacientes.apellido DESC";
+$stmt = $conexion->prepare($consulta);
+$stmt->execute();
+$stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -13,7 +27,7 @@ else{
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>Ingreso para profesionales - Integrapp</title>
+        <title>Ver mis pacientes - Integrapp</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -87,10 +101,48 @@ else{
 
     </header> <!-- /. main-header -->
 
+<?php
 
+echo"<table>";
+    echo "<tr>";   
+    echo "<th>Nombre</th>";  
+    echo "<th>Apellido</th>"; 
+    echo "<th>Ver</th>"; 
+    echo "<th>Acciones</th>"; 
+    echo "</tr>";
+    echo "<tr>";
+foreach( $stmt as $valor) {
+    $id_pac = $valor['id_pac'];
+    echo "<td>".$valor['nombre']."</td>";
+    echo "<td>".$valor['apellido']."</td>";
+    echo "<td><a href=datosPac.php?id=".$id_pac.">Datos</a></td>";
+    echo "<td><a href=modificarpac.php>Modificar datos</a><br><a href=bajaPac.php?id=".$id_pac.">Dar de baja</a></td>";
+   echo "</tr>";
+} 
+    echo "</table>";
 
-   
-<style type="text/css">
+?>
+
+   <style>
+table {
+    border-collapse: collapse;
+    width: 80%;
+    left:0;
+    right:0;
+    margin:auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #337ab7;
+    color: white;
+}
   *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
