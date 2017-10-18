@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.a42102578.integrapp.SeleccionUsuarios">
+    tools:context="com.example.a42102578.integrapp.SeleccionUsuarios"
+    android:background="@drawable/fondonubesv">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ListProf">
+        android:id="@+id/ListProf"
+        >
 
     </ListView>
 
