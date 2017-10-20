@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import java.net.IDN;
 import java.util.ArrayList;
 
 public class SeleccionProfesionales extends AppCompatActivity {
@@ -43,5 +45,13 @@ public class SeleccionProfesionales extends AppCompatActivity {
                     startActivity(aPrincipal);
                 }
             });
+        }
+
+        public void Invitado(View Vista)
+        {
+            String ID = "null";
+            Intent aPrincipal = new Intent(getApplicationContext(), MenuPrincipal.class);
+            aPrincipal.putExtra("id", ID);
+            startActivity(aPrincipal);
         }
     }

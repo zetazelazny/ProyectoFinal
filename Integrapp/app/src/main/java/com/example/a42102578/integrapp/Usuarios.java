@@ -57,24 +57,26 @@ public class Usuarios {
 
     public ArrayList<Usuarios> Filtrar(ArrayList<Usuarios> List, int ID)
     {
-        ArrayList<Usuarios> Lista = new ArrayList<Usuarios>();
-        for (int i = 0; i < List.size(); i++)
+        ArrayList<Usuarios>ListaA = new ArrayList<Usuarios>();
+        ListaA = List;
+        for (int i = 0; i < ListaA.size(); i++)
         {
-            Usuarios Usuario = List.get(i);
+            Usuarios Usuario = ListaA.get(i);
             if (Usuario._IDProf == ID)
             {
-                Lista.add(Usuario);
+                ListaA.add(Usuario);
             }
         }
-        return Lista;
+        return ListaA;
     }
-    public void ObtenerUsuarios(Adaptador a)
+    public void ObtenerUsuarios(Adaptador a, String ID)
     {
+        _IDProf = Integer.parseInt(ID);
         Lista = new ArrayList<Usuarios>();
         Log.d("Debug","Hasta aca llega");
         String URL ="http://integrapp.azurewebsites.net/azure/traerUsuarios.php";
         Log.d("Debug","Hasta aca tambien");
-        new traerUsuarios().execute(URL);
+        new traerUsuarios().execute(URL, ID);
         Log.d("Debug","Hasta aca llegamos");
         Log.d("Debug Lista", Lista.size() + "");
         this.a = a;
@@ -102,6 +104,7 @@ public class Usuarios {
             Log.d("Debug postEx", "onPostExecute:" + parametroLista.size() + "");
             //Lista = parametroLista;
             Log.d("Debug postEx", "Tamaño" + Lista.size());
+            Lista = Filtrar(Lista,_IDProf);
             super.onPostExecute(Lista);
             a.setDatos(parametroLista);
             a.notifyDataSetChanged();
@@ -112,12 +115,15 @@ public class Usuarios {
             ArrayList<Usuarios> returnList = null;
 
             String url = parametros[0];
+            String ID = parametros[1];
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
             Request Request;
-/*            RequestBody requestBody = new MultipartBody.Builder()
+            RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .build();*/
+                    .addFormDataPart("id_profesional", ID)
+                    .build();
+
             Request = new Request.Builder()
                     .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
                     .build();

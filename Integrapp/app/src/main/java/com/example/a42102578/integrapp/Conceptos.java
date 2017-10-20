@@ -149,11 +149,20 @@ public class Conceptos extends AppCompatActivity {
             }
         }
         if (Contador == 8) {
+            Log.d("ID", "Entra al IF");
             Log.d("Fecha", fecha);
-            listoParaAgregar = false;
-            String Juego = "2";
-            String IDD = String.valueOf(IDs);
-             enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Contador),fecha });
+            if (IDs.equals(null)) {
+                Intent Gano = new Intent(getApplicationContext(), Gano.class);
+                startActivity(Gano);
+                finish();
+            }
+            else
+            {
+                listoParaAgregar = false;
+                String Juego = "2";
+                String IDD = String.valueOf(IDs);
+                enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(Contador),fecha });
+            }
         }
         if (Contador < 7) {
             if (Boton.getId() == R.id.Bien) {

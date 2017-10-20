@@ -32,7 +32,7 @@ import okhttp3.Response;
 
 public class Memotest extends AppCompatActivity {
     Bundle ID = getIntent().getExtras();
-    int IDs = ID.getInt("id");
+    String IDs = ID.getString("id");
     public Boolean listoParaAgregar = false;
     int[] VectorRandom = new int[16];
     boolean[] VectorEstado = new boolean[16];
@@ -992,10 +992,19 @@ public class Memotest extends AppCompatActivity {
         }
         if (Gano)
         {
-            String A = "1";
-            String IDD = String.valueOf(IDs);
-            listoParaAgregar = false;
-            enviarPuntaje(new String[]{A, IDD ,String.valueOf(ContPuntos), fecha});
+            if (IDs.equals(null))
+            {
+                Intent Gana = new Intent(getApplicationContext(), Gano.class);
+                startActivity(Gana);
+                finish();
+            }
+            else
+            {
+                String A = "1";
+                String IDD = String.valueOf(IDs);
+                listoParaAgregar = false;
+                enviarPuntaje(new String[]{A, IDD ,String.valueOf(ContPuntos), fecha});
+            }
         }
 
     }

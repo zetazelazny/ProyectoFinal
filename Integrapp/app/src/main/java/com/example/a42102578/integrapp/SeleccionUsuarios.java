@@ -33,7 +33,7 @@ public class SeleccionUsuarios extends AppCompatActivity {
         Adaptador Adapter;
         int IDss = Integer.parseInt(IDs);
         Adapter = new Adaptador(ListaUsuarios, this);
-        Usuarios.ObtenerUsuarios(Adapter);
+        Usuarios.ObtenerUsuarios(Adapter, IDs);
         Log.d("Debug","Creo adapter" );
         ListViewUsuarios.setAdapter(Adapter);
         Log.d("Debug","Seteo adapter" );
