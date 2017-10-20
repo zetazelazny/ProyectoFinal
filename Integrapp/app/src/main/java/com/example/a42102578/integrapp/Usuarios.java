@@ -77,6 +77,7 @@ public class Usuarios {
         String URL ="http://integrapp.azurewebsites.net/azure/traerUsuarios.php";
         Log.d("Debug","Hasta aca tambien");
         new traerUsuarios().execute(URL, ID);
+        Log.d("ID", ID);
         Log.d("Debug","Hasta aca llegamos");
         Log.d("Debug Lista", Lista.size() + "");
         this.a = a;
@@ -104,7 +105,6 @@ public class Usuarios {
             Log.d("Debug postEx", "onPostExecute:" + parametroLista.size() + "");
             //Lista = parametroLista;
             Log.d("Debug postEx", "Tamaño" + Lista.size());
-            Lista = Filtrar(Lista,_IDProf);
             super.onPostExecute(Lista);
             a.setDatos(parametroLista);
             a.notifyDataSetChanged();
