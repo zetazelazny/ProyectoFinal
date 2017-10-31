@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -46,25 +49,19 @@ public class Adaptador extends BaseAdapter
 
     public View getView(int PosicionActual, View VistaActual, ViewGroup GrupoActual)
     {
-        ArrayList<Usuarios>ListaFin = new ArrayList<Usuarios>();
-        int Cont = 0;
         View VistaADevolver;
         LayoutInflater Inflador;
         Inflador = (LayoutInflater)Contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        VistaADevolver = Inflador.inflate(R.layout.detalle_usuarios, GrupoActual, false);
-        Usuarios Usu = getItem(PosicionActual);
+        VistaADevolver = Inflador.inflate(R.layout.detalle_prof, GrupoActual, false);
+        ImageView IMG = (ImageView)VistaADevolver.findViewById(R.id.Img);
+        TextView Texto = (TextView)VistaADevolver.findViewById(R.id.id);
         Log.d("Debug", "Infla la lista");
+        Usuarios Usu= getItem(PosicionActual);
         Log.d("Debug", Usu._Nombre + Usu._Apellido);
-            TextView Nombre;
-            Nombre = (TextView)VistaADevolver.findViewById(R.id.TextNombre);
-            TextView Apellido;
-            Apellido = (TextView)VistaADevolver.findViewById(R.id.TextApellido);
-            TextView Id;
-            Id = (TextView)VistaADevolver.findViewById(R.id.TextId);
-            Nombre.setText(Usu.getNombre());
-            Apellido.setText(Usu.getApellido());
-            Id.setText(String.valueOf(Usu.getID()));
-            Log.d("Debug A",Usu.getNombre() + Usu.getApellido() + Usu.getID());
+        Glide.with(Contexto)
+                .load("http://integrapp.azurewebsites.net/azure/imagenes/usuarios/" + Usu._Id  + ".jpg")
+                .into(IMG);
+        Texto.setText(String.valueOf(Usu._Id));
         return VistaADevolver;
 
     }

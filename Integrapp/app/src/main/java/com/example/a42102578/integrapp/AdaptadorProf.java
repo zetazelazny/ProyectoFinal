@@ -59,7 +59,7 @@ public class AdaptadorProf extends BaseAdapter
         Profesionales Prof = getItem(PosicionActual);
         Log.d("Debug", Prof._Nombre + Prof._Apellido);
         Glide.with(Contexto)
-                .load("http://integrapp.azurewebsites.net/azure/imagenes/" + Prof._Id  + ".jpg")
+                .load("http://integrapp.azurewebsites.net/azure/imagenes/profesionales/" + Prof._Id  + ".jpg")
                 .into(IMG);
         Texto.setText(String.valueOf(Prof._Id));
         return VistaADevolver;
