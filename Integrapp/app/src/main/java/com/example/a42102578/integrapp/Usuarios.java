@@ -118,7 +118,6 @@ public class Usuarios {
             String ID = parametros[1];
             Log.d("Debug", "Llegamos");
             OkHttpClient client = new OkHttpClient();
-            Request Request;
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("id_profesional", ID)
@@ -126,10 +125,10 @@ public class Usuarios {
 
             Log.d("ID Valor", ID);
 
-            Request = new Request.Builder()
-                    .url("http://integrapp.azurewebsites.net/azure/insertpuntos.php")
+            Request Request = new Request.Builder()
                     .method("POST", RequestBody.create(null, new byte[0]))
                     .post(requestBody)
+                    .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
                     .build();
 
             try
