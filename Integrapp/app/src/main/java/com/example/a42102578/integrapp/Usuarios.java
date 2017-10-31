@@ -125,8 +125,11 @@ public class Usuarios {
                     .build();
 
             Log.d("ID Valor", ID);
+
             Request = new Request.Builder()
-                    .url("http://integrapp.azurewebsites.net/azure/traerUsuarios.php")
+                    .url("http://integrapp.azurewebsites.net/azure/insertpuntos.php")
+                    .method("POST", RequestBody.create(null, new byte[0]))
+                    .post(requestBody)
                     .build();
 
             try
