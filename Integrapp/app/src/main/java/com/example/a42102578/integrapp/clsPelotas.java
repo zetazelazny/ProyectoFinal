@@ -31,6 +31,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 /**
  * Created by 42102517 on 18/7/2017.
  */
@@ -69,7 +70,8 @@ public class clsPelotas {
     Context _Contexto;
     String _ID;
     String _Fecha;
-    public Boolean listoParaAgregar = false;
+    Boolean PrimeraVez = false;
+    Boolean listoParaAgregar = false;
 
 
     public clsPelotas(CCGLSurfaceView VistaPelotas, Context Contexto, String ID, String Fecha) {
@@ -291,6 +293,7 @@ public class clsPelotas {
 
         //----------------------------MOVIMIENTOS----------------------------
 
+        @Override
         public boolean ccTouchesBegan(MotionEvent event) {
             float posX = event.getX();
             float posY = PantallaDelDispositivo.getHeight() - event.getY();
@@ -363,48 +366,62 @@ public class clsPelotas {
             return true;
         }
 
+        @Override
         public boolean ccTouchesMoved(MotionEvent event) {
             float posX = event.getX();
             float posY = PantallaDelDispositivo.getHeight() - event.getY();
+            float[]VecPos = new float[2];
+            VecPos[0] = posX;
+            VecPos[1] = posY;
             // Log.d("Toque comienza", "X: " + posX + " -Y: " + posY);
 
             if (NumeroObjetoTocado == 1) {
                 Pelota1.setPosition(posX, posY);
+                Verifico(Pelota1, 1, NumeroHueso, VecPos);
                 // PelotaTocada = Pelota1;
             } else {
                 if (NumeroObjetoTocado == 2) {
                     Pelota2.setPosition(posX, posY);
+                    Verifico(Pelota2, 2, NumeroHueso, VecPos);
                     //   PelotaTocada = Pelota2;
                 } else {
                     if (NumeroObjetoTocado == 3) {
                         Pelota3.setPosition(posX, posY);
+                        Verifico(Pelota3, 3, NumeroHueso, VecPos);
                         //     PelotaTocada = Pelota3;
                     } else {
                         if (NumeroObjetoTocado == 4) {
                             Pelota4.setPosition(posX, posY);
+                            Verifico(Pelota4, 4, NumeroHueso, VecPos);
                             //       PelotaTocada = Pelota4;
                         } else {
                             if (NumeroObjetoTocado == 5) {
                                 Pelota5.setPosition(posX, posY);
+                                Verifico(Pelota5, 5, NumeroHueso, VecPos);
                                 //         PelotaTocada = Pelota5;
                             } else {
                                 if (NumeroObjetoTocado == 6) {
                                     Pelota6.setPosition(posX, posY);
+                                    Verifico(Pelota6, 6, NumeroHueso, VecPos);
                                     //           PelotaTocada = Pelota6;
                                 } else {
                                     if (NumeroObjetoTocado == 7) {
                                         Pelota7.setPosition(posX, posY);
+                                        Verifico(Pelota7, 7, NumeroHueso, VecPos);
                                         //             PelotaTocada = Pelota7;
                                     } else if (NumeroObjetoTocado == 8) {
                                         Pelota8.setPosition(posX, posY);
+                                        Verifico(Pelota8, 8, NumeroHueso, VecPos);
                                         //           PelotaTocada = Pelota8;
                                     } else {
                                         if (NumeroObjetoTocado == 9) {
                                             Pelota9.setPosition(posX, posY);
+                                            Verifico(Pelota9, 9, NumeroHueso, VecPos);
                                             //             PelotaTocada = Pelota9;
                                         } else {
                                             if (NumeroObjetoTocado == 10) {
                                                 Pelota10.setPosition(posX, posY);
+                                                Verifico(Pelota10, 10, NumeroHueso, VecPos);
                                                 //               PelotaTocada = Pelota10;
                                             }
                                         }
@@ -421,14 +438,15 @@ public class clsPelotas {
             return true;
         }
 
+        @Override
         public boolean ccTouchesEnded(MotionEvent event)
-        {
-            Log.d("Termino el toque", "Si");
+        {Log.d("Termino el toque", "Si");
+            PrimeraVez = false;
             Boolean Intersecta = InterseccionEntreSprites(PelotaTocada, Perro);
             if (Intersecta)
             {
                 Log.d("Entra al if", "Entra");
-                Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                //Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
             }
             float posX = event.getX();
             float posY = PantallaDelDispositivo.getHeight() - event.getY();
@@ -458,7 +476,6 @@ public class clsPelotas {
                 // vuelve arriba
                 PelotaTocada.runAction(MoveTo.action(1.0f, VecPosX[NumeroObjetoTocado], VecPosY[NumeroObjetoTocado]));
             }
-
             return true;
         }
         //------------------ TERMINAN MOVIMIENTOS---------------------------------------------
@@ -468,39 +485,7 @@ public class clsPelotas {
             Devolver = false;
 
             PelotaTocada = primersprite;
-           /* switch (NumeroObjetoTocado)
-            {
-                case 1:
-                    Pelota1 = primersprite;
-                    break;
-                case 2:
-                    Pelota2 = primersprite;
-                    break;
-                case 3:
-                    Pelota3 = primersprite;
-                    break;
-                case 4:
-                    Pelota4 = primersprite;
-                    break;
-                case 5:
-                    Pelota5 = primersprite;
-                    break;
-                case 6:
-                    Pelota6 = primersprite;
-                    break;
-                case 7:
-                    Pelota7 = primersprite;
-                    break;
-                case 8:
-                    Pelota8 = primersprite;
-                     break;
-                case 9:
-                    Pelota9 = primersprite;
-                    break;
-                case 10:
-                    Pelota10 = primersprite;
-                    break;
-            }*/
+
             Perro = segundosprite;
 
             int Sprite1Izquierda, Sprite1Derecha, Sprite1Abajo, Sprite1Arriba;
@@ -523,7 +508,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "1");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    //Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -535,7 +520,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "2");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    //Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -547,7 +532,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "3");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    //Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -559,7 +544,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "4");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    // Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -571,7 +556,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "5");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    // Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -583,7 +568,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "6");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    // Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -595,7 +580,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "7");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    // Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -607,7 +592,7 @@ public class clsPelotas {
                 Log.d("Interseccion", "8");
                 Devolver = true;
                 if (Devolver == true) {
-                    Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+                    // Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
                 } else {
                     Log.d("Interseccion", "no toca");
                 }
@@ -635,81 +620,50 @@ public class clsPelotas {
             return Devolver;
         }
 
-        public void Verifico(Sprite primersprite, Integer NumObjeto, Integer NumHueso) {
-            Log.d("Verifico", "Entra");
-            switch (NumObjeto) {
-                case 1:
-                    Pelota1 = primersprite;
-                    break;
-                case 2:
-                    Pelota2 = primersprite;
-                    break;
-                case 3:
-                    Pelota3 = primersprite;
-                    break;
-                case 4:
-                    Pelota4 = primersprite;
-                    break;
-                case 5:
-                    Pelota5 = primersprite;
-                    break;
-                case 6:
-                    Pelota6 = primersprite;
-                    break;
-                case 7:
-                    Pelota7 = primersprite;
-                    break;
-                case 8:
-                    Pelota8 = primersprite;
-                    break;
-                case 9:
-                    Pelota9 = primersprite;
-                    break;
-                case 10:
-                    Pelota10 = primersprite;
-                    break;
-            }
-            // super.unschedule("InterseccionEntreSprites");
-            //     Log.d("Timer", "Termino el timer");
-
-            if (NumObjeto == NumHueso) {
-                Log.d("Coinciden", "Si, coinciden");
-                PerroFesteja();
-                Log.d("Coinciden", "Hago invisible el sprite");
-                PelotaTocada.setVisible(false);
-                contaciertos++;
-                if (contaciertos == 9) {
-
-                    Log.d("Gano", "Deberia mostrar la pantalla ganar");
-                    String Juego = "3";
-                    String Puntaje = String.valueOf(contaciertos);
-                    enviarPuntaje(new String[]{Juego, _ID ,Puntaje,_Fecha });
-                    Intent Gano = new Intent(_Contexto, Gano.class);
-                    _Contexto.startActivity(Gano);
-                    String gana = "¡Ganaste!";
-                    lblHueso = Label.label(gana, "Comic Sans", 50);
-                    lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
-                    CCColor3B colornumero = new CCColor3B(37, 37, 132);
-                    lblHueso.setColor(colornumero);
-                    super.addChild(lblHueso);
-
+        public void Verifico(Sprite primersprite, Integer NumObjeto, Integer NumHueso, float[] Vec) {
+            Log.d("Verifico", "Entra a Verifico");
+            if (Vec[0] > 545 && Vec[0] < 660 && Vec[1] > 50 && Vec[1] < 91)
+            {
+                Log.d("Verifica2", "Entra");
+                if (NumObjeto == NumHueso)
+                {
+                    if(!PrimeraVez)
+                    {
+                        contaciertos++;
+                        PrimeraVez = true;
+                    }
+                    Log.d("Coinciden", "Si, coinciden");
+                    PerroFesteja();
+                    Log.d("Coinciden", "Hago invisible el sprite");
+                    PelotaTocada.setVisible(false);
+                    if (contaciertos == 10)
+                    {
+                        if (_ID.equals(null)) {
+                            Intent Gano = new Intent(_Contexto, Gano.class);
+                            _Contexto.startActivity(Gano);
+                        }
+                        else
+                        {
+                            listoParaAgregar = false;
+                            String Juego = "3";
+                            String IDD = String.valueOf(_ID);
+                            enviarPuntaje(new String[]{Juego, IDD ,String.valueOf(contaciertos),_Fecha });
+                        }
+                    }
                 }
-            } else {
-                Log.d("Coinciden", "No coinciden");
-                vidas--;
-                if (vidas == 0) {
-                    Log.d("Perdio", "Deberia mostrar la pantalla perder");
-                        /*Intent Intento = new Intent(this, Perder.class);
-                        startActivity(Intento);*/
-                    String perdio = "¡Perdiste!";
-                    lblHueso = Label.label(perdio, "Comic Sans", 50);
-                    lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
-                    CCColor3B colornumero = new CCColor3B(37, 37, 132);
-                    lblHueso.setColor(colornumero);
-                    super.addChild(lblHueso);
-                } else {
-                    PerroTriste();
+                else
+                {
+                    Log.d("Coinciden", "No coinciden");
                     vidas--;
+                    if (vidas == 0) {
+                        Log.d("Perdio", "Deberia mostrar la pantalla perder");
+                        Intent Intento = new Intent(_Contexto, Perder.class);
+                        _Contexto.startActivity(Intento);
+
+                    } else {
+                        PerroTriste();
+                        vidas--;
+                    }
                 }
             }
         }
@@ -729,12 +683,9 @@ public class clsPelotas {
         }
 
     }
-
     private void enviarPuntaje(String[] params){
         new enviarPuntos().execute(params[0], params[1], params[2], params[3]);
     }
-
-
     private class enviarPuntos extends AsyncTask<String, Void, String> {
 
         protected void onPostExecute(String datos) {
@@ -753,6 +704,8 @@ public class clsPelotas {
             }
 
             if (listoParaAgregar) {
+                Intent Gano = new Intent(_Contexto, Gano.class);
+                _Contexto.startActivity(Gano);
             }
         }
 

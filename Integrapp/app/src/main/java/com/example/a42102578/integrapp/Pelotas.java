@@ -10,7 +10,7 @@ import org.cocos2d.opengl.CCGLSurfaceView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Pelotas extends AppCompatActivity {
+public class Pelotas extends Activity {
 
     CCGLSurfaceView VistaPelotas;
     String IDs;
