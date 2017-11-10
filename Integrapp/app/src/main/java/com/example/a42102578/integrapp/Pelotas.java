@@ -14,7 +14,7 @@ public class Pelotas extends AppCompatActivity {
     CCGLSurfaceView VistaPelotas;
     String IDs;
     String fecha;
-    String[]VecInfo = new String[2];
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,8 +26,6 @@ public class Pelotas extends AppCompatActivity {
         IDs = ID.getString("id");
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
         fecha = date.format(new Date());
-        VecInfo[0] = IDs;
-        VecInfo[1] = fecha;
     }
 
     @Override
@@ -35,7 +33,7 @@ public class Pelotas extends AppCompatActivity {
     {
         super.onStart();
         clsPelotas juegoPelotas;
-        juegoPelotas = new clsPelotas (VistaPelotas, this, VecInfo);
+        juegoPelotas = new clsPelotas (VistaPelotas, this, IDs, fecha);
         juegoPelotas.ComenzarJuego();
 
     }

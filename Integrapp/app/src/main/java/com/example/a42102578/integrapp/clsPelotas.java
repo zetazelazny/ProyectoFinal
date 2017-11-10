@@ -67,14 +67,16 @@ public class clsPelotas {
     int vidas = 6;
     int contaciertos = 0;
     Context _Contexto;
-    String[] _Vector;
+    String _ID;
+    String _Fecha;
     public Boolean listoParaAgregar = false;
 
 
-    public clsPelotas(CCGLSurfaceView VistaPelotas, Context Contexto, String[]Vector) {
+    public clsPelotas(CCGLSurfaceView VistaPelotas, Context Contexto, String ID, String Fecha) {
         _VistaPelotas = VistaPelotas;
         _Contexto = Contexto;
-        _Vector = Vector;
+        _ID = ID;
+        _Fecha = Fecha;
         //NumeroObjetoTocado = 0;
         //super.schedule("InterseccionEntreSprites", 0.1f);
 
@@ -632,6 +634,7 @@ public class clsPelotas {
         }
 
         public void Verifico(Sprite primersprite, Integer NumObjeto, Integer NumHueso) {
+            Log.d("Verifico", "Entra");
             switch (NumObjeto) {
                 case 1:
                     Pelota1 = primersprite;
@@ -666,17 +669,21 @@ public class clsPelotas {
             }
             // super.unschedule("InterseccionEntreSprites");
             //     Log.d("Timer", "Termino el timer");
+
             if (NumObjeto == NumHueso) {
                 Log.d("Coinciden", "Si, coinciden");
                 PerroFesteja();
                 Log.d("Coinciden", "Hago invisible el sprite");
                 PelotaTocada.setVisible(false);
                 contaciertos++;
-                if (contaciertos >= 9) {
+                if (contaciertos == 9) {
+
                     Log.d("Gano", "Deberia mostrar la pantalla ganar");
                     String Juego = "3";
                     String Puntaje = String.valueOf(contaciertos);
-                    enviarPuntaje(new String[]{Juego, _Vector[0] ,Puntaje,_Vector[1] });
+                    enviarPuntaje(new String[]{Juego, _ID ,Puntaje,_Fecha });
+                    Intent Gano = new Intent(_Contexto, Gano.class);
+                    _Contexto.startActivity(Gano);
                     String gana = "¡Ganaste!";
                     lblHueso = Label.label(gana, "Comic Sans", 50);
                     lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
@@ -744,8 +751,6 @@ public class clsPelotas {
             }
 
             if (listoParaAgregar) {
-                Intent Gano = new Intent(_Contexto, Gano.class);
-                _Contexto.startActivity(Gano);
             }
         }
 
