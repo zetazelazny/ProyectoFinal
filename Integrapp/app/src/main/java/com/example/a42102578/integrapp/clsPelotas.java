@@ -423,7 +423,9 @@ public class clsPelotas {
 
         public boolean ccTouchesEnded(MotionEvent event)
         {
-            if (InterseccionEntreSprites(PelotaTocada, Perro))
+            Log.d("Termino el toque", "Si");
+            Boolean Intersecta = InterseccionEntreSprites(PelotaTocada, Perro);
+            if (Intersecta)
             {
                 Log.d("Entra al if", "Entra");
                 Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);

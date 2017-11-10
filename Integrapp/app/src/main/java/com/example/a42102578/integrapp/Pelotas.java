@@ -1,5 +1,6 @@
 package com.example.a42102578.integrapp;
 
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,4 +38,12 @@ public class Pelotas extends AppCompatActivity {
         juegoPelotas.ComenzarJuego();
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        finish();   // code here to show dialog
+        super.onBackPressed();  // optional depending on your needs
+    }
+
 }
