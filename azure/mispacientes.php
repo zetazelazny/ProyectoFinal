@@ -116,7 +116,7 @@ foreach( $stmt as $valor) {
     echo "<td>".$valor['nombre']."</td>";
     echo "<td>".$valor['apellido']."</td>";
     echo "<td><a href=datosPac.php?id=".$id_pac.">Datos</a></td>";
-    echo "<td><a href=modificarpac.php>Modificar datos</a><br><a href=bajaPac.php?id=".$id_pac.">Dar de baja</a></td>";
+    echo "<td><a href=modificarDatosPac.php>Modificar datos</a><br><a href=bajaPac.php?id=".$id_pac.">Dar de baja</a></td>";
    echo "</tr>";
 } 
     echo "</table>";
