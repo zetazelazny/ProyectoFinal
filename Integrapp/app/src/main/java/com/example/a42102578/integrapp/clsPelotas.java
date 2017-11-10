@@ -1,6 +1,8 @@
 package com.example.a42102578.integrapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.EventLog;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,6 +23,13 @@ import org.cocos2d.types.CCSize;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by 42102517 on 18/7/2017.
@@ -57,10 +66,15 @@ public class clsPelotas {
     Integer NumeroHueso;
     int vidas = 6;
     int contaciertos = 0;
+    Context _Contexto;
+    String[] _Vector;
+    public Boolean listoParaAgregar = false;
 
 
-    public clsPelotas(CCGLSurfaceView VistaPelotas) {
+    public clsPelotas(CCGLSurfaceView VistaPelotas, Context Contexto, String[]Vector) {
         _VistaPelotas = VistaPelotas;
+        _Contexto = Contexto;
+        _Vector = Vector;
         //NumeroObjetoTocado = 0;
         //super.schedule("InterseccionEntreSprites", 0.1f);
 
@@ -407,7 +421,11 @@ public class clsPelotas {
 
         public boolean ccTouchesEnded(MotionEvent event)
         {
-            InterseccionEntreSprites(PelotaTocada, Perro);
+            if (InterseccionEntreSprites(PelotaTocada, Perro))
+            {
+                Log.d("Entra al if", "Entra");
+                Verifico(PelotaTocada, NumeroObjetoTocado, NumeroHueso);
+            }
             float posX = event.getX();
             float posY = PantallaDelDispositivo.getHeight() - event.getY();
 
@@ -429,7 +447,7 @@ public class clsPelotas {
                 } else {
                     // vuelve arriba
                     Log.d("EstaMoviendo", "Esta moviendo la pelota ");
-                   PelotaTocada.runAction(MoveTo.action(1.0f, VecPosX[NumeroObjetoTocado], VecPosY[NumeroObjetoTocado]));
+                    PelotaTocada.runAction(MoveTo.action(1.0f, VecPosX[NumeroObjetoTocado], VecPosY[NumeroObjetoTocado]));
 
                 }
             } else {
@@ -654,11 +672,11 @@ public class clsPelotas {
                 Log.d("Coinciden", "Hago invisible el sprite");
                 PelotaTocada.setVisible(false);
                 contaciertos++;
-                if (contaciertos == 10) {
+                if (contaciertos >= 9) {
                     Log.d("Gano", "Deberia mostrar la pantalla ganar");
-                        /*Intent Intento = new Intent (this, Gano.class);
-                        startActivity(Intento);
-                         */
+                    String Juego = "3";
+                    String Puntaje = String.valueOf(contaciertos);
+                    enviarPuntaje(new String[]{Juego, _Vector[0] ,Puntaje,_Vector[1] });
                     String gana = "¡Ganaste!";
                     lblHueso = Label.label(gana, "Comic Sans", 50);
                     lblHueso.setPosition(PantallaDelDispositivo.getWidth() * 0.50f, Perro.getHeight() / 8);
@@ -683,40 +701,7 @@ public class clsPelotas {
                 } else {
                     PerroTriste();
                     vidas--;
-     /*               switch (NumObjeto) {
-                        case 1:
-                            Pelota1.setPosition(PosInicialX1, PosInicialY1);
-                            break;
-                        case 2:
-                            Pelota2.setPosition(PosInicialX2, PosInicialY2);
-                            break;
-                        case 3:
-                            Pelota3.setPosition(PosInicialX3, PosInicialY3);
-                            break;
-                        case 4:
-                            Pelota4.setPosition(PosInicialX4, PosInicialY4);
-                            break;
-                        case 5:
-                            Pelota5.setPosition(PosInicialX5, PosInicialY5);
-                            break;
-                        case 6:
-                            Pelota6.setPosition(PosInicialX6, PosInicialY6);
-                            break;
-                        case 7:
-                            Pelota7.setPosition(PosInicialX7, PosInicialY7);
-                            break;
-                        case 8:
-                            Pelota8.setPosition(PosInicialX8, PosInicialY8);
-                            break;
-                        case 9:
-                            Pelota9.setPosition(PosInicialX9, PosInicialY9);
-                            break;
-                        case 10:
-                            Pelota10.setPosition(PosInicialX10, PosInicialY10);
-                            break;
-                    }*/
                 }
-
             }
         }
 
@@ -735,59 +720,83 @@ public class clsPelotas {
         }
 
     }
-}
 
-/*            if (NumeroObjetoTocado == 1) {
-                Log.d("Toque Termino", "solto el objeto"+ posX + " "+ posY);
-                Pelota1.runAction(MoveTo.action(1.0f, PosInicialX1, PosInicialY1));
-                //Log.d("Toque Termino", "solto el objeto"+ Pelota1.getPositionX() + " "+ getPositionY());
+    private void enviarPuntaje(String[] params){
+        new enviarPuntos().execute(params[0], params[1], params[2], params[3]);
+    }
+
+
+    private class enviarPuntos extends AsyncTask<String, Void, String> {
+
+        protected void onPostExecute(String datos) {
+            super.onPostExecute(datos);
+
+            if (datos.equals("error")) {
+                //Toast.makeText(getActivity(), "Comprueba tu conexión a Internet", Toast.LENGTH_SHORT).show();
+
+            } else if (datos.equals("error2")) {
+                // El token está mal, asi que a borrarloo y que vuelva al inicio
+                //Toast.makeText(getActivity(), "Sesión expirada, vuelve a iniciar sesion.", Toast.LENGTH_SHORT).show();
+            } else if (datos.equals("faltanDatos")) {
+
             } else {
-                if (NumeroObjetoTocado == 2) {
-                    Pelota2.runAction(MoveTo.action(1.0f, PosInicialX2, PosInicialY2));
-                    Log.d("Toque Termino", "solto el objeto");
-                } else {
-                    if (NumeroObjetoTocado == 3) {
-                        Pelota3.runAction(MoveTo.action(1.0f, PosInicialX3, PosInicialY3));
-                        Log.d("Toque Termino", "solto el objeto");
-                    } else {
-                        if (NumeroObjetoTocado == 4) {
-                            Pelota4.runAction(MoveTo.action(1.0f, PosInicialX4, PosInicialY4));
-                            Log.d("Toque Termino", "solto el objeto");
-                        } else {
-                            if (NumeroObjetoTocado == 5) {
-                                Pelota5.runAction(MoveTo.action(1.0f, PosInicialX5, PosInicialY5));
-                                Log.d("Toque Termino", "solto el objeto");
-                            } else {
-                                if (NumeroObjetoTocado == 6) {
-                                    Pelota6.runAction(MoveTo.action(1.0f, PosInicialX6, PosInicialY6));
-                                    Log.d("Toque Termino", "solto el objeto");
-                                } else {
-                                    if (NumeroObjetoTocado == 7) {
-                                        Pelota7.runAction(MoveTo.action(1.0f, PosInicialX7, PosInicialY7));
-                                        Log.d("Toque Termino", "solto el objeto");
-                                    } else {
-                                        if (NumeroObjetoTocado == 8) {
-                                            Pelota8.runAction(MoveTo.action(1.0f, PosInicialX8, PosInicialY8));
-                                            Log.d("Toque Termino", "solto el objeto");
-                                        } else {
-                                            if (NumeroObjetoTocado == 9) {
-                                                Pelota9.runAction(MoveTo.action(1.0f, PosInicialX9, PosInicialY9));
-                                                Log.d("Toque Termino", "solto el objeto");
-                                            } else {
-                                                if (NumeroObjetoTocado == 10) {
-                                                    Pelota10.runAction(MoveTo.action(1.0f, PosInicialX10, PosInicialY10));
-                                                    Log.d("Toque Termino", "solto el objeto");
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                //ok
             }
-*/
 
+            if (listoParaAgregar) {
+                Intent Gano = new Intent(_Contexto, Gano.class);
+                _Contexto.startActivity(Gano);
+            }
+        }
 
+        @Override
+        protected String doInBackground(String... parametros) {
+            Log.d("Juego", "1");
+            if (new HttpHandler(_Contexto).hasActiveInternetConnection()) {
+                OkHttpClient client = new OkHttpClient();
+                client.newBuilder().connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(10, TimeUnit.SECONDS).build();
+                Log.d("Juego", "2");
+                if (parametros[0].trim().length() > 0) {
+                    Log.d("Juego", "3");
 
+                    RequestBody requestBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("id_juego", parametros[0])
+                            .addFormDataPart("id_usuario", parametros[1])
+                            .addFormDataPart("puntaje", parametros[2])
+                            .addFormDataPart("fechaJuego", parametros[3])
+                            .build();
+                    Log.d("Juego", "4");
+
+                    listoParaAgregar = true;
+
+                    Log.d("Juego", "5");
+
+                    Request request = new Request.Builder()
+                            .url("http://integrapp.azurewebsites.net/azure/insertpuntos.php")
+                            .method("POST", RequestBody.create(null, new byte[0]))
+                            .post(requestBody)
+                            .build();
+
+                    Log.d("Juego", "6");
+
+                    try {
+                        Response response = client.newCall(request).execute();
+                        String resultado = response.body().string();
+                        Log.d("Juego", "7");
+                        return resultado;
+                    } catch (Exception e) {
+                        Log.d("Debug", e.getMessage());
+                        //mostrarError(e.getMessage()); // Error de Network
+                        return "error";
+                    }
+                } else {
+                    return "faltanDatos";
+                }
+            } else {
+                return "error";
+            }
+        }
+    }
+}

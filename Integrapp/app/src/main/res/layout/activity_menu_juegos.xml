@@ -20,13 +20,16 @@
         android:layout_below="@+id/btnMemo"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btncocos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="prueba cocos"
         android:onClick="IrACocos"
-        android:layout_marginLeft="400px"/>
+        android:background="@drawable/btnpelotas"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btnDecisiones"
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:id="@+id/btnMemo"
@@ -39,13 +42,4 @@
         android:textSize="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-
-
-
-    <Button
-        android:id="@+id/Cuchas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cuchas ennumeradas"
-        android:onClick="IrACuchas"/>
 </RelativeLayout>
