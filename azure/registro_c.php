@@ -17,125 +17,49 @@ if(isset($_POST['nombre']) && !empty($_POST['nombre']) &&
   or die("Error al conectar con la base de datos");
 
   
-          $_POST['usuario'] = str_replace(' ', '', $_POST['usuario']);
-          $_POST['usuario'] = strtolower($_POST['usuario']);
-          mysql_query("INSERT INTO profesionales (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad, foto) 
-          VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['email']."','".$_POST['telefono']."','".$_POST['cca']."','".$_POST['titulo']."','".$_POST['profesion']."','".$_POST['descripcion']."','".$_POST['provincia']."','".$_POST['localidad']."', 'null')", $con)
-          or die(mysql_error());       
+  $_POST['usuario'] = str_replace(' ', '', $_POST['usuario']);
+  $_POST['usuario'] = strtolower($_POST['usuario']);
+  mysql_query("INSERT INTO profesionales (usuario, password, nombre, apellido, email, telefono, cca, titulo, profesion, descripcion, provincia, localidad, foto) 
+    VALUES ('".$_POST['usuario']."','".$_POST['password']."','".$_POST['nombre']."','".$_POST['apellido']."','".$_POST['email']."','".$_POST['telefono']."','".$_POST['cca']."','".$_POST['titulo']."','".$_POST['profesion']."','".$_POST['descripcion']."','".$_POST['provincia']."','".$_POST['localidad']."', 'null')", $con)
+  or die(mysql_error());       
 
-    ?>
-
-
-
-<!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <title>Registro confirmado - Integrapp</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
-
-        <!-- Bootsrap -->
-        <link rel="stylesheet" href="estilos/css/bootstrap.min.css">
+  ?>
 
 
-        <!-- Font awesome -->
-        <link rel="stylesheet" href="estilos/css/font-awesome.min.css">
 
-        <!-- PrettyPhoto -->
-        <link rel="stylesheet" href="estilos/css/prettyPhoto.css">
-
-        <!-- Template main Css -->
-        <link rel="stylesheet" href="estilos/css/style.css">
-        
-        <!-- Modernizr -->
-        <script src="estilos/js/modernizr-2.6.2.min.js"></script>
-        <link rel="shortcut icon" href="estilos/images/favicon.ico" type="image/x-icon"><link rel="icon" href="estilos/images/favicon.ico" type="image/x-icon"></head>
+  <!DOCTYPE html>
+  <html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Registro confirmado - Integrapp</title>
+    <?php require('funciones/headerNoLogueado.php') ?> 
 
 
-    </head>
-    <body>
-    <!-- NAVBAR
-    ================================================== -->
+    <div class="main-container">
 
-    <header class="main-header">
-        
-    
-        <nav class="navbar navbar-static-top">
-            
+      <div class="container">
 
-            <div class="navbar-main">
-              
-              <div class="container">
+        <div class="row fadeIn animated">       
 
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <div class="col-md-11">
 
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+            <h2 class="title-style-2">Registro exitoso <span class="title-under"></span></h2>
 
-                  </button>                  
-                
-                </div>
+            <p>Recibimos su registro correctamente y su perfil fue creado. <a href="login.php">Ingreso para profesionales</a></p>               
 
-                <div id="navbar" class="navbar-collapse collapse pull-right">
+          </div>
 
-                  <ul class="nav navbar-nav">
-                    
-                    <?php
-                    if(isset($_SESSION['usuario']))
-                    {
-                        echo '<li class="submenu-item"><a href="/perfil.php">Perfil</a></li>';
-                        echo '<li class="submenu-item"><a href="/cerrarsesion.php">Salir</a></li>';
-                    }
-                    else
-                    {                      
-                        echo '<li class="submenu-item"><a href="/login.php">Ingreso</a></li>';
-						echo '<li class="submenu-item"><a href="azure/registro.php">Registro</a></li>';
-                    }
-                    ?>
-                    
-
-                  </ul>
-                </div> <!-- /#navbar -->
-
-              </div> <!-- /.container -->
-              
-            </div> <!-- /.navbar-main -->
+        </div> <!-- /.row -->
 
 
-        </nav> 
+      </div>
+    </div> 
+  </body>
+  </html>
 
-    </header> <!-- /. main-header -->
 
-        <div class="main-container">
+  <?php
 
-        <div class="container">
-
-          <div class="row fadeIn animated">       
-
-            <div class="col-md-11">
-
-              <h2 class="title-style-2">Registro exitoso <span class="title-under"></span></h2>
-
-              <p>Recibimos su registro correctamente y su perfil fue creado. <a href="/login.php">Ingreso para profesionales</a><p>               
-              
-            </div>
-
-          </div> <!-- /.row -->
-             
-
-        </div>
-      </div> 
-      
-          <?php
-              
 }
 else
 {
@@ -143,4 +67,3 @@ else
 }
 ?>
 
-  

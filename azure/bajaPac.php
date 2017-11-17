@@ -14,4 +14,5 @@ if(!isset($_SESSION['usuario']))
 	$consulta = $conexion->prepare($consultaQuery);
 	$consulta->bindValue(':id', $id_pac, PDO::PARAM_INT);
 	$consulta->execute();
+	echo '<script>javascript:history.back(alert("Paciente borrado correctamente."));</script>';
 }
