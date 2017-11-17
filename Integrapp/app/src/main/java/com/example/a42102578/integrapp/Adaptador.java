@@ -59,7 +59,7 @@ public class Adaptador extends BaseAdapter
         Usuarios Usu= getItem(PosicionActual);
         Log.d("Debug", Usu._Nombre + Usu._Apellido);
         Glide.with(Contexto)
-                .load("http://integrapp.azurewebsites.net/azure/imagenes/usuarios/" + Usu._Id  + ".jpg")
+                .load("http://integrapp.azurewebsites.net/azure/imagenesPac/" + Usu._Id  + ".jpg")
                 .into(IMG);
         Texto.setText(String.valueOf(Usu._Id));
         return VistaADevolver;

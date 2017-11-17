@@ -35,6 +35,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Conceptos extends AppCompatActivity {
+    Bundle ID;
     String IDs;
     String[] VectorDrawable = new String[7];
     int[] VectorRandom = new int[7];
@@ -50,7 +51,7 @@ public class Conceptos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conceptos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Bundle ID = getIntent().getExtras();
+        ID = getIntent().getExtras();
         IDs = ID.getString("id");
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
         fecha = date.format(new Date());

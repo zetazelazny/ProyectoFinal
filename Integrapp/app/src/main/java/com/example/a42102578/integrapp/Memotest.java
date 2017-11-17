@@ -31,8 +31,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Memotest extends AppCompatActivity {
-    Bundle ID = getIntent().getExtras();
-    String IDs = ID.getString("id");
+    Bundle ID;
+    String IDs;
     public Boolean listoParaAgregar = false;
     int[] VectorRandom = new int[16];
     boolean[] VectorEstado = new boolean[16];
@@ -51,6 +51,8 @@ public class Memotest extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
         fecha = date.format(new Date());
+        ID = getIntent().getExtras();
+        IDs = ID.getString("id");
         final TextView Texto = (TextView)findViewById(R.id.Timer);
             Cuenta = new CountDownTimer(100000, 1000) {
 
@@ -1053,7 +1055,7 @@ public class Memotest extends AppCompatActivity {
                             .addFormDataPart("id_juego", parametros[0])
                             .addFormDataPart("id_usuario", parametros[1])
                             .addFormDataPart("puntaje", parametros[2])
-                            .addFormDataPart("fechJuego", parametros[3])
+                            .addFormDataPart("fechaJuego", parametros[3])
                             .build();
                     Log.d("Juego", "4");
 
