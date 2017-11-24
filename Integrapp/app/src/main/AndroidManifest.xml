@@ -39,7 +39,8 @@
 
         <activity android:name=".SeleccionUsuarios" />
         <activity android:name=".activity_cuchas" />
-        <activity android:name=".SeleccionProfesionales"></activity>
+        <activity android:name=".SeleccionProfesionales" />
+        <activity android:name=".Emociones"></activity>
     </application>
 
 </manifest>
